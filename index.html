@@ -38,8 +38,14 @@
     <nav id="navbar">
       <div class="nav-inner">
         <a href="#" class="logo">
-          <div class="logo-mark">
-            <img src="images/logo.png" alt="logo" />
+          <div
+            class="w-12 h-12 rounded-full overflow-hidden border-2 border-yellow-500 shadow-lg shadow-yellow-500/25"
+          >
+            <img
+              src="images/logo.png"
+              alt="زاد المعرفة"
+              class="w-full h-full object-cover"
+            />
           </div>
 
           <span class="logo-text">زاد <span>المعرفة</span></span>
@@ -50,25 +56,29 @@
 
           <a href="#categories" class="nav-link">الأقسام</a>
 
-          <a
-            href="https://zadalmrfh-create.github.io/Teaching-staff/"
-            class="nav-link"
-            target="_blank"
+          <a href="طاقم التدريس/index.html" class="nav-link" target="_blank"
             >طاقم التدريس</a
           >
 
           <a
-            href="https://zadalmrfh-create.github.io/Events/"
+            href="أحداث زاد المعرفة/index.html"
             class="nav-link"
             target="_blank"
             >الأحداث</a
           >
 
           <a
-            href="https://zadalmrfh-create.github.io/Services"
+            href="خدمات زاد المعرفة/index.html"
             class="nav-link"
             target="_blank"
             >الخدمات</a
+          >
+
+          <a
+            href="طلاب المنصة المتميزون/index.html"
+            class="nav-link"
+            target="_blank"
+            >الطلاب المتميزون</a
           >
         </div>
 
@@ -118,7 +128,7 @@
       <a href="#categories" class="mob-btn" onclick="closeMob()">الأقسام</a>
 
       <a
-        href="https://zadalmrfh-create.github.io/Teaching-staff/"
+        href="طاقم التدريس/index.html"
         target="_blank"
         class="mob-btn"
         onclick="closeMob()"
@@ -126,7 +136,7 @@
       >
 
       <a
-        href="https://zadalmrfh-create.github.io/Events/"
+        href="أحداث زاد المعرفة/index.html"
         target="_blank"
         class="mob-btn"
         onclick="closeMob()"
@@ -134,11 +144,18 @@
       >
 
       <a
-        href="https://zadalmrfh-create.github.io/Services/"
+        href="خدمات زاد المعرفة/index.html"
         target="_blank"
         class="mob-btn"
         onclick="closeMob()"
         >الخدمات</a
+      >
+      <a
+        href="طلاب المنصة المتميزون/index.html"
+        target="_blank"
+        class="mob-btn"
+        onclick="closeMob()"
+        >الطلاب المتميزون</a
       >
 
       <button
@@ -170,7 +187,9 @@
           </p>
 
           <div class="hero-actions">
-            <button class="btn-primary">استكشف الأقسام</button>
+            <button class="btn-primary" onclick="smoothTo('categories')">
+              استكشف الأقسام
+            </button>
             <button class="btn-nav" onclick="smoothTo('categories')">
               ابدأ الآن
             </button>
@@ -632,6 +651,7 @@
           iconBg: "rgba(16,185,129,0.15)",
           glow: "rgba(16,185,129,0.08)",
           image: "images/Azher-section-img.png",
+          link: "sections/azhar.html",
         },
         {
           id: "quran",
@@ -642,6 +662,7 @@
           iconBg: "rgba(201,168,76,0.15)",
           glow: "rgba(201,168,76,0.08)",
           image: "images/quran-sec-img.png",
+          link: "https://quran-platform-co4e.arcada.app",
         },
         {
           id: "arabic",
@@ -662,6 +683,7 @@
           iconBg: "rgba(59,130,246,0.15)",
           glow: "rgba(59,130,246,0.08)",
           image: "images/service.sec.img.png",
+          link: "sections/service.html",
         },
         {
           id: "self",
@@ -773,20 +795,24 @@
       function renderCats() {
         document.getElementById("cats-grid").innerHTML = CATS.map(
           (c, i) => `
-    <div class="cat-card sr sr-delay-${(i % 3) + 1}" onclick="setFilter('${c.id}',null);smoothTo('topics')" style="background-image:url('${c.image}')">
-      <div class="cat-num">${String(i + 1).padStart(2, "0")}</div>
-      <div class="cat-icon" style="background:${c.iconBg}">${c.icon}</div>
-      <div class="cat-name">${c.name}</div>
-      <div class="cat-desc">${c.desc}</div>
-       <div class="cat-topics">${c.topics.map((t) => `<span class="cat-topic-pill">${t}</span>`).join("")}</div>
-      <div class="cat-footer">
-        <span class="cat-count">${c.topics.length} مواضيع</span>
-        <div class="cat-arrow">
-          <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
-        </div>
-      </div>
-    </div>
-  `,
+             <div
+        class="cat-card sr sr-delay-${(i % 3) + 1}"
+        onclick="window.open('${c.link}', '_blank')"
+        style="background-image:url('${c.image}')"
+      >
+                <div class="cat-num">${String(i + 1).padStart(2, "0")}</div>
+                <div class="cat-icon" style="background:${c.iconBg}">${c.icon}</div>
+                <div class="cat-name">${c.name}</div>
+                <div class="cat-desc">${c.desc}</div>
+                 <div class="cat-topics">${c.topics.map((t) => `<span class="cat-topic-pill">${t}</span>`).join("")}</div>
+                <div class="cat-footer">
+                  <span class="cat-count">${c.topics.length} مواضيع</span>
+                  <div class="cat-arrow">
+                    <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+                  </div>
+                </div>
+              </div>
+            `,
         ).join("");
         observeNewSR();
       }
@@ -812,19 +838,19 @@
             const bs = BADGE_STYLES[t.cat] || "";
             const catName = CATS.find((c) => c.id === t.cat)?.name || "";
             return `
-    <div class="topic-card sr sr-delay-${(i % 3) + 1}" onclick="openTopic('${t.id}')">
-      <div class="topic-cat-badge" style="${bs}">${catName}</div>
-      <div class="topic-title">${t.title}</div>
-      <div class="topic-footer">
-        <div class="topic-time">
-          <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-          ${t.time} قراءة
-        </div>
-        <div class="topic-go">
-          <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
-        </div>
-      </div>
-    </div>`;
+              <div class="topic-card sr sr-delay-${(i % 3) + 1}" onclick="openTopic('${t.id}')">
+                <div class="topic-cat-badge" style="${bs}">${catName}</div>
+                <div class="topic-title">${t.title}</div>
+                <div class="topic-footer">
+                  <div class="topic-time">
+                    <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    ${t.time} قراءة
+                  </div>
+                  <div class="topic-go">
+                    <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+                  </div>
+                </div>
+              </div>`;
           })
           .join("");
         observeNewSR();
@@ -959,6 +985,11 @@
           .querySelectorAll(".dash-mockup")
           .forEach((m) => pbObs.observe(m));
       });
+      /*links-card*/
+
+      function goTo(link) {
+        window.location.href = link;
+      }
     </script>
   </body>
 </html>

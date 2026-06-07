@@ -1,0 +1,1203 @@
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>طاقم التدريس</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: #0a0a1a;
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: #fff;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .bg-animation .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(212, 175, 55, 0.3);
+            border-radius: 50%;
+            animation: float linear infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Geometric Pattern Overlay */
+        .pattern-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.03;
+            background-image: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 50px,
+                    rgba(212, 175, 55, 0.5) 50px,
+                    rgba(212, 175, 55, 0.5) 51px
+                ),
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 50px,
+                    rgba(212, 175, 55, 0.5) 50px,
+                    rgba(212, 175, 55, 0.5) 51px
+                );
+        }
+
+        /* Header Section */
+        .header {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 80px 20px 40px;
+        }
+
+        .header::before {
+            content: 'بسم الله الرحمن الرحيم';
+            display: block;
+            font-family: 'Amiri', serif;
+            font-size: 1.3rem;
+            color: rgba(212, 175, 55, 0.7);
+            margin-bottom: 20px;
+            animation: fadeInDown 1s ease;
+        }
+
+        .header h1 {
+            font-family: 'Amiri', serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            background: linear-gradient(135deg, #d4af37, #f4e4a0, #d4af37, #b8960c);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 4s ease-in-out infinite, fadeInUp 1s ease;
+            margin-bottom: 15px;
+            text-shadow: none;
+            filter: drop-shadow(0 0 30px rgba(212, 175, 55, 0.2));
+        }
+
+        @keyframes shimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .header .subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 300;
+            letter-spacing: 2px;
+            animation: fadeInUp 1.2s ease;
+        }
+
+        .divider {
+            width: 120px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #d4af37, transparent);
+            margin: 30px auto;
+            position: relative;
+            animation: fadeInUp 1.4s ease;
+        }
+
+        .divider::before {
+            content: '◆';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #d4af37;
+            font-size: 14px;
+            background: #0a0a1a;
+            padding: 0 10px;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Main Content */
+        .main-content {
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px 100px;
+        }
+
+        /* Teachers Grid */
+        .teachers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 50px;
+            justify-items: center;
+        }
+
+        /* Teacher Card */
+        .teacher-card {
+            position: relative;
+            width: 100%;
+            max-width: 480px;
+            background: linear-gradient(145deg, rgba(20, 20, 40, 0.9), rgba(15, 15, 30, 0.95));
+            border-radius: 24px;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            animation: cardAppear 0.8s ease forwards;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .teacher-card:nth-child(1) { animation-delay: 0.3s; }
+        .teacher-card:nth-child(2) { animation-delay: 0.6s; }
+
+        @keyframes cardAppear {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .teacher-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 24px;
+            padding: 2px;
+            background: linear-gradient(145deg, rgba(212, 175, 55, 0.5), transparent 40%, transparent 60%, rgba(212, 175, 55, 0.3));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .teacher-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.4),
+                0 0 80px rgba(212, 175, 55, 0.1);
+        }
+
+        .teacher-card:hover::before {
+            background: linear-gradient(145deg, rgba(212, 175, 55, 0.8), transparent 40%, transparent 60%, rgba(212, 175, 55, 0.6));
+        }
+
+        /* Card Header with Pattern */
+        .card-header {
+            position: relative;
+            height: 220px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .card-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(212, 175, 55, 0.08) 0%, transparent 50%);
+        }
+
+        /* Islamic Pattern */
+        .islamic-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0.06;
+            background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M40 0L80 40L40 80L0 40Z' fill='none' stroke='%23d4af37' stroke-width='1'/%3E%3Cpath d='M40 10L70 40L40 70L10 40Z' fill='none' stroke='%23d4af37' stroke-width='0.5'/%3E%3C/svg%3E");
+            background-size: 60px 60px;
+        }
+
+        /* Avatar */
+        .avatar-container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .avatar-ring {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            padding: 4px;
+            background: conic-gradient(from 0deg, #d4af37, #f4e4a0, #d4af37, #b8960c, #d4af37);
+            position: relative;
+        }
+
+        @keyframes rotateRing {
+            to { transform: rotate(360deg); }
+        }
+
+        .avatar-ring::before {
+            content: '';
+            position: absolute;
+            inset: -8px;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, transparent, rgba(212, 175, 55, 0.3), transparent);
+            animation: rotateRing 4s linear infinite reverse;
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(145deg, #1a1a2e, #16213e);
+            font-size: 3rem;
+            color: #d4af37;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .avatar .icon-main {
+            font-size: 3.5rem;
+            filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.3));
+            transition: transform 0.5s ease;
+        }
+
+        .teacher-card:hover .avatar .icon-main {
+            transform: scale(1.1);
+        }
+
+        /* Floating Icons */
+        .floating-icons {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1;
+        }
+
+        .floating-icon {
+            position: absolute;
+            font-size: 1.5rem;
+            opacity: 0.15;
+            animation: floatIcon 4s ease-in-out infinite;
+        }
+
+        .floating-icon:nth-child(1) { top: 15%; left: 10%; animation-delay: 0s; }
+        .floating-icon:nth-child(2) { top: 25%; right: 15%; animation-delay: 1s; }
+        .floating-icon:nth-child(3) { bottom: 20%; left: 20%; animation-delay: 2s; }
+        .floating-icon:nth-child(4) { bottom: 15%; right: 10%; animation-delay: 0.5s; }
+        .floating-icon:nth-child(5) { top: 50%; left: 5%; animation-delay: 1.5s; }
+
+        @keyframes floatIcon {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(10deg); }
+        }
+
+        /* Card Body */
+        .card-body {
+            padding: 30px;
+            text-align: center;
+        }
+
+        .teacher-name {
+            font-family: 'Amiri', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #d4af37, #f4e4a0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .teacher-card:hover .teacher-name {
+            filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.3));
+        }
+
+        .teacher-title {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: 300;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+        }
+
+        /* Subjects Tags */
+        .subjects-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 25px;
+        }
+
+        .subject-tag {
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            background: rgba(212, 175, 55, 0.08);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            color: #d4af37;
+            transition: all 0.3s ease;
+            cursor: default;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .subject-tag::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .subject-tag:hover::before {
+            left: 100%;
+        }
+
+        .subject-tag:hover {
+            background: rgba(212, 175, 55, 0.15);
+            border-color: rgba(212, 175, 55, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.15);
+        }
+
+        .subject-tag .tag-icon {
+            margin-left: 6px;
+        }
+
+        /* Bio Text */
+        .teacher-bio {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.55);
+            line-height: 1.8;
+            padding: 0 10px;
+            margin-bottom: 25px;
+        }
+
+        /* Stats Section */
+        .stats-row {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Amiri', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #d4af37;
+            display: block;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.4);
+            margin-top: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Contact Button */
+        .contact-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 25px;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(212, 175, 55, 0.05));
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 50px;
+            color: #d4af37;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(212, 175, 55, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+
+        .contact-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .contact-btn:hover {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.25), rgba(212, 175, 55, 0.1));
+            border-color: rgba(212, 175, 55, 0.6);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.15);
+        }
+
+        .contact-btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-btn .btn-icon {
+            position: relative;
+            z-index: 1;
+            transition: transform 0.3s ease;
+        }
+
+        .contact-btn:hover .btn-icon {
+            transform: translateX(-3px);
+        }
+
+        /* Counter Animation */
+        .counter {
+            display: inline-block;
+        }
+
+        /* Scroll Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Footer Wave */
+        .footer-wave {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 40px 20px;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.85rem;
+        }
+
+        .footer-wave .calligraphy {
+            font-family: 'Amiri', serif;
+            font-size: 1.5rem;
+            color: rgba(212, 175, 55, 0.4);
+            margin-bottom: 15px;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .header {
+                padding: 60px 15px 30px;
+            }
+
+            .teachers-grid {
+                grid-template-columns: 1fr;
+                gap: 35px;
+                padding: 0 10px;
+            }
+
+            .teacher-card {
+                max-width: 100%;
+            }
+
+            .card-header {
+                height: 180px;
+            }
+
+            .avatar-ring {
+                width: 120px;
+                height: 120px;
+            }
+
+            .card-body {
+                padding: 25px 20px;
+            }
+
+            .teacher-name {
+                font-size: 1.5rem;
+            }
+
+            .stats-row {
+                gap: 20px;
+            }
+
+            .stat-number {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .subjects-container {
+                gap: 8px;
+            }
+
+            .subject-tag {
+                padding: 6px 14px;
+                font-size: 0.8rem;
+            }
+
+            .stats-row {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+        }
+
+        /* Loading Animation */
+        .page-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0a0a1a;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .page-loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-calligraphy {
+            font-family: 'Amiri', serif;
+            font-size: 2rem;
+            color: #d4af37;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        .loader-bar {
+            width: 200px;
+            height: 2px;
+            background: rgba(212, 175, 55, 0.2);
+            border-radius: 2px;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+
+        .loader-bar::after {
+            content: '';
+            display: block;
+            width: 50%;
+            height: 100%;
+            background: #d4af37;
+            border-radius: 2px;
+            animation: loadBar 1.2s ease-in-out infinite;
+        }
+
+        @keyframes loadBar {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(300%); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Scroll to top */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(212, 175, 55, 0.05));
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: #d4af37;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.3), rgba(212, 175, 55, 0.1));
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+        }
+/* LOGO FIX (مهم جدًا) */
+.header-logo {
+    width: 120px;
+    height: 120px;
+    border-radius: 0 !important;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto 20px;
+    background: transparent;
+    animation: none !important;
+    transform: none !important;
+}
+
+.teacher-image{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+border-radius: 0;
+    display: block;
+}
+  
+.teacher-image {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.teacher-image:hover {
+    transform: scale(1.05);
+}
+  </style>
+</head>
+<body>
+
+    <!-- Page Loader -->
+    <div class="page-loader" id="pageLoader">
+        <div class="loader-calligraphy">طاقم التدريس</div>
+        <div class="loader-bar"></div>
+    </div>
+
+    <!-- Background Animation -->
+    <div class="bg-animation" id="bgAnimation"></div>
+    <div class="pattern-overlay"></div>
+
+<!-- Header -->
+<header class="header">
+    <img src="logo.png" alt="شعار الموقع" class="header-logo">
+
+    <h1>طاقم التدريس</h1>
+    <p class="subtitle">نخبة من المعلمين المتميزين لخدمة العلم والمعرفة</p>
+    <div class="divider"></div>
+</header>
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="teachers-grid">
+
+<!-- Teacher 1: ضياء نبيل -->
+<div class="teacher-card">
+    <div class="card-header">
+        <div class="islamic-pattern"></div>
+
+        <div class="floating-icons">
+            <span class="floating-icon">📖</span>
+            <span class="floating-icon">🕌</span>
+            <span class="floating-icon">✍️</span>
+            <span class="floating-icon">📿</span>
+            <span class="floating-icon">🌙</span>
+        </div>
+
+        <div class="avatar-container">
+            <div class="avatar-ring">
+                <div class="avatar">
+<a href="معلم الللغة العربية.png" target="_blank">
+    <img src="معلم الللغة العربية.png" alt="الأستاذ ضياء نبيل" class="teacher-image">
+</a>             
+   </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body">
+        <h2 class="teacher-name">الأستاذ ضياء نبيل</h2>
+        <p class="teacher-title">معلم متعدد التخصصات</p>
+
+        <div class="subjects-container">
+            <span class="subject-tag">
+                <span class="tag-icon">📚</span>
+                اللغة العربية
+            </span>
+        </div>
+
+        <p class="teacher-bio">
+            معلم متميز في اللغة العربية، يجمع بين العلم الشرعي الأصيل والإتقان في تعليم القرآن الكريم والمواد الشرعية بأسلوب مبسط وممتع.
+        </p>
+
+        <div class="stats-row">
+            <div class="stat-item">
+                <span class="stat-number counter" data-target="10">0</span>
+                <span class="stat-label">سنوات الخبرة</span>
+            </div>
+
+            <div class="stat-item">
+                <span class="stat-number counter" data-target="4">0</span>
+                <span class="stat-label">تخصصات</span>
+            </div>
+
+            <div class="stat-item">
+                <span class="stat-number counter" data-target="500">0</span>
+                <span class="stat-label">طالب</span>
+            </div>
+        </div>
+
+<a href="https://wa.me/201515474939" target="_blank" class="contact-btn">
+    <span>تواصل مع المعلم</span>
+    <span class="btn-icon">←</span>
+</a> 
+    </div>
+</div>
+
+<!-- Teacher 2: معلم الخط العربي -->
+<div class="teacher-card">
+    <div class="card-header">
+        <div class="islamic-pattern"></div>
+
+        <div class="floating-icons">
+            <span class="floating-icon">✒️</span>
+            <span class="floating-icon">📜</span>
+            <span class="floating-icon">🖋️</span>
+            <span class="floating-icon">📖</span>
+            <span class="floating-icon">✨</span>
+        </div>
+
+        <div class="avatar-container">
+            <div class="avatar-ring">
+                <div class="avatar">
+                    <a href="الخط العربي.png" target="_blank">
+                        <img src="الخط العربي.png" alt="معلم الخط العربي" class="teacher-image">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body">
+        <h2 class="teacher-name">الأستاذ ضياء نبيل</h2>
+        <p class="teacher-title">معلم الخط العربي والزخرفة الإسلامية</p>
+
+        <div class="subjects-container">
+            <span class="subject-tag">
+                <span class="tag-icon">✒️</span>
+                الخط العربي
+            </span>
+
+            <span class="subject-tag">
+                <span class="tag-icon">🖋️</span>
+                تحسين الخط
+            </span>
+
+            <span class="subject-tag">
+                <span class="tag-icon">📜</span>
+                الزخرفة
+            </span>
+        </div>
+
+        <p class="teacher-bio">
+            معلم متخصص في تعليم الخط العربي بأنواعه المختلفة مثل النسخ والرقعة والثلث، مع التركيز على تنمية مهارات الجمال الفني في الكتابة والزخرفة الإسلامية.
+        </p>
+
+        <div class="stats-row">
+            <div class="stat-item">
+                <span class="stat-number counter" data-target="7">0</span>
+                <span class="stat-label">سنوات الخبرة</span>
+            </div>
+
+            <div class="stat-item">
+                <span class="stat-number counter" data-target="3">0</span>
+                <span class="stat-label">أنواع الخط</span>
+            </div>
+
+            <div class="stat-item">
+                <span class="stat-number counter" data-target="350">0</span>
+                <span class="stat-label">طالب</span>
+            </div>
+        </div>
+
+<a href="https://wa.me/201515474939" target="_blank" class="contact-btn">
+    <span>تواصل مع المعلم</span>
+    <span class="btn-icon">←</span>
+</a>
+    </div>
+</div>
+
+<!-- Teacher: معلم القرآن الكريم -->
+<div class="teacher-card">
+    <div class="card-header">
+        <div class="islamic-pattern"></div>
+
+        <div class="floating-icons">
+            <span class="floating-icon">📖</span>
+            <span class="floating-icon">🕌</span>
+            <span class="floating-icon">🌙</span>
+            <span class="floating-icon">🤲</span>
+            <span class="floating-icon">✨</span>
+        </div>
+
+        <div class="avatar-container">
+            <div class="avatar-ring">
+                <div class="avatar">
+                    <a href="القرآن.png" target="_blank">
+                        <img src="القرآن.png" alt="معلم القرآن الكريم" class="teacher-image">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body">
+        <h2 class="teacher-name">الأستاذ ضياء نبيل</h2>
+        <p class="teacher-title">معلم القرآن الكريم وعلوم التجويد</p>
+
+        <div class="subjects-container">
+            <span class="subject-tag">
+                <span class="tag-icon">📖</span>
+                القرآن الكريم
+            </span>
+
+            <span class="subject-tag">
+                <span class="tag-icon">🕌</span>
+                التجويد
+            </span>
+
+            <span class="subject-tag">
+                <span class="tag-icon">🤲</span>
+                حفظ القرآن
+            </span>
+        </div>
+
+        <p class="teacher-bio">
+            معلم متخصص في تحفيظ القرآن الكريم وتعليم أحكام التجويد، مع الاهتمام بتصحيح التلاوة وتدريب الطلاب على القراءة الصحيحة بأسلوب سهل ومبسط.
+        </p>
+
+        <div class="stats-row">
+            <div class="stat-item">
+                <span class="stat-number counter" data-target="12">0</span>
+                <span class="stat-label">سنوات الخبرة</span>
+            </div>
+
+            <div class="stat-item">
+                <span class="stat-number counter" data-target="6">0</span>
+                <span class="stat-label">أجزاء محفوظة</span>
+            </div>
+
+            <div class="stat-item">
+                <span class="stat-number counter" data-target="800">0</span>
+                <span class="stat-label">طالب</span>
+            </div>
+        </div>
+
+<a href="https://wa.me/201515474939" target="_blank" class="contact-btn">
+    <span>تواصل مع المعلم</span>
+    <span class="btn-icon">←</span>
+</a>    </div>
+</div>
+            <!-- Teacher 2: مالك سامح -->
+            <div class="teacher-card">
+                <div class="card-header" style="background: linear-gradient(135deg, #0a1628 0%, #0f1d35 50%, #162d50 100%);">
+                    <div class="islamic-pattern"></div>
+                    <div class="floating-icons">
+                        <span class="floating-icon">💻</span>
+                        <span class="floating-icon">🤖</span>
+                        <span class="floating-icon">⚡</span>
+                        <span class="floating-icon">🔬</span>
+                        <span class="floating-icon">🌐</span>
+                    </div>
+        <div class="avatar-container">
+            <div class="avatar-ring">
+                <div class="avatar">
+<a href="teacher-malek.png" target="_blank">
+    <img src="teacher-malek.png" alt="الأستاذ ضياء نبيل" class="teacher-image">
+</a>             
+   </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h2 class="teacher-name">مالك سامح</h2>
+                    <p class="teacher-title">معلم تقني متميز</p>
+                    
+                    <div class="subjects-container">
+                        <span class="subject-tag">
+                            <span class="tag-icon">💻</span>
+                            البرمجة
+                        </span>
+                        <span class="subject-tag">
+                            <span class="tag-icon">🤖</span>
+                            الذكاء الاصطناعي
+                        </span>
+                        <span class="subject-tag">
+                            <span class="tag-icon">🧠</span>
+                            التعلم العميق
+                        </span>
+                        <span class="subject-tag">
+                            <span class="tag-icon">📊</span>
+                            تحليل البيانات
+                        </span>
+                    </div>
+
+                    <p class="teacher-bio">
+                        معلم متخصص في علوم الحاسوب والبرمجة، يقدم دورات شاملة في البرمجة بأنواعها والذكاء الاصطناعي بأحدث التقنيات وأفضل الممارسات العالمية.
+                    </p>
+
+                    <div class="stats-row">
+                        <div class="stat-item">
+                            <span class="stat-number counter" data-target="8">0</span>
+                            <span class="stat-label">سنوات الخبرة</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number counter" data-target="5">0</span>
+                            <span class="stat-label">لغات برمجة</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number counter" data-target="300">0</span>
+                            <span class="stat-label">طالب</span>
+                        </div>
+                    </div>
+
+<a href="https://wa.me/201515474939" target="_blank" class="contact-btn">
+    <span>تواصل مع المعلم</span>
+    <span class="btn-icon">←</span>
+</a>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-wave">
+        <div class="calligraphy">وَقُل رَّبِّ زِدْنِي عِلْمًا</div>
+        <p>جميع الحقوق محفوظة © 2024 - طاقم التدريس</p>
+    </footer>
+
+    <!-- Scroll to Top -->
+    <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑</button>
+
+    <script>
+        // Page Loader
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('pageLoader').classList.add('hidden');
+            }, 1200);
+        });
+
+        // Create background particles
+        function createParticles() {
+            const container = document.getElementById('bgAnimation');
+            const particleCount = 40;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.width = particle.style.height = (Math.random() * 4 + 2) + 'px';
+                particle.style.animationDuration = (Math.random() * 15 + 10) + 's';
+                particle.style.animationDelay = (Math.random() * 10) + 's';
+                particle.style.opacity = Math.random() * 0.5 + 0.1;
+                container.appendChild(particle);
+            }
+        }
+        createParticles();
+
+        // Counter Animation
+        function animateCounters() {
+            const counters = document.querySelectorAll('.counter');
+            
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                const duration = 2000;
+                const step = target / (duration / 16);
+                let current = 0;
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const timer = setInterval(() => {
+                                current += step;
+                                if (current >= target) {
+                                    current = target;
+                                    clearInterval(timer);
+                                }
+                                counter.textContent = Math.floor(current);
+                                if (target >= 100) {
+                                    counter.textContent = Math.floor(current) + '+';
+                                }
+                            }, 16);
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.5 });
+
+                observer.observe(counter);
+            });
+        }
+        animateCounters();
+
+        // Scroll to top button
+        window.addEventListener('scroll', function() {
+            const scrollTopBtn = document.getElementById('scrollTop');
+            if (window.scrollY > 300) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+
+        // Scroll reveal effect
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const scrollObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => scrollObserver.observe(el));
+
+        // Add ripple effect on cards
+        document.querySelectorAll('.teacher-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const ripple = document.createElement('div');
+                ripple.style.cssText = `
+                    position: absolute;
+                    left: ${x}px;
+                    top: ${y}px;
+                    width: 0;
+                    height: 0;
+                    border-radius: 50%;
+                    background: rgba(212, 175, 55, 0.1);
+                    transform: translate(-50%, -50%);
+                    animation: rippleEffect 0.8s ease-out;
+                    pointer-events: none;
+                    z-index: 100;
+                `;
+                card.appendChild(ripple);
+                
+                setTimeout(() => ripple.remove(), 800);
+            });
+        });
+
+        // Add ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes rippleEffect {
+                to {
+                    width: 400px;
+                    height: 400px;
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Parallax on mouse move for cards
+        document.querySelectorAll('.teacher-card').forEach(card => {
+            card.addEventListener('mousemove', function(e) {
+                const rect = card.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width - 0.5;
+                const y = (e.clientY - rect.top) / rect.height - 0.5;
+                
+                card.style.transform = `translateY(-10px) scale(1.02) perspective(1000px) rotateX(${-y * 5}deg) rotateY(${x * 5}deg)`;
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                card.style.transform = 'translateY(0) scale(1) perspective(1000px) rotateX(0deg) rotateY(0deg)';
+            });
+        });
+    </script>
+</body>
+</html>

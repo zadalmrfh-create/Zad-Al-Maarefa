@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>زاد المعرفة | الأحداث</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css"/>
+<style>
+    :root {
+        --font-main: 'Cairo', 'Tajawal', sans-serif;
+    }
+    * { font-family: var(--font-main); }
+    body {
+        background: #0a0f1c;
+        color: #e2e8f0;
+    }
+    .glass {
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        background: rgba(255,255,255,0.06);
+        border: 1px solid rgba(255,255,255,0.1);
+    }
+    .gradient-text {
+        background: linear-gradient(90deg, #22d3ee, #a78bfa, #f472b6);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .shimmer {
+        position: relative;
+        overflow: hidden;
+    }
+    .shimmer::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: -150%;
+        width: 50%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        transform: skewX(-20deg);
+        animation: shimmer 3s infinite;
+    }
+    @keyframes shimmer {
+        100% { right: 150%; }
+    }
+    .float {
+        animation: float 6s ease-in-out infinite;
+    }
+    @keyframes float {
+        0%,100% { transform: translateY(0); }
+        50% { transform: translateY(-12px); }
+    }
+    .fade-in {
+        animation: fadeIn 0.6s ease forwards;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    /* Custom scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #0f172a; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 8px; }
+    ::-webkit-scrollbar-thumb:hover { background: #475569; }
+    input, textarea, select {
+        background: rgba(15,23,42,0.7) !important;
+        border: 1px solid rgba(148,163,184,0.2) !important;
+        color: #e2e8f0 !important;
+    }
+    input::placeholder, textarea::placeholder { color: #64748b; }
+    input:focus, textarea:focus, select:focus {
+        outline: none;
+        border-color: #22d3ee !important;
+        box-shadow: 0 0 0 3px rgba(34,211,238,0.2);
+    }
+
+    
+</style>
+</head>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const form = document.getElementById("suggestForm");
+
+    form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+const name = document.querySelector('input[name="name"]').value;
+const phone = document.querySelector('input[name="phone"]').value;
+const type = document.querySelector('select[name="type"]').value;
+const title = document.querySelector('input[name="title"]').value;
+const description = document.querySelector('textarea[name="description"]').value;
+const date = document.querySelector('input[name="date"]').value || "غير محدد";
+
+const modeElement = document.querySelector('input[name="mode"]:checked');
+const mode = modeElement ? modeElement.value : "غير محدد";
+        const message = `
+📌 اقتراح حدث جديد
+
+👤 الاسم: ${name}
+📞 الهاتف: ${phone}
+🏷️ نوع الحدث: ${type}
+📝 عنوان الحدث: ${title}
+
+📖 وصف الفكرة:
+${description}
+
+📅 التاريخ المقترح: ${date}
+🎯 طريقة الحضور: ${mode}
+`;
+
+        const whatsappURL =
+            "https://wa.me/201515474939?text=" +
+            encodeURIComponent(message);
+
+        window.open(whatsappURL, "_blank");
+    });
+
+});
+</script>
+<body class="min-h-screen relative overflow-x-hidden">
+    <!-- Background Glow -->
+    <div class="fixed inset-0 -z-10 overflow-hidden">
+        <div class="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-cyan-500/20 rounded-full blur-[120px]"></div>
+        <div class="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-fuchsia-500/20 rounded-full blur-[120px]"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-indigo-500/10 rounded-full blur-[150px]"></div>
+    </div>
+
+    <!-- Header -->
+<header class="sticky top-0 z-40 border-b border-white/10 glass">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+
+            <div class="flex items-center gap-3">
+                <!-- Logo -->
+                <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-cyan-400 shadow-lg shadow-cyan-500/25">
+                    <img src="logo.png" alt="زاد المعرفة" class="w-full h-full object-cover">
+                </div>
+
+                <!-- Title -->
+                <div>
+                    <h1 class="text-lg font-extrabold leading-tight">زاد المعرفة</h1>
+                    <p class="text-xs text-slate-400 -mt-0.5">منصة الفعاليات المعرفية</p>
+                </div>
+            </div>
+
+            <!-- Desktop Menu -->
+            <nav class="hidden md:flex items-center gap-6 text-sm">
+                <a href="#" class="text-slate-300 hover:text-white transition">الرئيسية</a>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobileMenuBtn" class="md:hidden w-10 h-10 rounded-xl glass flex items-center justify-center">
+                <i class="ri-menu-3-line text-xl"></i>
+            </button>
+
+        </div>
+    </div>
+</header>        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="md:hidden hidden border-t border-white/10">
+            <div class="px-4 py-3 space-y-2 text-sm">
+                <a href="#" class="block py-2 text-slate-300">الرئيسية</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-10">
+        <div class="text-center max-w-3xl mx-auto">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass text-xs mb-4">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                فعاليات معرفية تفاعلية
+            </div>
+            <h2 class="text-4xl md:text-6xl font-black leading-tight">
+                صفحة <span class="gradient-text">الأحداث</span>
+            </h2>
+            <p class="mt-4 text-slate-400 text-lg leading-relaxed">
+                اكتشف الفعاليات القادمة، ورش العمل، واللقاءات الفكرية. لا تفوّت فرصة التعلّم والتواصل مع مجتمع زاد المعرفة.
+            </p>
+        </div>
+    </section>
+
+    <!-- Empty State -->
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+        <div class="glass rounded-[2rem] p-8 md:p-14 shadow-2xl shadow-black/30 relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-400 via-fuchsia-400 to-indigo-400"></div>
+            
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <!-- Illustration -->
+                <div class="order-2 md:order-1">
+                    <div class="relative w-full aspect-square max-w-md mx-auto">
+                        <div class="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-500/20 to-fuchsia-500/20 blur-2xl"></div>
+                        <svg viewBox="0 0 400 400" class="w-full h-full float relative z-10">
+                            <defs>
+                                <linearGradient id="g1" x1="0" x2="1">
+                                    <stop offset="0%" stop-color="#22d3ee"/>
+                                    <stop offset="100%" stop-color="#a78bfa"/>
+                                </linearGradient>
+                            </defs>
+                            <rect x="80" y="100" width="240" height="180" rx="20" fill="rgba(255,255,255,0.05)" stroke="url(#g1)" stroke-width="2"/>
+                            <rect x="100" y="130" width="200" height="12" rx="6" fill="rgba(255,255,255,0.1)"/>
+                            <rect x="100" y="155" width="160" height="12" rx="6" fill="rgba(255,255,255,0.08)"/>
+                            <rect x="100" y="180" width="180" height="12" rx="6" fill="rgba(255,255,255,0.08)"/>
+                            <circle cx="200" cy="250" r="8" fill="#22d3ee"/>
+                            <path d="M200 258 v20" stroke="#22d3ee" stroke-width="2" stroke-linecap="round"/>
+                            <rect x="140" y="290" width="120" height="40" rx="12" fill="url(#g1)" opacity="0.9"/>
+                            <text x="200" y="315" text-anchor="middle" fill="white" font-size="14" font-weight="700" font-family="Cairo">لا يوجد</text>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Content -->
+                <div class="order-1 md:order-2 text-center md:text-right">
+                    <div class="inline-flex items-center gap-2 mb-4">
+                        <i class="ri-calendar-close-line text-2xl text-amber-400"></i>
+                        <span class="text-amber-400 font-bold">تنبيه</span>
+                    </div>
+                    <h3 class="text-3xl md:text-4xl font-extrabold mb-4 leading-snug">
+                        لا توجد أحداث حالياً
+                    </h3>
+                    <p class="text-slate-400 text-lg leading-relaxed mb-8">
+                        نعمل حالياً على تجهيز فعاليات ملهمة قريباً. يمكنك أن تكون جزءاً من صناعة الحدث القادم باقتراح فكرة تهمك وتهم المجتمع.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
+                        <button id="openFormBtn" class="shimmer group relative px-7 py-3.5 rounded-2xl bg-gradient-to-r from-cyan-500 to-fuchsia-500 font-bold text-white shadow-lg shadow-fuchsia-500/25 hover:shadow-fuchsia-500/40 transition-all hover:scale-[1.02] active:scale-[0.98]">
+                            <span class="flex items-center justify-center gap-2">
+                                <i class="ri-lightbulb-flash-line text-xl"></i>
+                                اقترح حدث جديد
+                            </span>
+                        </button>
+                        <button class="px-7 py-3.5 rounded-2xl glass font-bold text-slate-200 hover:bg-white/10 transition">
+                            <span class="flex items-center justify-center gap-2">
+                                <i class="ri-notification-3-line"></i>
+                                نبّهني عند الإضافة
+                            </span>
+                        </button>
+                    </div>
+
+                    <div class="mt-8 flex items-center justify-center md:justify-start gap-4 text-sm text-slate-500">
+                        <div class="flex items-center gap-1">
+                            <i class="ri-time-line"></i>
+                            تحديث يومي
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <i class="ri-shield-check-line"></i>
+                            اقتراحات آمنة
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Info Cards -->
+        <div class="grid md:grid-cols-3 gap-5 mt-10">
+            <div class="glass rounded-3xl p-6 hover:bg-white/[0.08] transition">
+                <div class="w-12 h-12 rounded-2xl bg-cyan-500/20 flex items-center justify-center mb-4">
+                    <i class="ri-team-line text-cyan-400 text-2xl"></i>
+                </div>
+                <h4 class="font-bold text-lg mb-1">مجتمع تفاعلي</h4>
+                <p class="text-slate-400 text-sm leading-relaxed">انضم لنقاشات ثرية مع خبراء ومهتمين في مختلف المجالات.</p>
+            </div>
+            <div class="glass rounded-3xl p-6 hover:bg-white/[0.08] transition">
+                <div class="w-12 h-12 rounded-2xl bg-fuchsia-500/20 flex items-center justify-center mb-4">
+                    <i class="ri-mic-line text-fuchsia-400 text-2xl"></i>
+                </div>
+                <h4 class="font-bold text-lg mb-1">ورش ومحاضرات</h4>
+                <p class="text-slate-400 text-sm leading-relaxed">فعاليات حضورية وعن بُعد بجودة عالية ومحتوى عملي.</p>
+            </div>
+            <div class="glass rounded-3xl p-6 hover:bg-white/[0.08] transition">
+                <div class="w-12 h-12 rounded-2xl bg-indigo-500/20 flex items-center justify-center mb-4">
+                    <i class="ri-sparkling-line text-indigo-400 text-2xl"></i>
+                </div>
+                <h4 class="font-bold text-lg mb-1">اقتراحك يهمنا</h4>
+                <p class="text-slate-400 text-sm leading-relaxed">ساعدنا في تصميم الأحداث التي تريدها فعلاً.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal Form -->
+    <div id="formModal" class="fixed inset-0 z-[100] hidden">
+        <div id="modalBackdrop" class="absolute inset-0 bg-black/70 backdrop-blur-sm opacity-0 transition-opacity"></div>
+        <div class="absolute inset-0 flex items-center justify-center p-4">
+            <div id="modalPanel" class="w-full max-w-2xl glass rounded-[2rem] shadow-2xl border border-white/15 opacity-0 translate-y-8 scale-95 transition-all duration-300 max-h-[90vh] overflow-y-auto">
+                <div class="sticky top-0 z-10 glass rounded-t-[2rem] border-b border-white/10 px-6 md:px-8 py-5 flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-400 to-fuchsia-500 flex items-center justify-center">
+                            <i class="ri-edit-2-line text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-extrabold text-xl">اقترح حدث جديد</h3>
+                            <p class="text-xs text-slate-400">املأ البيانات وسنتواصل معك قريباً</p>
+                        </div>
+                    </div>
+                    <button id="closeFormBtn" class="w-10 h-10 rounded-xl glass hover:bg-white/10 flex items-center justify-center transition">
+                        <i class="ri-close-line text-2xl"></i>
+                    </button>
+                </div>
+
+                <form id="suggestForm" class="px-6 md:px-8 py-8 space-y-6">
+                    <div class="grid md:grid-cols-2 gap-5">
+                        <div>
+                            <label class="block text-sm font-bold mb-2 text-slate-200">الاسم الكامل <span class="text-fuchsia-400">*</span></label>
+                            <div class="relative">
+                                <i class="ri-user-line absolute right-3 top-1/2 -translate-y-1/2 text-slate-500"></i>
+                                <input type="text" name="name" required placeholder="مثال: أحمد محمد" class="w-full rounded-2xl py-3 pr-11 pl-4 focus:ring-0 transition">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold mb-2 text-slate-200">رقم الهاتف <span class="text-fuchsia-400">*</span></label>
+                            <div class="relative">
+                                <i class="ri-phone-line absolute right-3 top-1/2 -translate-y-1/2 text-slate-500"></i>
+                                <input type="tel" name="phone" required placeholder="05xxxxxxxx" pattern="[0-9+ ]{8,15}" class="w-full rounded-2xl py-3 pr-11 pl-4 focus:ring-0 transition">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-bold mb-2 text-slate-200">نوع الحدث المقترح <span class="text-fuchsia-400">*</span></label>
+                        <div class="relative">
+                            <i class="ri-price-tag-3-line absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none"></i>
+                            <select name="type" required class="w-full rounded-2xl py-3 pr-11 pl-4 appearance-none focus:ring-0 transition">
+                                <option value="" disabled selected>اختر نوع الحدث</option>
+                                <option>ورشة عمل</option>
+                                <option>محاضرة</option>
+                                <option>ندوة حوارية</option>
+                                <option>لقاء شبابي</option>
+                                <option>دورة تدريبية</option>
+                                <option>حجز كرة</option>
+                                <option>أخرى</option>
+                            </select>
+                            <i class="ri-arrow-down-s-line absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none"></i>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-bold mb-2 text-slate-200">عنوان الحدث المقترح <span class="text-fuchsia-400">*</span></label>
+                        <input type="text" name="title" required placeholder="مثال: مهارات التفكير الإبداعي" class="w-full rounded-2xl py-3 px-4 focus:ring-0 transition">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-bold mb-2 text-slate-200">وصف الفكرة <span class="text-fuchsia-400">*</span></label>
+                        <textarea name="description" required rows="4" placeholder="اشرح فكرتك بإيجاز: الفئة المستهدفة، المدة المتوقعة، ما الذي سيستفيده الحضور..." class="w-full rounded-2xl py-3 px-4 resize-y focus:ring-0 transition"></textarea>
+                        <p class="text-xs text-slate-500 mt-1">الحد الأدنى 20 حرف</p>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-5">
+                        <div>
+                            <label class="block text-sm font-bold mb-2 text-slate-200">التاريخ المقترح (اختياري)</label>
+                            <input type="date" name="date" class="w-full rounded-2xl py-3 px-4 focus:ring-0 transition">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold mb-2 text-slate-200">طريقة الحضور المفضلة</label>
+                            <div class="flex gap-3 pt-1">
+                                <label class="flex-1 glass rounded-2xl px-4 py-3 flex items-center gap-2 cursor-pointer hover:bg-white/10 transition">
+                                    <input type="radio" name="mode" value="حضوري" class="accent-cyan-400">
+                                    <span>حضوري</span>
+                                </label>
+                                <label class="flex-1 glass rounded-2xl px-4 py-3 flex items-center gap-2 cursor-pointer hover:bg-white/10 transition">
+                                    <input type="radio" name="mode" value="عن بعد" class="accent-cyan-400">
+                                    <span>عن بعد</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-3 pt-2">
+                        <input id="agree" type="checkbox" required class="mt-1 w-4 h-4 accent-fuchsia-500">
+                        <label for="agree" class="text-sm text-slate-400 leading-relaxed">
+                            أوافق على التواصل معي عبر الهاتف لمناقشة تفاصيل الاقتراح، وأتعهد بأن المعلومات المقدمة صحيحة.
+                        </label>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-3 pt-4">
+<button type="submit"
+    class="flex-1 px-6 py-3.5 rounded-2xl bg-gradient-to-r from-cyan-500 to-fuchsia-500 font-bold text-white shadow-lg shadow-fuchsia-500/25 hover:shadow-fuchsia-500/40 transition hover:scale-[1.01] active:scale-[0.99]">
+    <span class="flex items-center justify-center gap-2">
+        <i class="ri-send-plane-fill"></i>
+        إرسال الاقتراح
+    </span>
+</button>        <button type="button" id="cancelBtn" class="px-6 py-3.5 rounded-2xl glass font-bold hover:bg-white/10 transition">
+                            إلغاء
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Toast -->
+    <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[200] hidden">
+        <div class="glass rounded-2xl px-5 py-4 shadow-2xl border border-emerald-500/30 flex items-center gap-3 min-w-[300px]">
+            <div class="w-10 h-10 rounded-xl bg-emerald-500/20 flex items-center justify-center flex-shrink-0">
+                <i class="ri-check-line text-emerald-400 text-2xl"></i>
+            </div>
+            <div>
+                <p class="font-bold text-white">تم إرسال اقتراحك بنجاح!</p>
+                <p class="text-xs text-slate-400">سنتواصل معك خلال 24 ساعة.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/10 mt-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-cyan-400 to-fuchsia-500 flex items-center justify-center">
+                        <i class="ri-book-open-line text-white"></i>
+                    </div>
+                    <div>
+                        <p class="font-bold">زاد المعرفة</p>
+                        <p class="text-xs text-slate-500">© 2025 جميع الحقوق محفوظة</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4 text-slate-400">
+                    <a href="https://whatsapp.com/channel/0029VbCKfnI4inokhRHc1k41" class="hover:text-white transition"><i class="ri-whatsapp-line text-xl"></i></a>
+                    <a href="https://www.youtube.com/@zadalmarefh" class="hover:text-white transition"><i class="ri-youtube-line text-xl"></i></a>
+                    <a href="https://t.me/zadelmarefh" class="hover:text-white transition"><i class="ri-telegram-line text-xl"></i></a>
+                    <a href="https://www.facebook.com/zadalmahrfh" class="hover:text-white transition"><i class="ri-facebook-line text-xl"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+<script>
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    mobileMenuBtn?.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+
+    const formModal = document.getElementById('formModal');
+    const modalBackdrop = document.getElementById('modalBackdrop');
+    const modalPanel = document.getElementById('modalPanel');
+    const openFormBtn = document.getElementById('openFormBtn');
+    const closeFormBtn = document.getElementById('closeFormBtn');
+    const cancelBtn = document.getElementById('cancelBtn');
+
+    function openModal() {
+        formModal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+
+        requestAnimationFrame(() => {
+            modalBackdrop.classList.remove('opacity-0');
+            modalPanel.classList.remove('opacity-0', 'translate-y-8', 'scale-95');
+        });
+    }
+
+    function closeModal() {
+        modalBackdrop.classList.add('opacity-0');
+        modalPanel.classList.add('opacity-0', 'translate-y-8', 'scale-95');
+
+        setTimeout(() => {
+            formModal.classList.add('hidden');
+            document.body.style.overflow = '';
+        }, 200);
+    }
+
+    openFormBtn?.addEventListener('click', openModal);
+    closeFormBtn?.addEventListener('click', closeModal);
+    cancelBtn?.addEventListener('click', closeModal);
+    modalBackdrop?.addEventListener('click', closeModal);
+
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && !formModal.classList.contains('hidden')) {
+            closeModal();
+        }
+    });
+
+    const form = document.getElementById('suggestForm');
+    const toast = document.getElementById('toast');
+
+    form?.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const data = Object.fromEntries(new FormData(form).entries());
+
+        if (data.description && data.description.length < 10) {
+            alert('الوصف قصير جداً. الرجاء كتابة 10 حرف على الأقل.');
+            return;
+        }
+
+        const message = `📌 اقتراح حدث جديد
+
+👤 الاسم: ${data.name || ''}
+📞 الهاتف: ${data.phone || ''}
+🏷️ نوع الحدث: ${data.type || ''}
+📝 عنوان الحدث: ${data.title || ''}
+
+📖 وصف الفكرة:
+${data.description || ''}
+
+📅 التاريخ المقترح: ${data.date || 'غير محدد'}
+🎯 طريقة الحضور: ${data.mode || 'غير محدد'}`;
+
+        const whatsappURL =
+            `https://wa.me/201515474939?text=${encodeURIComponent(message)}`;
+
+        window.open(whatsappURL, '_blank');
+
+        closeModal();
+        form.reset();
+
+        toast.classList.remove('hidden');
+        toast.classList.add('fade-in');
+
+        setTimeout(() => {
+            toast.classList.add('hidden');
+        }, 4000);
+    });
+</script>
+</body>
+</html>

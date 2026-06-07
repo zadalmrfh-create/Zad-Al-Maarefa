@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>التعليم الأزهري</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ===== RESET & BASE ===== */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --gold: #c9a84c;
+        --gold-light: #f5ecd4;
+        --gold-hover: #b8923e;
+        --white: #ffffff;
+        --gray-50: #f9fafb;
+        --gray-100: #f3f4f6;
+        --gray-200: #e5e7eb;
+        --gray-400: #9ca3af;
+        --gray-600: #4b5563;
+        --gray-800: #1f2937;
+        --radius-card: 16px;
+        --radius-btn: 10px;
+        --shadow-sm:
+          0 1px 3px rgba(0, 0, 0, 0.07), 0 1px 2px rgba(0, 0, 0, 0.05);
+        --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.09);
+        --transition: 0.2s ease;
+      }
+
+      body {
+        font-family: "Cairo", sans-serif;
+        background: var(--gray-50);
+        color: var(--gray-800);
+        min-height: 100vh;
+        direction: rtl;
+      }
+
+      /* ===== HEADER ===== */
+      .page-header {
+        background: var(--white);
+        border-bottom: 1px solid var(--gray-200);
+        padding: 20px 32px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .header-icon {
+        width: 42px;
+        height: 42px;
+        background: var(--gold-light);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        flex-shrink: 0;
+      }
+
+      .header-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--gray-800);
+      }
+
+      .header-sub {
+        font-size: 13px;
+        color: var(--gray-400);
+        margin-top: 1px;
+      }
+
+      .back-link {
+        margin-right: auto;
+        font-size: 13px;
+        color: var(--gold);
+        text-decoration: none;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        transition: color var(--transition);
+      }
+      .back-link:hover {
+        color: var(--gold-hover);
+      }
+
+      /* ===== MAIN LAYOUT ===== */
+      main {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 40px 24px 80px;
+      }
+
+      /* ===== SECTION ===== */
+      .edu-section {
+        margin-bottom: 48px;
+      }
+
+      .section-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        color: var(--gold);
+        text-transform: uppercase;
+        margin-bottom: 6px;
+      }
+
+      .section-label::before {
+        content: "";
+        display: block;
+        width: 18px;
+        height: 2px;
+        background: var(--gold);
+        border-radius: 2px;
+      }
+
+      .section-title {
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--gray-800);
+        margin-bottom: 20px;
+      }
+
+      /* ===== GRADE CARDS GRID ===== */
+      .grades-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 16px;
+      }
+
+      /* ===== GRADE CARD ===== */
+      .grade-card {
+        background: var(--white);
+        border: 1px solid var(--gray-200);
+        border-radius: var(--radius-card);
+        box-shadow: var(--shadow-sm);
+        cursor: pointer;
+        transition:
+          box-shadow var(--transition),
+          border-color var(--transition),
+          transform var(--transition);
+        overflow: hidden;
+      }
+
+      .grade-card:hover {
+        box-shadow: var(--shadow-md);
+        border-color: var(--gold);
+        transform: translateY(-2px);
+      }
+
+      .grade-card.active {
+        border-color: var(--gold);
+        box-shadow:
+          0 0 0 3px var(--gold-light),
+          var(--shadow-md);
+      }
+
+      /* Card top strip */
+      .card-strip {
+        height: 4px;
+        background: var(--gold-light);
+        transition: background var(--transition);
+      }
+      .grade-card.active .card-strip,
+      .grade-card:hover .card-strip {
+        background: var(--gold);
+      }
+
+      .card-body {
+        padding: 20px 20px 16px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .card-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        background: var(--gold-light);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        flex-shrink: 0;
+        transition: background var(--transition);
+      }
+      .grade-card.active .card-icon,
+      .grade-card:hover .card-icon {
+        background: var(--gold);
+      }
+
+      .card-text {
+        flex: 1;
+      }
+
+      .card-name {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--gray-800);
+      }
+
+      .card-hint {
+        font-size: 12px;
+        color: var(--gray-400);
+        margin-top: 2px;
+      }
+
+      .card-arrow {
+        font-size: 16px;
+        color: var(--gray-400);
+        transition:
+          color var(--transition),
+          transform var(--transition);
+      }
+      .grade-card.active .card-arrow,
+      .grade-card:hover .card-arrow {
+        color: var(--gold);
+        transform: translateX(-4px);
+      }
+      .grade-card.active .card-arrow {
+        transform: rotate(90deg);
+      }
+
+      /* ===== EXPAND PANEL ===== */
+      .expand-panel {
+        max-height: 0;
+        overflow: hidden;
+        transition:
+          max-height 0.35s ease,
+          padding 0.2s ease;
+      }
+
+      .expand-panel.open {
+        max-height: 200px;
+      }
+
+      .panel-inner {
+        padding: 0 20px 20px;
+        display: flex;
+        gap: 12px;
+      }
+
+      /* ===== ACTION BUTTONS (المكتبة / الامتحانات) ===== */
+      .action-btn {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 12px 10px;
+        border-radius: var(--radius-btn);
+        font-family: "Cairo", sans-serif;
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+        cursor: pointer;
+        border: none;
+        transition:
+          background var(--transition),
+          color var(--transition),
+          transform var(--transition),
+          box-shadow var(--transition);
+      }
+
+      /* Primary: library (gold) */
+      .action-btn.library {
+        background: var(--gold);
+        color: var(--white);
+      }
+      .action-btn.library:hover {
+        background: var(--gold-hover);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(201, 168, 76, 0.35);
+      }
+
+      /* Secondary: exams (outlined) */
+      .action-btn.exams {
+        background: var(--white);
+        color: var(--gray-800);
+        border: 1.5px solid var(--gray-200);
+      }
+      .action-btn.exams:hover {
+        background: var(--gray-50);
+        border-color: var(--gray-400);
+        transform: translateY(-1px);
+      }
+
+      .btn-emoji {
+        font-size: 16px;
+        line-height: 1;
+      }
+
+      /* ===== DIVIDER ===== */
+      .divider {
+        height: 1px;
+        background: var(--gray-100);
+        margin: 0 20px;
+      }
+
+      /* ===== RESPONSIVE ===== */
+      @media (max-width: 480px) {
+        main {
+          padding: 24px 16px 60px;
+        }
+        .page-header {
+          padding: 16px 20px;
+        }
+        .grades-grid {
+          grid-template-columns: 1fr;
+        }
+        .panel-inner {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ===== HEADER ===== -->
+    <header class="page-header">
+      <div class="header-icon">🕌</div>
+      <div>
+        <div class="header-title">التعليم الأزهري</div>
+        <div class="header-sub">اختر المرحلة والصف الدراسي</div>
+      </div>
+      <a href="../index.html" class="back-link">← الرئيسية</a>
+    </header>
+
+    <!-- ===== MAIN ===== -->
+    <main>
+      <!-- =========================================
+         SECTION 1 — القسم الإعدادي
+         ========================================= -->
+      <section class="edu-section">
+        <div class="section-label">المرحلة الأولى</div>
+        <h2 class="section-title">القسم الإعدادي</h2>
+
+        <div class="grades-grid">
+          <!-- الصف الأول الإعدادي -->
+          <div class="grade-card" onclick="toggleCard(this, 'prep', '1')">
+            <div class="card-strip"></div>
+            <div class="card-body">
+              <div class="card-icon">١</div>
+              <div class="card-text">
+                <div class="card-name">الصف الأول الإعدادي</div>
+                <div class="card-hint">اختر المكتبة أو الامتحانات</div>
+              </div>
+              <span class="card-arrow">›</span>
+            </div>
+            <div class="divider"></div>
+            <div class="expand-panel">
+              <div class="panel-inner">
+                <a href="prep/grade1/library.html" class="action-btn library">
+                  <span class="btn-emoji">📚</span> المكتبة
+                </a>
+                <a href="prep/grade1/exams.html" class="action-btn exams">
+                  <span class="btn-emoji">📝</span> الامتحانات
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- الصف الثاني الإعدادي -->
+          <div class="grade-card" onclick="toggleCard(this, 'prep', '2')">
+            <div class="card-strip"></div>
+            <div class="card-body">
+              <div class="card-icon">٢</div>
+              <div class="card-text">
+                <div class="card-name">الصف الثاني الإعدادي</div>
+                <div class="card-hint">اختر المكتبة أو الامتحانات</div>
+              </div>
+              <span class="card-arrow">›</span>
+            </div>
+            <div class="divider"></div>
+            <div class="expand-panel">
+              <div class="panel-inner">
+                <a href="prep/grade2/library.html" class="action-btn library">
+                  <span class="btn-emoji">📚</span> المكتبة
+                </a>
+                <a href="prep/grade2/exams.html" class="action-btn exams">
+                  <span class="btn-emoji">📝</span> الامتحانات
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- الصف الثالث الإعدادي -->
+          <div class="grade-card" onclick="toggleCard(this, 'prep', '3')">
+            <div class="card-strip"></div>
+            <div class="card-body">
+              <div class="card-icon">٣</div>
+              <div class="card-text">
+                <div class="card-name">الصف الثالث الإعدادي</div>
+                <div class="card-hint">اختر المكتبة أو الامتحانات</div>
+              </div>
+              <span class="card-arrow">›</span>
+            </div>
+            <div class="divider"></div>
+            <div class="expand-panel">
+              <div class="panel-inner">
+                <a href="prep/grade3/library.html" class="action-btn library">
+                  <span class="btn-emoji">📚</span> المكتبة
+                </a>
+                <a href="prep/grade3/exams.html" class="action-btn exams">
+                  <span class="btn-emoji">📝</span> الامتحانات
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /grades-grid -->
+      </section>
+
+      <!-- =========================================
+         SECTION 2 — القسم الثانوي
+         ========================================= -->
+      <section class="edu-section">
+        <div class="section-label">المرحلة الثانية</div>
+        <h2 class="section-title">القسم الثانوي</h2>
+
+        <div class="grades-grid">
+          <!-- الصف الأول الثانوي -->
+          <div class="grade-card" onclick="toggleCard(this, 'sec', '1')">
+            <div class="card-strip"></div>
+            <div class="card-body">
+              <div class="card-icon">١</div>
+              <div class="card-text">
+                <div class="card-name">الصف الأول الثانوي</div>
+                <div class="card-hint">اختر المكتبة أو الامتحانات</div>
+              </div>
+              <span class="card-arrow">›</span>
+            </div>
+            <div class="divider"></div>
+            <div class="expand-panel">
+              <div class="panel-inner">
+                <a href="sec/grade1/library.html" class="action-btn library">
+                  <span class="btn-emoji">📚</span> المكتبة
+                </a>
+                <a href="sec/grade1/exams.html" class="action-btn exams">
+                  <span class="btn-emoji">📝</span> الامتحانات
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- الصف الثاني الثانوي -->
+          <div class="grade-card" onclick="toggleCard(this, 'sec', '2')">
+            <div class="card-strip"></div>
+            <div class="card-body">
+              <div class="card-icon">٢</div>
+              <div class="card-text">
+                <div class="card-name">الصف الثاني الثانوي</div>
+                <div class="card-hint">اختر المكتبة أو الامتحانات</div>
+              </div>
+              <span class="card-arrow">›</span>
+            </div>
+            <div class="divider"></div>
+            <div class="expand-panel">
+              <div class="panel-inner">
+                <a href="sec/grade2/library.html" class="action-btn library">
+                  <span class="btn-emoji">📚</span> المكتبة
+                </a>
+                <a href="sec/grade2/exams.html" class="action-btn exams">
+                  <span class="btn-emoji">📝</span> الامتحانات
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- الصف الثالث الثانوي -->
+          <div class="grade-card" onclick="toggleCard(this, 'sec', '3')">
+            <div class="card-strip"></div>
+            <div class="card-body">
+              <div class="card-icon">٣</div>
+              <div class="card-text">
+                <div class="card-name">الصف الثالث الثانوي</div>
+                <div class="card-hint">اختر المكتبة أو الامتحانات</div>
+              </div>
+              <span class="card-arrow">›</span>
+            </div>
+            <div class="divider"></div>
+            <div class="expand-panel">
+              <div class="panel-inner">
+                <a href="sec/grade3/library.html" class="action-btn library">
+                  <span class="btn-emoji">📚</span> المكتبة
+                </a>
+                <a href="sec/grade3/exams.html" class="action-btn exams">
+                  <span class="btn-emoji">📝</span> الامتحانات
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /grades-grid -->
+      </section>
+    </main>
+
+    <!-- ===== MINIMAL JS — only accordion toggle ===== -->
+    <script>
+      function toggleCard(card, section, grade) {
+        const panel = card.querySelector(".expand-panel");
+        const isOpen = card.classList.contains("active");
+
+        // Close all open cards first
+        document.querySelectorAll(".grade-card.active").forEach(function (c) {
+          c.classList.remove("active");
+          c.querySelector(".expand-panel").classList.remove("open");
+        });
+
+        // If this card wasn't open, open it
+        if (!isOpen) {
+          card.classList.add("active");
+          panel.classList.add("open");
+        }
+      }
+    </script>
+  </body>
+</html>

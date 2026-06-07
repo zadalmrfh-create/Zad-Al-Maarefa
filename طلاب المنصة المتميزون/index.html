@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>طلاب المنصة المتميزون</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <script>
+    window.tailwind = window.tailwind || {};
+    window.tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Cairo', 'ui-sans-serif', 'system-ui'],
+          },
+          colors: {
+            brand: {
+              50: '#eef9ff',
+              100: '#d9efff',
+              200: '#bce2ff',
+              300: '#91d0ff',
+              400: '#5ab6ff',
+              500: '#2b99ff',
+              600: '#0f78f0',
+              700: '#0c5ecc',
+              800: '#0e4ea5',
+              900: '#123f80',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    :root {
+      --bg: #0b1220;
+      --bg-soft: #0f172a;
+      --card: rgba(255,255,255,0.08);
+      --card-border: rgba(255,255,255,0.15);
+      --text: #e6edf6;
+      --muted: #9fb0c5;
+      --primary: #60a5fa;
+      --accent: #22d3ee;
+      --success: #34d399;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --ring: rgba(34, 211, 238, 0.4);
+    }
+    html { color-scheme: dark; }
+    body {
+      background: radial-gradient(1200px 600px at 85% -10%, rgba(34,211,238,0.12), transparent 60%),
+                  radial-gradient(900px 500px at -10% 10%, rgba(96,165,250,0.15), transparent 60%),
+                  linear-gradient(180deg, #0b1220 0%, #0b1220 100%);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .container-outer {
+      position: relative;
+      isolation: isolate;
+    }
+    .blob {
+      position: absolute;
+      filter: blur(40px);
+      pointer-events: none;
+      opacity: 0.5;
+      mix-blend-mode: screen;
+      animation: floatY 12s ease-in-out infinite;
+    }
+    .blob.b1 { top: -120px; left: -80px; width: 360px; height: 360px; background: radial-gradient(circle at 30% 30%, #22d3ee, transparent 60%); }
+    .blob.b2 { top: 30%; right: -120px; width: 420px; height: 420px; background: radial-gradient(circle at 60% 40%, #60a5fa, transparent 60%); animation-delay: 2s; }
+    .blob.b3 { bottom: -100px; left: 30%; width: 480px; height: 480px; background: radial-gradient(circle at 50% 50%, #a78bfa, transparent 60%); animation-delay: 4s; }
+    @keyframes floatY {
+      0%,100% { transform: translateY(0px) translateX(0px) scale(1); }
+      50%     { transform: translateY(18px) translateX(6px) scale(1.03); }
+    }
+
+    .glass {
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      border: 1px solid var(--card-border);
+      backdrop-filter: saturate(160%) blur(10px);
+    }
+
+    .card {
+      position: relative;
+      border-radius: 18px;
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    }
+    .card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0,0,0,0.35); border-color: rgba(255,255,255,0.22); }
+    .card::after {
+      content: "";
+      position: absolute; inset: 0; border-radius: 18px; padding: 1px;
+      background: linear-gradient(135deg, rgba(34,211,238,.2), rgba(96,165,250,.2));
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none;
+    }
+
+    .avatar {
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.18);
+      box-shadow: 0 10px 30px rgba(2, 132, 199, 0.25);
+      object-fit: cover;
+    }
+
+    .badge {
+      background: linear-gradient(135deg, #22d3ee, #60a5fa);
+      color: #001522;
+      font-weight: 800;
+      letter-spacing: .3px;
+      border-radius: 999px;
+      padding: .25rem .6rem;
+      box-shadow: 0 6px 20px rgba(34,211,238,0.45);
+    }
+
+    .chip {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--text);
+      transition: all .2s ease;
+    }
+    .chip:hover { border-color: var(--ring); background: rgba(34,211,238,0.08); }
+    .chip.active { background: rgba(34,211,238,0.16); border-color: var(--ring); box-shadow: 0 0 0 3px rgba(34,211,238,0.12) inset; }
+
+    .btn {
+      background: linear-gradient(135deg, #0ea5e9, #818cf8);
+      color: white; border: none; border-radius: 12px; padding: .6rem 1rem; font-weight: 700;
+      transition: transform .15s ease, box-shadow .2s ease, filter .2s ease;
+      box-shadow: 0 10px 30px rgba(99,102,241,0.35);
+    }
+    .btn:hover { transform: translateY(-1px); filter: brightness(1.05); }
+    .btn:active { transform: translateY(0px) scale(.99); }
+
+    .icon-btn {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 10px; width: 40px; height: 40px;
+      display: grid; place-items: center; transition: all .2s ease;
+    }
+    .icon-btn:hover { border-color: var(--ring); background: rgba(34,211,238,0.1); }
+
+    .progress {
+      height: 10px; border-radius: 999px; background: rgba(255,255,255,0.08); overflow: hidden; border: 1px solid rgba(255,255,255,0.12);
+    }
+    .progress > span {
+      display: block; height: 100%; width: 0%;
+      background: linear-gradient(90deg, #22d3ee, #60a5fa, #a78bfa);
+      transition: width .9s cubic-bezier(.2,.7,.2,1);
+      box-shadow: inset 0 0 10px rgba(255,255,255,.15);
+    }
+
+    .in-view {
+      animation: cardIn .6s ease forwards;
+      transform-origin: 50% 80%;
+      opacity: 0;
+    }
+    @keyframes cardIn {
+      from { transform: translateY(18px) scale(.98); opacity: 0; }
+      to { transform: translateY(0) scale(1); opacity: 1; }
+    }
+
+    .shine {
+      position: relative; overflow: hidden;
+    }
+    .shine::before {
+      content:""; position:absolute; inset:-1px;
+      background: linear-gradient(120deg,
+        rgba(255,255,255,0) 0%,
+        rgba(255,255,255,.07) 20%,
+        rgba(255,255,255,0) 40%);
+      transform: translateX(-120%) skewX(-15deg);
+      transition: transform .8s ease;
+      pointer-events:none;
+    }
+    .shine:hover::before { transform: translateX(120%) skewX(-15deg); }
+
+    ::selection { background: rgba(34,211,238,.25); color: #eaffff; }
+    ::-webkit-scrollbar { width: 10px; height: 10px; }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 999px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.22); }
+  </style>
+</head>
+
+<body class="font-sans antialiased">
+  <div class="container-outer">
+    <span class="blob b1"></span>
+    <span class="blob b2"></span>
+    <span class="blob b3"></span>
+
+    <!-- Navbar -->
+    <header class="sticky top-0 z-40 backdrop-blur-xl bg-[#0b1220cc] border-b border-white/10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+        <div class="flex items-center justify-between gap-4">
+          <div class="flex items-center gap-3">
+            <div class="relative w-10 h-10 rounded-xl overflow-hidden">
+              <span class="absolute inset-0 rounded-xl" style="background: conic-gradient(from 180deg, #22d3ee, #60a5fa, #a78bfa, #22d3ee); filter: blur(6px); opacity:.7"></span>
+              <div class="absolute inset-[1px] rounded-lg bg-[#0b1220] border border-white/20 grid place-items-center">
+                    <img src="logo.png" alt=" " >
+                  <path d="M12 3l9 6-9 6-9-6 9-6zm0 8.485L6.197 8.25 12 5.015 17.803 8.25 12 11.485zM21 13.5v3l-9 6-9-6v-3l9 6 9-6z"/>
+                </svg>
+              </div>
+            </div>
+            <div>
+              <div class="text-xl sm:text-2xl font-extrabold tracking-tight">طلاب المنصة المتميزون</div>
+              <div class="text-sm text-white/60 hidden sm:block">اكتشف نخبة الطلاب المتألقين في مختلف المسارات</div>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <button id="themeToggle" class="icon-btn" aria-label="تبديل الوضع الليلي">
+              <svg id="sunIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-300" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M6.76 4.84l-1.8-1.79L3.17 4.84l1.79 1.79 1.8-1.79zM1 13h3v-2H1v2zm10 10h2v-3h-2v3zm7.03-19.95l-1.79 1.79 1.8 1.79 1.79-1.79-1.8-1.79zM20 13h3v-2h-3v2zM17.24 19.16l1.79 1.79 1.79-1.79-1.79-1.79-1.79 1.79zM4.22 19.16l1.79 1.79 1.79-1.79-1.79-1.79-1.79 1.79zM12 5a7 7 0 100 14 7 7 0 000-14z"/>
+              </svg>
+              <svg id="moonIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-sky-300 hidden" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z"/>
+              </svg>
+            </button>
+            <a class="hidden sm:inline-flex btn text-sm px-3 py-2" href="#grid">تصفح الأسماء</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-14">
+      <div class="grid lg:grid-cols-2 gap-8 items-center">
+        <div>
+          <h1 class="text-3xl sm:text-5xl font-black leading-tight tracking-tight">
+            مرحباً بك في لوحة <span class="bg-clip-text text-transparent" style="background-image: linear-gradient(90deg,#22d3ee,#60a5fa,#a78bfa)">طلاب المنصة المتميزون</span>
+          </h1>
+          <p class="mt-4 text-white/70 text-lg">
+            هنا نعرض إنجازات الطلاب المتفوقين عبر مختلف المجالات مثل البرمجة، الرياضيات، اللغات، التصميم وغيرها.
+          </p>
+
+          <div class="mt-6 flex flex-wrap items-center gap-3">
+            <div class="glass rounded-2xl px-4 py-3 flex items-center gap-3">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              <div class="text-sm">
+                <div class="font-bold">عدد الطلاب المعروضين: <span id="visibleCount">—</span></div>
+                <div class="text-white/60">متوسط الإنجاز: <span id="avgProgress">—</span>%</div>
+              </div>
+            </div>
+            <div class="glass rounded-2xl px-4 py-3 flex items-center gap-3">
+              <svg class="w-5 h-5 text-sky-300" viewBox="0 0 24 24" fill="currentColor"><path d="M5 3a2 2 0 00-2 2v14l4-4h11a2 2 0 002-2V5a2 2 0 00-2-2H5z"/></svg>
+              <div class="text-sm">
+                <div class="font-bold">تفاعل حي</div>
+                <div class="text-white/60">ابحث وفلتر الأسماء فوراً</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="relative">
+          <div class="glass shine rounded-3xl p-4 sm:p-6">
+            <div class="rounded-2xl overflow-hidden border border-white/10">
+                    <img src="images.png" alt=" " >
+            </div>
+            <div class="mt-4 grid grid-cols-3 gap-3 text-center">
+              <div class="glass rounded-xl p-3">
+                <div class="text-2xl font-extrabold text-sky-300">+120</div>
+                <div class="text-xs text-white/60">مشروع مكتمل</div>
+              </div>
+              <div class="glass rounded-xl p-3">
+                <div class="text-2xl font-extrabold text-cyan-300">98%</div>
+                <div class="text-xs text-white/60">رضا المدربين</div>
+              </div>
+              <div class="glass rounded-xl p-3">
+                <div class="text-2xl font-extrabold text-violet-300">24</div>
+                <div class="text-xs text-white/60">مسار تعليمي</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Controls -->
+      <div class="mt-10 grid lg:grid-cols-12 gap-4 items-end">
+        <div class="lg:col-span-6">
+          <label class="block text-sm mb-2 text-white/70">ابحث بالاسم أو الكلمات الدلالية</label>
+          <div class="flex items-center gap-2 glass rounded-2xl px-3 py-2">
+            <svg class="w-5 h-5 text-white/50" viewBox="0 0 24 24" fill="currentColor"><path d="M10 2a8 8 0 015.292 13.708l4 4-1.414 1.414-4-4A8 8 0 1110 2zm0 2a6 6 0 100 12 6 6 0 000-12z"/></svg>
+            <input id="searchInput" type="search" placeholder="مثال: أحمد، برمجة، تصميم…" class="w-full bg-transparent outline-none placeholder-white/40 text-white py-2">
+            <button id="clearSearch" class="icon-btn text-white/60" title="مسح">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M18.3 5.71L12 12l6.3 6.29-1.41 1.42L10.59 13.4 4.3 19.71 2.89 18.3 9.17 12 2.89 5.71 4.3 4.29l6.29 6.3 6.3-6.3z"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="lg:col-span-3">
+          <label class="block text-sm mb-2 text-white/70">الترتيب</label>
+          <div class="glass rounded-2xl px-3 py-2">
+            <select id="sortSelect" class="w-full bg-transparent outline-none py-2">
+              <option value="top">الأعلى إنجازاً</option>
+              <option value="new">الأحدث انضماماً</option>
+              <option value="name">الاسم (أ-ي)</option>
+            </select>
+          </div>
+        </div>
+        <div class="lg:col-span-3">
+          <label class="block text-sm mb-2 text-white/70">إجراءات سريعة</label>
+          <div class="flex gap-2">
+            <button id="resetBtn" class="icon-btn px-3 w-auto gap-2 flex items-center">
+              <svg class="w-4 h-4 text-sky-300" viewBox="0 0 24 24" fill="currentColor"><path d="M12 6V3L8 7l4 4V8c2.757 0 5 2.243 5 5a5 5 0 01-8.536 3.536l-1.414 1.414A7 7 0 1012 6z"/></svg>
+              إعادة ضبط
+            </button>
+            <a href="#grid" class="icon-btn px-3 w-auto gap-2 flex items-center">
+              <svg class="w-4 h-4 text-cyan-300" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4l-7 8h4v8h6v-8h4z"/></svg>
+              إلى القائمة
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filters -->
+      <div class="mt-6 flex flex-wrap items-center gap-2" id="filters">
+        <button data-filter="*" class="chip active rounded-full px-3 py-2 text-sm">الكل</button>
+        <button data-filter="البرمجة" class="chip rounded-full px-3 py-2 text-sm">البرمجة</button>
+        <button data-filter="الرياضيات" class="chip rounded-full px-3 py-2 text-sm">الرياضيات</button>
+        <button data-filter="العلوم" class="chip rounded-full px-3 py-2 text-sm">العلوم</button>
+        <button data-filter="اللغات" class="chip rounded-full px-3 py-2 text-sm">اللغات</button>
+        <button data-filter="التصميم" class="chip rounded-full px-3 py-2 text-sm">التصميم</button>
+        <button data-filter="الفيزياء" class="chip rounded-full px-3 py-2 text-sm">الفيزياء</button>
+        <button data-filter="الذكاء الاصطناعي" class="chip rounded-full px-3 py-2 text-sm">الذكاء الاصطناعي</button>
+      </div>
+    </section>
+
+    <!-- Grid -->
+    <main id="grid" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 mb-16">
+      <div id="cardsGrid" class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <!-- Card Template Instances -->
+<article class="card glass p-4 in-view student-card shine"
+  data-name="مالك سامح"
+  data-tags="البرمجة,الذكاء الاصطناعي,جافاسكربت"
+  data-category="البرمجة"
+  data-progress="96"
+  data-date="2026-03-14">
+
+  <div class="flex items-start gap-4">
+    <img loading="lazy"
+         class="avatar w-20 h-20"
+         src="./Malek.png"
+         alt="صورة مالك سامح">
+
+    <div class="flex-1">
+      <div class="flex items-center justify-between gap-2">
+        <h3 class="font-extrabold text-lg">مالك سامح</h3>
+        <span class="badge text-xs">متميز</span>
+      </div>
+
+      <p class="text-white/60 text-sm mt-0.5">مسار: تطوير الويب</p>
+
+      <div class="mt-3">
+        <div class="flex items-center justify-between text-sm mb-1">
+          <span class="text-white/70">معدل الإنجاز</span>
+          <span class="font-bold text-cyan-300">
+            <span class="progress-num">96</span>%
+          </span>
+        </div>
+
+        <div class="progress">
+          <span style="width:96%"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-4 flex flex-wrap gap-2">
+    <span class="chip rounded-full px-2 py-1 text-xs">البرمجة</span>
+    <span class="chip rounded-full px-2 py-1 text-xs">الذكاء الاصطناعي</span>
+    <span class="chip rounded-full px-2 py-1 text-xs">جافاسكربت</span>
+  </div>
+
+  <div class="mt-4 flex items-center justify-between">
+    <a href="https://bit.ly/maleksameh"
+       target="_blank"
+       class="btn text-sm px-3 py-2">
+       عرض الملف
+    </a>
+
+    <div class="flex items-center gap-2">
+      <!-- باقي الأزرار كما هي -->
+    </div>
+  </div>
+</article>
+      </div>
+
+      <!-- Empty state -->
+      <div id="emptyState" class="hidden mt-10 text-center">
+        <div class="max-w-md mx-auto glass rounded-3xl p-8">
+          <div class="mx-auto w-14 h-14 rounded-2xl grid place-items-center mb-3" style="background: radial-gradient(circle at 40% 30%, rgba(34,211,238,.3), rgba(96,165,250,.15))">
+            <svg class="w-7 h-7 text-white/80" viewBox="0 0 24 24" fill="currentColor"><path d="M10 2a8 8 0 015.292 13.708l4 4-1.414 1.414-4-4A8 8 0 1110 2zm0 2a6 6 0 100 12 6 6 0 000-12z"/></svg>
+          </div>
+          <h3 class="text-xl font-extrabold">لا توجد نتائج</h3>
+          <p class="text-white/60 mt-1">حاول تعديل كلمات البحث أو تغيير المرشّحات.</p>
+          <button id="clearAll" class="btn mt-4">مسح البحث والمرشّحات</button>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-white/60">
+        <div>© <span id="year"></span> طلاب المنصة المتميزون — جميع الحقوق محفوظة</div>
+        <div class="text-sm">صُمم بإتقان وبحُب ✨</div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script>
+    // Helpers
+    const $ = (s, p=document) => p.querySelector(s);
+    const $$ = (s, p=document) => Array.from(p.querySelectorAll(s));
+
+    // Theme toggle with persistence
+    const html = document.documentElement;
+    const themeToggle = $('#themeToggle');
+    const sunIcon = $('#sunIcon');
+    const moonIcon = $('#moonIcon');
+    const storedTheme = localStorage.getItem('theme');
+    if (storedTheme === 'dark' || (!storedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      html.classList.add('dark');
+      sunIcon.classList.add('hidden'); moonIcon.classList.remove('hidden');
+    }
+    themeToggle.addEventListener('click', () => {
+      html.classList.toggle('dark');
+      const dark = html.classList.contains('dark');
+      localStorage.setItem('theme', dark ? 'dark' : 'light');
+      sunIcon.classList.toggle('hidden', dark);
+      moonIcon.classList.toggle('hidden', !dark);
+    });
+
+    // Year
+    $('#year').textContent = new Date().getFullYear();
+
+    // Intersection animation
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.remove('in-view'); io.unobserve(e.target); } });
+    }, { threshold: .12 });
+    $$('.student-card').forEach(c => io.observe(c));
+
+    // Filtering and sorting
+    const grid = $('#cardsGrid');
+    const cards = $$('.student-card');
+    const searchInput = $('#searchInput');
+    const clearSearch = $('#clearSearch');
+    const sortSelect = $('#sortSelect');
+    const filters = $('#filters');
+    const emptyState = $('#emptyState');
+    const resetBtn = $('#resetBtn');
+    const clearAll = $('#clearAll');
+
+    function normalize(txt) {
+      return (txt || '').toString().trim().toLowerCase()
+        .replace(/[إأآا]/g,'ا')
+        .replace(/ى/g,'ي')
+        .replace(/ؤ/g,'و')
+        .replace(/ئ/g,'ي')
+        .replace(/ة/g,'ه');
+    }
+
+    let activeFilter = '*';
+
+    function applyFilters() {
+      const q = normalize(searchInput.value);
+      let visible = 0, totalProgress = 0;
+
+      cards.forEach(card => {
+        const name = normalize(card.dataset.name);
+        const tags = normalize(card.dataset.tags);
+        const cat  = card.dataset.category || '';
+        const matchesSearch = !q || name.includes(q) || tags.includes(q);
+        const matchesFilter = activeFilter === '*' || cat.includes(activeFilter) || (card.dataset.tags || '').includes(activeFilter);
+
+        const show = matchesSearch && matchesFilter;
+        card.style.display = show ? '' : 'none';
+        if (show) {
+          visible++;
+          totalProgress += Number(card.dataset.progress || 0);
+        }
+      });
+
+      // Update counters
+      $('#visibleCount').textContent = visible;
+      $('#avgProgress').textContent = visible ? Math.round(totalProgress / visible) : '—';
+
+      // Empty state
+      emptyState.classList.toggle('hidden', visible !== 0);
+    }
+
+    function sortCards(by) {
+      const arr = cards.slice().filter(c => c.style.display !== 'none');
+      arr.sort((a,b) => {
+        if (by === 'top') {
+          return Number(b.dataset.progress) - Number(a.dataset.progress);
+        } else if (by === 'new') {
+          return new Date(b.dataset.date) - new Date(a.dataset.date);
+        } else if (by === 'name') {
+          return normalize(a.dataset.name).localeCompare(normalize(b.dataset.name), 'ar');
+        }
+        return 0;
+      });
+      // Also keep hidden cards appended after to preserve filter state ordering
+      const hidden = cards.slice().filter(c => c.style.display === 'none');
+      [...arr, ...hidden].forEach(node => grid.appendChild(node));
+    }
+
+    // Events
+    applyFilters();
+    sortCards(sortSelect.value);
+
+    searchInput.addEventListener('input', () => { applyFilters(); sortCards(sortSelect.value); });
+    clearSearch.addEventListener('click', () => { searchInput.value=''; searchInput.focus(); applyFilters(); sortCards(sortSelect.value); });
+
+    sortSelect.addEventListener('change', () => sortCards(sortSelect.value));
+
+    filters.addEventListener('click', (e) => {
+      const btn = e.target.closest('button[data-filter]');
+      if (!btn) return;
+      $$('#filters .chip').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      activeFilter = btn.dataset.filter;
+      applyFilters();
+      sortCards(sortSelect.value);
+    });
+
+    resetBtn.addEventListener('click', () => {
+      searchInput.value = '';
+      activeFilter = '*';
+      $$('#filters .chip').forEach(c => c.classList.toggle('active', c.dataset.filter === '*'));
+      sortSelect.value = 'top';
+      applyFilters();
+      sortCards(sortSelect.value);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    clearAll.addEventListener('click', () => resetBtn.click());
+
+    // Like toggle
+    $$('.like-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        btn.classList.toggle('active');
+        const svg = btn.querySelector('svg');
+        if (btn.classList.contains('active')) {
+          svg.setAttribute('fill', 'currentColor');
+          svg.classList.add('text-rose-400');
+          btn.style.boxShadow = '0 0 0 3px rgba(244,63,94,0.25)';
+        } else {
+          svg.setAttribute('fill', 'none');
+          svg.classList.remove('text-rose-400');
+          btn.style.boxShadow = 'none';
+        }
+      });
+    });
+
+    // Confetti per card
+    $$('.confetti-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const x = (rect.left + rect.width/2) / window.innerWidth;
+        const y = (rect.top + rect.height/2) / window.innerHeight;
+        confetti({
+          particleCount: 90,
+          spread: 70,
+          startVelocity: 36,
+          origin: { x, y },
+          ticks: 180,
+          scalar: .9,
+          colors: ['#22d3ee','#60a5fa','#a78bfa','#34d399','#f59e0b']
+        });
+      });
+    });
+
+    // Fake "view profile"
+    $$('.view-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const card = e.target.closest('.student-card');
+        const name = card?.dataset?.name || 'الطالب';
+        alert('عرض ملف: ' + name + ' (مثال توضيحي)');
+      });
+    });
+
+    // Accessibility: Enter key on chips
+    $$('#filters .chip').forEach(chip => {
+      chip.setAttribute('tabindex','0');
+      chip.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); chip.click(); }
+      });
+    });
+
+    // Initial stat numbers animation (optional)
+    function animateNumbers() {
+      const numEls = $$('.progress-num');
+      numEls.forEach(el => {
+        const target = Number(el.textContent);
+        let current = 0;
+        const step = Math.max(1, Math.round(target / 30));
+        const itv = setInterval(() => {
+          current += step;
+          if (current >= target) { current = target; clearInterval(itv); }
+          el.textContent = current;
+        }, 16);
+      });
+    }
+    animateNumbers();
+  </script>
+</body>
+</html>

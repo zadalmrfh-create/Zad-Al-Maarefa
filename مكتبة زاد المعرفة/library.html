@@ -1,0 +1,2803 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مكتبةزاد المعرفة</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            font-family: 'Cairo', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0f0f23;
+            color: #e0e0e0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .bg-animated {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .bg-animated .circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(99, 102, 241, 0.05);
+            animation: floatUp 20s infinite linear;
+        }
+
+        .bg-animated .circle:nth-child(1) { width: 300px; height: 300px; left: 10%; animation-delay: 0s; animation-duration: 25s; }
+        .bg-animated .circle:nth-child(2) { width: 200px; height: 200px; left: 50%; animation-delay: 5s; animation-duration: 20s; }
+        .bg-animated .circle:nth-child(3) { width: 400px; height: 400px; left: 70%; animation-delay: 10s; animation-duration: 30s; }
+        .bg-animated .circle:nth-child(4) { width: 150px; height: 150px; left: 30%; animation-delay: 3s; animation-duration: 18s; }
+        .bg-animated .circle:nth-child(5) { width: 250px; height: 250px; left: 85%; animation-delay: 7s; animation-duration: 22s; }
+
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1a1a3e 0%, #0f0f23 50%, #1a1a3e 100%);
+            border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(20px);
+        }
+
+        .header-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6, #a78bfa);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+            animation: pulse-glow 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4); }
+            50% { box-shadow: 0 4px 35px rgba(99, 102, 241, 0.7); }
+        }
+
+        .logo-text h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #a78bfa, #6366f1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logo-text p {
+            font-size: 0.75rem;
+            color: #9ca3af;
+            margin-top: -4px;
+        }
+
+        /* Search Bar */
+        .search-container {
+            position: relative;
+            max-width: 400px;
+            flex: 1;
+            margin: 0 2rem;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 12px 20px 12px 45px;
+            border-radius: 50px;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+            color: #e0e0e0;
+            font-size: 0.95rem;
+            font-family: 'Cairo', sans-serif;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-container input:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .search-container input::placeholder {
+            color: #6b7280;
+        }
+
+        .search-container .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6366f1;
+            font-size: 1rem;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 4px 16px;
+            border-radius: 12px;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.15);
+        }
+
+        .stat-item .number {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #a78bfa;
+        }
+
+        .stat-item .label {
+            font-size: 0.65rem;
+            color: #9ca3af;
+        }
+
+        /* Hero Section */
+        .hero {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #e0e7ff, #a78bfa, #6366f1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.4;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: #9ca3af;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            line-height: 1.8;
+        }
+
+        /* Grade Navigation */
+        .grade-nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .grade-tabs {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .grade-tabs::-webkit-scrollbar { display: none; }
+
+        .grade-tab {
+            padding: 12px 24px;
+            border-radius: 50px;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            background: rgba(255, 255, 255, 0.03);
+            color: #9ca3af;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            white-space: nowrap;
+            font-size: 0.9rem;
+            font-weight: 600;
+            font-family: 'Cairo', sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .grade-tab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .grade-tab:hover::before {
+            left: 100%;
+        }
+
+        .grade-tab:hover {
+            border-color: #6366f1;
+            color: #c7d2fe;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.2);
+        }
+
+        .grade-tab.active {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 4px 25px rgba(99, 102, 241, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .grade-tab .tab-icon {
+            margin-left: 8px;
+        }
+
+        /* Stage Labels */
+        .stage-label {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .stage-label span {
+            display: inline-block;
+            padding: 4px 20px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .stage-prep {
+            background: rgba(16, 185, 129, 0.1);
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .stage-sec {
+            background: rgba(245, 158, 11, 0.1);
+            color: #fbbf24;
+            border: 1px solid rgba(245, 158, 11, 0.2);
+        }
+
+        /* Books Grid */
+        .books-section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+        }
+
+        .section-header h3 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #e0e7ff;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-header h3 .icon-bg {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .book-count {
+            padding: 6px 16px;
+            border-radius: 50px;
+            background: rgba(99, 102, 241, 0.1);
+            color: #a78bfa;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        /* Book Card */
+        .book-card {
+            background: linear-gradient(145deg, rgba(30, 30, 60, 0.8), rgba(20, 20, 45, 0.9));
+            border: 1px solid rgba(99, 102, 241, 0.15);
+            border-radius: 20px;
+            padding: 24px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .book-card:nth-child(1) { animation-delay: 0.1s; }
+        .book-card:nth-child(2) { animation-delay: 0.2s; }
+        .book-card:nth-child(3) { animation-delay: 0.3s; }
+
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .book-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #6366f1, #8b5cf6, #a78bfa, #8b5cf6, #6366f1);
+            background-size: 200% 100%;
+            animation: shimmer 3s linear infinite;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        .book-card:hover::before {
+            opacity: 1;
+        }
+
+        .book-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.05) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s;
+            pointer-events: none;
+        }
+
+        .book-card:hover::after {
+            opacity: 1;
+        }
+
+        .book-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(99, 102, 241, 0.4);
+            box-shadow: 0 20px 60px rgba(99, 102, 241, 0.15), 0 0 40px rgba(99, 102, 241, 0.05);
+        }
+
+        .book-card-inner {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            position: relative;
+            z-index: 1;
+        }
+
+        .book-icon {
+            width: 60px;
+            height: 75px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .book-icon.color-1 { background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.3)); color: #a78bfa; }
+        .book-icon.color-2 { background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(52, 211, 153, 0.3)); color: #34d399; }
+        .book-icon.color-3 { background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(251, 191, 36, 0.3)); color: #fbbf24; }
+
+        .book-spine {
+            position: absolute;
+            right: 0;
+            top: 5px;
+            bottom: 5px;
+            width: 4px;
+            border-radius: 2px;
+            background: rgba(255,255,255,0.15);
+        }
+
+        .book-details {
+            flex: 1;
+        }
+
+        .book-details h4 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #e0e7ff;
+            margin-bottom: 4px;
+            line-height: 1.5;
+        }
+
+        .book-details .book-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .book-meta span {
+            font-size: 0.75rem;
+            color: #6b7280;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .book-meta span i {
+            font-size: 0.65rem;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 22px;
+            border-radius: 50px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            font-family: 'Cairo', sans-serif;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .download-btn:hover::before {
+            left: 100%;
+        }
+
+        .download-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.5);
+        }
+
+        .download-btn i {
+            transition: transform 0.3s;
+        }
+
+        .download-btn:hover i {
+            transform: translateY(2px);
+        }
+
+        /* Content Sections */
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #1a1a3e, #0f0f23);
+            border-top: 1px solid rgba(99, 102, 241, 0.15);
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer p {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+
+        .footer .heart {
+            color: #ef4444;
+            animation: heartbeat 1.5s infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* Scroll to top */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(99, 102, 241, 0.6);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            color: #4b5563;
+            margin-bottom: 1rem;
+        }
+
+        .empty-state p {
+            color: #6b7280;
+            font-size: 1.1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-inner {
+                flex-direction: column;
+                gap: 12px;
+                padding: 1rem;
+            }
+
+            .search-container {
+                margin: 0;
+                max-width: 100%;
+            }
+
+            .stats-bar {
+                display: none;
+            }
+
+            .hero h2 {
+                font-size: 1.6rem;
+            }
+
+            .hero p {
+                font-size: 0.95rem;
+            }
+
+            .grade-tabs {
+                justify-content: flex-start;
+            }
+
+            .grade-tab {
+                font-size: 0.8rem;
+                padding: 10px 18px;
+            }
+
+            .books-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header h3 {
+                font-size: 1.3rem;
+            }
+
+            .book-card {
+                padding: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding: 2rem 1rem;
+            }
+
+            .grade-nav, .books-section {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            .logo-text h1 {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Loading animation for cards */
+        .book-card.loading {
+            animation: pulse-loading 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse-loading {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+        }
+
+        .tooltip::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 6px 12px;
+            border-radius: 8px;
+            background: #1e1e3e;
+            color: #e0e7ff;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            pointer-events: none;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .tooltip:hover::after {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Divider between stages */
+        .stage-divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 8px 0;
+            padding: 0 1rem;
+        }
+
+        .stage-divider .line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(99,102,241,0.3), transparent);
+        }
+
+        .stage-divider .text {
+            font-size: 0.8rem;
+            color: #6b7280;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Animated Background -->
+    <div class="bg-animated">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-inner">
+            <div class="logo">
+                <div class="logo-icon">
+                    <img src="logo.png" alt=" " >
+                </div>
+                <div class="logo-text">
+                    <h1>مكتبة زاد المعرفة</h1>
+                    <p>مكتبتك التعليمية الشاملة</p>
+                </div>
+            </div>
+
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="searchInput" placeholder="ابحث عن كتاب..." oninput="searchBooks()">
+            </div>
+
+            <div class="stats-bar">
+                <div class="stat-item">
+                    <div class="number">18</div>
+                    <div class="label">كتاب</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number">6</div>
+                    <div class="label">صفوف</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h2>📚 مرحباً بك في مكتبة زاد المعرفة</h2>
+        <p>اختر الصف الدراسي للوصول إلى الكتب والمذكرات المتاحة. جميع الملفات جاهزة للتحميل والمشاهدة مباشرة.</p>
+    </section>
+
+    <!-- Grade Navigation -->
+    <nav class="grade-nav">
+        <!-- Preparatory Stage -->
+        <div class="stage-divider" style="margin-bottom: 12px;">
+            <div class="line"></div>
+            <div class="text"><span class="stage-prep" style="padding: 4px 16px; border-radius: 50px; font-size: 0.8rem;">المرحلة الإعدادية</span></div>
+            <div class="line"></div>
+        </div>
+        <div class="grade-tabs" style="margin-bottom: 16px;">
+            <button class="grade-tab active" onclick="showGrade('prep1', this)">
+                <i class="fas fa-graduation-cap tab-icon"></i>
+                الصف الأول الإعدادي
+            </button>
+            <button class="grade-tab" onclick="showGrade('prep2', this)">
+                <i class="fas fa-graduation-cap tab-icon"></i>
+                الصف الثاني الإعدادي
+            </button>
+            <button class="grade-tab" onclick="showGrade('prep3', this)">
+                <i class="fas fa-graduation-cap tab-icon"></i>
+                الصف الثالث الإعدادي
+            </button>
+        </div>
+
+        <!-- Secondary Stage -->
+        <div class="stage-divider" style="margin-bottom: 12px;">
+            <div class="line"></div>
+            <div class="text"><span class="stage-sec" style="padding: 4px 16px; border-radius: 50px; font-size: 0.8rem;">المرحلة الثانوية</span></div>
+            <div class="line"></div>
+        </div>
+        <div class="grade-tabs">
+            <button class="grade-tab" onclick="showGrade('sec1', this)">
+                <i class="fas fa-user-graduate tab-icon"></i>
+                الصف الأول الثانوي
+            </button>
+            <button class="grade-tab" onclick="showGrade('sec2', this)">
+                <i class="fas fa-user-graduate tab-icon"></i>
+                الصف الثاني الثانوي
+            </button>
+            <button class="grade-tab" onclick="showGrade('sec3', this)">
+                <i class="fas fa-user-graduate tab-icon"></i>
+                الصف الثالث الثانوي
+            </button>
+        </div>
+    </nav>
+
+    <!-- Books Sections -->
+    <main class="books-section">
+
+        <!-- Prep 1 -->
+        <div class="content-section active" id="prep1">
+            <div class="section-header">
+                <h3>
+                    <span class="icon-bg" style="background: rgba(16, 185, 129, 0.15); color: #34d399;">
+                        <i class="fas fa-book"></i>
+                    </span>
+                    الصف الأول الإعدادي
+                </h3>
+                <span class="book-count">3 كتب</span>
+            </div>
+            <div class="books-grid">
+                <div class="book-card">
+                    <div class="book-card-inner">
+                        <div class="book-icon color-1">
+                            <i class="fas fa-pen-nib"></i>
+                            <div class="book-spine"></div>
+                        </div>
+                        <div class="book-details">
+                            <h4>كراسة الخط العربي 1</h4>
+                            <div class="book-meta">
+                                <span><i class="fas fa-layer-group"></i> أولى إعدادي</span>
+                                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                                <span><i class="fas fa-cloud"></i> Google Drive</span>
+                            </div>
+                            <a href="https://drive.google.com/file/d/1qoWwrk4NeQ6GNY4KfS1cXLXupLxkPYTF/view?usp=drivesdk" target="_blank" class="download-btn">
+                                <i class="fas fa-download"></i>
+                                تحميل الكتاب
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="book-card">
+                    <div class="book-card-inner">
+                        <div class="book-icon color-2">
+                            <i class="fas fa-pen-nib"></i>
+                            <div class="book-spine"></div>
+                        </div>
+                        <div class="book-details">
+                            <h4>كراسة الخط العربي 2</h4>
+                            <div class="book-meta">
+                                <span><i class="fas fa-layer-group"></i> أولى إعدادي</span>
+                                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                                <span><i class="fas fa-cloud"></i> Google Drive</span>
+                            </div>
+                            <a href="https://drive.google.com/file/d/1-o-K_VMW8GYMeabUcmGGZhi3cYThVrVw/view?usp=drivesdk" target="_blank" class="download-btn">
+                                <i class="fas fa-download"></i>
+                                تحميل الكتاب
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="book-card">
+                    <div class="book-card-inner">
+                        <div class="book-icon color-3">
+                            <i class="fas fa-pen-nib"></i>
+                            <div class="book-spine"></div>
+                        </div>
+                        <div class="book-details">
+                            <h4>كراسة الخط العربي 3</h4>
+                            <div class="book-meta">
+                                <span><i class="fas fa-layer-group"></i> أولى إعدادي</span>
+                                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                                <span><i class="fas fa-cloud"></i> Google Drive</span>
+                            </div>
+                            <a href="https://drive.google.com/file/d/1uj35_tceS-W7oBgGP-KRRti1Js6bD1ia/view?usp=drivesdk" target="_blank" class="download-btn">
+                                <i class="fas fa-download"></i>
+                                تحميل الكتاب
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Prep 2 -->
+        <div class="content-section" id="prep2">
+            <div class="section-header">
+                <h3>
+                    <span class="icon-bg" style="background: rgba(16, 185, 129, 0.15); color: #34d399;">
+                        <i class="fas fa-book"></i>
+                    </span>
+                    الصف الثاني الإعدادي
+                </h3>
+                <span class="book-count">3 كتب</span>
+            </div>
+            <div class="books-grid">
+                <div class="book-card">
+                    <div class="book-card-inner">
+                        <div class="book-icon color-1">
+                            <i class="fas fa-pen-nib"></i>
+                            <div class="book-spine"></div>
+                        </div>
+                        <div class="book-details">
+                            <h4>كراسة الخط العربي 1</h4>
+                            <div class="book-meta">
+                                <span><i class="fas fa-layer-group"></i> تانية إعدادي</span>
+                                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                                <span><i class="fas fa-cloud"></i> Google Drive</span>
+                            </div>
+                            <a href="https://drive.google.com/file/d/1qoWwrk4NeQ6GNY4KfS1cXLXupLxkPYTF/view?usp=drivesdk" target="_blank" class="download-btn">
+                                <i class="fas fa-download"></i>
+                                تحميل الكتاب
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="book-card">
+                    <div class="book-card-inner">
+                        <div class="book-icon color-2">
+                            <i class="fas fa-pen-nib"></i>
+                            <div class="book-spine"></div>
+                        </div>
+                        <div class="book-details">
+                            <h4>كراسة الخط العربي 2</h4>
+                            <div class="book-meta">
+                                <span><i class="fas fa-layer-group"></i> تانية إعدادي</span>
+                                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                                <span><i class="fas fa-cloud"></i> Google Drive</span>
+                            </div>
+                            <a href="https://drive.google.com/file/d/1-o-K_VMW8GYMeabUcmGGZhi3cYThVrVw/view?usp=drivesdk" target="_blank" class="download-btn">
+                                <i class="fas fa-download"></i>
+                                تحميل الكتاب
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="book-card">
+                    <div class="book-card-inner">
+                        <div class="book-icon color-3">
+                            <i class="fas fa-pen-nib"></i>
+                            <div class="book-spine"></div>
+                        </div>
+                        <div class="book-details">
+                            <h4>كراسة الخط العربي 3</h4>
+                            <div class="book-meta">
+                                <span><i class="fas fa-layer-group"></i> تانية إعدادي</span>
+                                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                                <span><i class="fas fa-cloud"></i> Google Drive</span>
+                            </div>
+                            <a href="https://drive.google.com/file/d/1uj35_tceS-W7oBgGP-KRRti1Js6bD1ia/view?usp=drivesdk" target="_blank" class="download-btn">
+                                <i class="fas fa-download"></i>
+                                تحميل الكتاب
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Prep 3 -->
+        <div class="content-section" id="prep3">
+            <div class="section-header">
+                <h3>
+                    <span class="icon-bg" style="background: rgba(16, 185, 129, 0.15); color: #34d399;">
+                        <i class="fas fa-book"></i>
+                    </span>
+                    الصف الثالث الإعدادي
+                </h3>
+                <span class="book-count">3 كتب</span>
+            </div>
+            <div class="books-grid">
+                <div class="book-card">
+                    <div class="book-card-inner">
+                        <div class="book-icon color-1">
+                            <i class="fas fa-pen-nib"></i>
+                            <div class="book-spine"></div>
+                        </div>
+                        <div class="book-details">
+                            <h4>كراسة الخط العربي 1</h4>
+                            <div class="book-meta">
+                                <span><i class="fas fa-layer-group"></i> تالتة إعدادي</span>
+                                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                                <span><i class="fas fa-cloud"></i> Google Drive</span>
+                            </div>
+                            <a href="https://drive.google.com/file/d/1qoWwrk4NeQ6GNY4KfS1cXLXupLxkPYTF/view?usp=drivesdk" target="_blank" class="download-btn">
+                                <i class="fas fa-download"></i>
+                                تحميل الكتاب
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="book-card">
+                    <div class="book-card-inner">
+                        <div class="book-icon color-2">
+                            <i class="fas fa-pen-nib"></i>
+                            <div class="book-spine"></div>
+                        </div>
+                        <div class="book-details">
+                            <h4>كراسة الخط العربي 2</h4>
+                            <div class="book-meta">
+                                <span><i class="fas fa-layer-group"></i> تالتة إعدادي</span>
+                                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                                <span><i class="fas fa-cloud"></i> Google Drive</span>
+                            </div>
+                            <a href="https://drive.google.com/file/d/1-o-K_VMW8GYMeabUcmGGZhi3cYThVrVw/view?usp=drivesdk" target="_blank" class="download-btn">
+                                <i class="fas fa-download"></i>
+                                تحميل الكتاب
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="book-card">
+                    <div class="book-card-inner">
+                        <div class="book-icon color-3">
+                            <i class="fas fa-pen-nib"></i>
+                            <div class="book-spine"></div>
+                        </div>
+                        <div class="book-details">
+                            <h4>كراسة الخط العربي 3</h4>
+                            <div class="book-meta">
+                                <span><i class="fas fa-layer-group"></i> تالتة إعدادي</span>
+                                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                                <span><i class="fas fa-cloud"></i> Google Drive</span>
+                            </div>
+                            <a href="https://drive.google.com/file/d/1uj35_tceS-W7oBgGP-KRRti1Js6bD1ia/view?usp=drivesdk" target="_blank" class="download-btn">
+                                <i class="fas fa-download"></i>
+                                تحميل الكتاب
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sec 1 -->
+        <div class="content-section" id="sec1">
+            <div class="section-header">
+                <h3>
+                    <span class="icon-bg" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24;">
+                        <i class="fas fa-book-open"></i>
+                    </span>
+                    الصف الأول الثانوي
+                </h3>
+                <span class="book-count">3 كتب</span>
+            </div>
+            <div class="books-grid">
+                <div class="book-card">
+                    <div class="book-card-inner">
+                        <div class="book-icon color-3">
+                            <i class="fas fa-pen-nib"></i>
+                            <div class="book-spine"></div>
+                        </div>
+                        <div class="book-details">
+                            <h4>كراسة الخط العربي 1</h4>
+                            <div class="book-meta">
+                                <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+                                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                                <span><i class="fas fa-cloud"></i> Google Drive</span>
+                            </div>
+                            <a href="https://drive.google.com/file/d/1qoWwrk4NeQ6GNY4KfS1cXLXupLxkPYTF/view?usp=drivesdk" target="_blank" class="download-btn">
+                                <i class="fas fa-download"></i>
+                                تحميل الكتاب
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="book-card">
+                    <div class="book-card-inner">
+                        <div class="book-icon color-1">
+                            <i class="fas fa-pen-nib"></i>
+                            <div class="book-spine"></div>
+                        </div>
+                        <div class="book-details">
+                            <h4>كراسة الخط العربي 2</h4>
+                            <div class="book-meta">
+                                <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+                                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                                <span><i class="fas fa-cloud"></i> Google Drive</span>
+                            </div>
+                            <a href="https://drive.google.com/file/d/1-o-K_VMW8GYMeabUcmGGZhi3cYThVrVw/view?usp=drivesdk" target="_blank" class="download-btn">
+                                <i class="fas fa-download"></i>
+                                تحميل الكتاب
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="book-card">
+                    <div class="book-card-inner">
+                        <div class="book-icon color-2">
+                            <i class="fas fa-pen-nib"></i>
+                            <div class="book-spine"></div>
+                        </div>
+                        <div class="book-details">
+                            <h4>كراسة الخط العربي 3</h4>
+                            <div class="book-meta">
+                                <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+                                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                                <span><i class="fas fa-cloud"></i> Google Drive</span>
+                            </div>
+                            <a href="https://drive.google.com/file/d/1uj35_tceS-W7oBgGP-KRRti1Js6bD1ia/view?usp=drivesdk" target="_blank" class="download-btn">
+                                <i class="fas fa-download"></i>
+                                تحميل الكتاب
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+
+<div class="book-card">
+    <div class="book-card-inner">
+        <div class="book-icon color-1">
+            <i class="fas fa-book"></i>
+            <div class="book-spine"></div>
+        </div>
+        <div class="book-details">
+            <h4>المرشد – بلاغة</h4>
+            <div class="book-meta">
+                <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                <span><i class="fas fa-cloud"></i> Google Drive</span>
+            </div>
+            <a href="https://drive.google.com/file/d/1pXucpoq2AFaGeQ7J97yqZEvecXh0GFrd/view?usp=drivesdk" target="_blank" class="download-btn">
+                <i class="fas fa-download"></i>
+                تحميل الكتاب
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="book-card">
+    <div class="book-card-inner">
+        <div class="book-icon color-2">
+            <i class="fas fa-mosque"></i>
+            <div class="book-spine"></div>
+        </div>
+        <div class="book-details">
+            <h4>المرشد – حديث</h4>
+            <div class="book-meta">
+                <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                <span><i class="fas fa-cloud"></i> Google Drive</span>
+            </div>
+            <a href="https://drive.google.com/file/d/1-TrFsxzne3L8Nhx6Ce9vNebqtUpa510B/view?usp=drivesdk" target="_blank" class="download-btn">
+                <i class="fas fa-download"></i>
+                تحميل الكتاب
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="book-card">
+    <div class="book-card-inner">
+        <div class="book-icon color-4">
+            <i class="fas fa-book-open"></i>
+            <div class="book-spine"></div>
+        </div>
+        <div class="book-details">
+            <h4>ملخص بلاغة</h4>
+            <div class="book-meta">
+                <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                <span><i class="fas fa-cloud"></i> Google Drive</span>
+            </div>
+            <a href="https://drive.google.com/file/d/1BvmOxdHLK3X8OjDlZyso-qTiaPuurYDm/view?usp=drivesdk" target="_blank" class="download-btn">
+                <i class="fas fa-download"></i>
+                تحميل الكتاب
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="book-card">
+    <div class="book-card-inner">
+        <div class="book-icon color-5">
+            <i class="fas fa-brain"></i>
+            <div class="book-spine"></div>
+        </div>
+        <div class="book-details">
+            <h4>الفلسفة والمنطق</h4>
+            <div class="book-meta">
+                <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                <span><i class="fas fa-cloud"></i> Google Drive</span>
+            </div>
+            <a href="https://drive.google.com/file/d/1-gVXvVRaWPXN_FD4eNk3e4Ctxi0tMylb/view?usp=drivesdk" target="_blank" class="download-btn">
+                <i class="fas fa-download"></i>
+                تحميل الكتاب
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="book-card">
+    <div class="book-card-inner">
+        <div class="book-icon color-1">
+            <i class="fas fa-scroll"></i>
+            <div class="book-spine"></div>
+        </div>
+        <div class="book-details">
+            <h4>بلاغة سلاح الأزهري</h4>
+            <div class="book-meta">
+                <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                <span><i class="fas fa-cloud"></i> Google Drive</span>
+            </div>
+            <a href="https://drive.google.com/file/d/12PE-Av0f1RlZnjwOa-h9Q3UlgINknUy9/view?usp=drivesdk" target="_blank" class="download-btn">
+                <i class="fas fa-download"></i>
+                تحميل الكتاب
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="book-card">
+    <div class="book-card-inner">
+        <div class="book-icon color-3">
+            <i class="fas fa-pen"></i>
+            <div class="book-spine"></div>
+        </div>
+        <div class="book-details">
+            <h4>المرشد – إنشاء</h4>
+            <div class="book-meta">
+                <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                <span><i class="fas fa-cloud"></i> Google Drive</span>
+            </div>
+            <a href="https://drive.google.com/file/d/1XYa2wPndygmwhrJHtpdwC2a4arIzBuZ6/view?usp=drivesdk" target="_blank" class="download-btn">
+                <i class="fas fa-download"></i>
+                تحميل الكتاب
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="book-card">
+    <div class="book-card-inner">
+        <div class="book-icon color-2">
+            <i class="fas fa-book"></i>
+            <div class="book-spine"></div>
+        </div>
+        <div class="book-details">
+            <h4>المرشد – فقه حنفي</h4>
+            <div class="book-meta">
+                <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                <span><i class="fas fa-cloud"></i> Google Drive</span>
+            </div>
+            <a href="https://drive.google.com/file/d/1-CcqhKNtf_uqzEdLhcMV49DdelZxTQ-p/view?usp=drivesdk" target="_blank" class="download-btn">
+                <i class="fas fa-download"></i> تحميل الكتاب
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="book-card">
+    <div class="book-card-inner">
+        <div class="book-icon color-5">
+            <i class="fas fa-brain"></i>
+            <div class="book-spine"></div>
+        </div>
+        <div class="book-details">
+            <h4>المنطق</h4>
+            <div class="book-meta">
+                <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                <span><i class="fas fa-cloud"></i> Google Drive</span>
+            </div>
+            <a href="https://drive.google.com/file/d/1mT8AdXIe3cpSi7zDip8qz2GYt3ezkCmY/view?usp=drivesdk" target="_blank" class="download-btn">
+                <i class="fas fa-download"></i> تحميل الكتاب
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="book-card">
+    <div class="book-card-inner">
+        <div class="book-icon color-1">
+            <i class="fas fa-book-open"></i>
+            <div class="book-spine"></div>
+        </div>
+        <div class="book-details">
+            <h4>المرشد – صرف</h4>
+            <div class="book-meta">
+                <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                <span><i class="fas fa-cloud"></i> Google Drive</span>
+            </div>
+            <a href="https://drive.google.com/file/d/1lMnZqztmwscoSEnJtJozDtzV1wsKMEQ-/view?usp=drivesdk" target="_blank" class="download-btn">
+                <i class="fas fa-download"></i> تحميل الكتاب
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="book-card">
+    <div class="book-card-inner">
+        <div class="book-icon color-1">
+            <i class="fas fa-file-alt"></i>
+            <div class="book-spine"></div>
+        </div>
+        <div class="book-details">
+            <h4>امتحانات صرف</h4>
+            <div class="book-meta">
+                <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                <span><i class="fas fa-cloud"></i> Google Drive</span>
+            </div>
+            <a href="https://drive.google.com/file/d/1ck0jmy8Gg2DrxrFrchVR4oy7KraBPi5d/view?usp=drivesdk" target="_blank" class="download-btn">
+                <i class="fas fa-download"></i> تحميل الكتاب
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="book-card">
+    <div class="book-card-inner">
+        <div class="book-icon color-1">
+            <i class="fas fa-book"></i>
+            <div class="book-spine"></div>
+        </div>
+        <div class="book-details">
+            <h4>المرشد – نحو</h4>
+            <div class="book-meta">
+                <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                <span><i class="fas fa-cloud"></i> Google Drive</span>
+            </div>
+            <a href="https://drive.google.com/file/d/1maPTZuaOIbg20s_aYv50sTKCSCfkd1hR/view?usp=drivesdk" target="_blank" class="download-btn">
+                <i class="fas fa-download"></i> تحميل الكتاب
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="book-card">
+    <div class="book-card-inner">
+        <div class="book-icon color-4">
+            <i class="fas fa-square-root-alt"></i>
+            <div class="book-spine"></div>
+        </div>
+        <div class="book-details">
+            <h4>ملخص رياضيات أولى ثانوي</h4>
+            <div class="book-meta">
+                <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                <span><i class="fas fa-cloud"></i> Google Drive</span>
+            </div>
+            <a href="https://drive.google.com/file/d/1Ed-Z58tekYzBKlBzfyn6AiysYJlc9C5w/view" target="_blank" class="download-btn">
+                <i class="fas fa-download"></i> تحميل الكتاب
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="book-card">
+    <div class="book-card-inner">
+        <div class="book-icon color-4">
+            <i class="fas fa-drafting-compass"></i>
+            <div class="book-spine"></div>
+        </div>
+        <div class="book-details">
+            <h4>امتحانات هندسة أزهر</h4>
+            <div class="book-meta">
+                <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                <span><i class="fas fa-cloud"></i> Google Drive</span>
+            </div>
+            <a href="https://drive.google.com/file/d/1R5w7QMqlvnM0nHNuZ56R1jKBbUFVvbaR/view?usp=drivesdk" target="_blank" class="download-btn">
+                <i class="fas fa-download"></i> تحميل الكتاب
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="book-card">
+    <div class="book-card-inner">
+        <div class="book-icon color-4">
+            <i class="fas fa-calculator"></i>
+            <div class="book-spine"></div>
+        </div>
+        <div class="book-details">
+            <h4>امتحانات جبر وحساب مثلثات</h4>
+            <div class="book-meta">
+                <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                <span><i class="fas fa-cloud"></i> Google Drive</span>
+            </div>
+            <a href="https://drive.google.com/file/d/1qa0RuXhtnJLdDS2trvwLK14-14IL8y1c/view?usp=drivesdk" target="_blank" class="download-btn">
+                <i class="fas fa-download"></i> تحميل الكتاب
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="book-card">
+    <div class="book-card-inner">
+        <div class="book-icon color-2">
+            <i class="fas fa-mosque"></i>
+            <div class="book-spine"></div>
+        </div>
+        <div class="book-details">
+            <h4>امتحانات الثقافة الإسلامية</h4>
+            <div class="book-meta">
+                <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                <span><i class="fas fa-cloud"></i> Google Drive</span>
+            </div>
+            <a href="https://drive.google.com/file/d/1L7TTpYiIiMbJxI8_qFbHruVcPyinLhzY/view?usp=drivesdk" target="_blank" class="download-btn">
+                <i class="fas fa-download"></i> تحميل الكتاب
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="book-card">
+    <div class="book-card-inner">
+        <div class="book-icon color-2">
+            <i class="fas fa-book-reader"></i>
+            <div class="book-spine"></div>
+        </div>
+        <div class="book-details">
+            <h4>مذكرة الثقافة الإسلامية</h4>
+            <div class="book-meta">
+                <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                <span><i class="fas fa-cloud"></i> Google Drive</span>
+            </div>
+            <a href="https://drive.google.com/file/d/1unpeTqxJqjReBfpkI4sTI3jfsipfSCD8/view?usp=drivesdk" target="_blank" class="download-btn">
+                <i class="fas fa-download"></i> تحميل الكتاب
+            </a>
+        </div>
+    </div>
+</div>
+<div class="book-card">
+    <div class="book-card-inner">
+        <div class="book-icon color-2">
+            <i class="fas fa-mosque"></i>
+            <div class="book-spine"></div>
+        </div>
+        <div class="book-details">
+            <h4>مذكرة التوحيد</h4>
+            <div class="book-meta">
+                <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                <span><i class="fas fa-cloud"></i> Google Drive</span>
+            </div>
+            <a href="https://drive.google.com/file/d/1oLNgveGbnWDCqrwepXMO98nojad4UYt0/view?usp=drivesdk" target="_blank" class="download-btn">
+                <i class="fas fa-download"></i> تحميل الكتاب
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="book-card">
+    <div class="book-card-inner">
+        <div class="book-icon color-2">
+            <i class="fas fa-quran"></i>
+            <div class="book-spine"></div>
+        </div>
+        <div class="book-details">
+            <h4>مذكرة التفسير</h4>
+            <div class="book-meta">
+                <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                <span><i class="fas fa-cloud"></i> Google Drive</span>
+            </div>
+            <a href="https://drive.google.com/file/d/1rP9NNNgaRAyilisnQ8MdSvU4L4b1CRXI/view?usp=drivesdk" target="_blank" class="download-btn">
+                <i class="fas fa-download"></i> تحميل الكتاب
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="book-card">
+    <div class="book-card-inner">
+        <div class="book-icon color-2">
+            <i class="fas fa-book"></i>
+            <div class="book-spine"></div>
+        </div>
+        <div class="book-details">
+            <h4>مذكرة الفقه الشافعي</h4>
+            <div class="book-meta">
+                <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                <span><i class="fas fa-cloud"></i> Google Drive</span>
+            </div>
+            <a href="https://drive.google.com/file/d/1NaZDvzh-eE0RitAsb61Rv3UmvLgWGtms/view?usp=drivesdk" target="_blank" class="download-btn">
+                <i class="fas fa-download"></i> تحميل الكتاب
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="book-card">
+    <div class="book-card-inner">
+        <div class="book-icon color-5">
+            <i class="fas fa-brain"></i>
+            <div class="book-spine"></div>
+        </div>
+        <div class="book-details">
+            <h4>كتاب فلسفة ومنطق – الامتحان</h4>
+            <div class="book-meta">
+                <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                <span><i class="fas fa-cloud"></i> Google Drive</span>
+            </div>
+            <a href="https://drive.google.com/file/d/1fv3_nLOJfjxcccyXrhyVPITbgw1kVE65/view?usp=drivesdk" target="_blank" class="download-btn">
+                <i class="fas fa-download"></i> تحميل الكتاب
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="book-card">
+    <div class="book-card-inner">
+        <div class="book-icon color-3">
+            <i class="fas fa-landmark"></i>
+            <div class="book-spine"></div>
+        </div>
+        <div class="book-details">
+            <h4>المرشد – تاريخ</h4>
+            <div class="book-meta">
+                <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                <span><i class="fas fa-cloud"></i> Google Drive</span>
+            </div>
+            <a href="https://drive.google.com/file/d/1z1Ve8cbUQFsy3hOCy5tIp9UzIrO_lCwx/view?usp=drive_link" target="_blank" class="download-btn">
+                <i class="fas fa-download"></i> تحميل الكتاب
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="book-card">
+    <div class="book-card-inner">
+        <div class="book-icon color-5">
+            <i class="fas fa-book-open"></i>
+            <div class="book-spine"></div>
+        </div>
+        <div class="book-details">
+            <h4>كتاب الفلسفة والمنطق – الوزارة</h4>
+            <div class="book-meta">
+                <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                <span><i class="fas fa-cloud"></i> Google Drive</span>
+            </div>
+            <a href="https://drive.google.com/file/d/1lk63FLv9difNd0Yf-G0sCHqiurcNwTXz/view?usp=drive_link" target="_blank" class="download-btn">
+                <i class="fas fa-download"></i> تحميل الكتاب
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="book-card">
+    <div class="book-card-inner">
+        <div class="book-icon color-2">
+            <i class="fas fa-quran"></i>
+            <div class="book-spine"></div>
+        </div>
+        <div class="book-details">
+            <h4>المرشد – تفسير</h4>
+            <div class="book-meta">
+                <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                <span><i class="fas fa-cloud"></i> Google Drive</span>
+            </div>
+            <a href="https://drive.google.com/file/d/1yeTqhmDpNhQD_ui6-F0Pam6cCQkvvCDB/view?usp=drivesdk" target="_blank" class="download-btn">
+                <i class="fas fa-download"></i> تحميل الكتاب
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="book-card">
+    <div class="book-card-inner">
+        <div class="book-icon color-1">
+            <i class="fas fa-feather-alt"></i>
+            <div class="book-spine"></div>
+        </div>
+        <div class="book-details">
+            <h4>المرشد – أدب ومطالعة ونصوص وإنشاء</h4>
+            <div class="book-meta">
+                <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                <span><i class="fas fa-cloud"></i> Google Drive</span>
+            </div>
+            <a href="https://drive.google.com/file/d/142NxGArN8Rr1h1GRqYkb8w-O3D5tnzW2/view?usp=drivesdk" target="_blank" class="download-btn">
+                <i class="fas fa-download"></i> تحميل الكتاب
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="book-card">
+    <div class="book-card-inner">
+        <div class="book-icon color-2">
+            <i class="fas fa-book"></i>
+            <div class="book-spine"></div>
+        </div>
+        <div class="book-details">
+            <h4>المرشد – فقه مالكي</h4>
+            <div class="book-meta">
+                <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                <span><i class="fas fa-cloud"></i> Google Drive</span>
+            </div>
+            <a href="https://drive.google.com/file/d/1XRZOLTF1on5adiDW3TPVCtp-ePvkKzVg/view?usp=drive_link" target="_blank" class="download-btn">
+                <i class="fas fa-download"></i> تحميل الكتاب
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="book-card">
+    <div class="book-card-inner">
+        <div class="book-icon color-4">
+            <i class="fas fa-flask"></i>
+            <div class="book-spine"></div>
+        </div>
+        <div class="book-details">
+            <h4>قوانين العلوم المتكاملة</h4>
+            <div class="book-meta">
+                <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                <span><i class="fas fa-cloud"></i> Google Drive</span>
+            </div>
+            <a href="https://drive.google.com/file/d/1Zl5lnK2e9IzR_3uyuH_WWvKE52QTO804/view?usp=drivesdk" target="_blank" class="download-btn">
+                <i class="fas fa-download"></i> تحميل الكتاب
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="book-card">
+    <div class="book-card-inner">
+        <div class="book-icon color-4">
+            <i class="fas fa-microscope"></i>
+            <div class="book-spine"></div>
+        </div>
+        <div class="book-details">
+            <h4>ملخص العلوم المتكاملة – الدروس الأولى</h4>
+            <div class="book-meta">
+                <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                <span><i class="fas fa-cloud"></i> Google Drive</span>
+            </div>
+            <a href="https://drive.google.com/file/d/1ZtlsM1g8zHlt0XqA_fvlLJTztxODlJiu/view?usp=drivesdk" target="_blank" class="download-btn">
+                <i class="fas fa-download"></i>
+                تحميل الكتاب
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="book-card">
+    <div class="book-card-inner">
+        <div class="book-icon color-4">
+            <i class="fas fa-flask"></i>
+            <div class="book-spine"></div>
+        </div>
+        <div class="book-details">
+            <h4>ملخص العلوم المتكاملة الشامل</h4>
+            <div class="book-meta">
+                <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                <span><i class="fas fa-cloud"></i> Google Drive</span>
+            </div>
+            <a href="https://drive.google.com/file/d/1uRVygzrI6I5_rPkYWaMsiJZrP6v6cyil/view?usp=drivesdk" target="_blank" class="download-btn">
+                <i class="fas fa-download"></i>
+                تحميل الكتاب
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="book-card">
+    <div class="book-card-inner">
+        <div class="book-icon color-1">
+            <i class="fas fa-book-open"></i>
+            <div class="book-spine"></div>
+        </div>
+        <div class="book-details">
+            <h4>ملخص الأدب والنصوص والمطالعة</h4>
+            <div class="book-meta">
+                <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                <span><i class="fas fa-cloud"></i> Google Drive</span>
+            </div>
+            <a href="https://drive.google.com/file/d/1MQDiaWBsmCJDhdOoKqaFmT2FXsBMj-Tg/view?usp=drivesdk" target="_blank" class="download-btn">
+                <i class="fas fa-download"></i>
+                تحميل الكتاب
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="book-card">
+    <div class="book-card-inner">
+        <div class="book-icon color-1">
+            <i class="fas fa-language"></i>
+            <div class="book-spine"></div>
+        </div>
+        <div class="book-details">
+            <h4>ملخص الصرف المبسط</h4>
+            <div class="book-meta">
+                <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                <span><i class="fas fa-cloud"></i> Google Drive</span>
+            </div>
+            <a href="https://drive.google.com/file/d/1lMnZqztmwscoSEnJtJozDtzV1wsKMEQ-/view?usp=drivesdk" target="_blank" class="download-btn">
+                <i class="fas fa-download"></i>
+                تحميل الكتاب
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="book-card">
+    <div class="book-card-inner">
+        <div class="book-icon color-4">
+            <i class="fas fa-calculator"></i>
+            <div class="book-spine"></div>
+        </div>
+        <div class="book-details">
+            <h4>إجابات المعاصر – رياضيات</h4>
+            <div class="book-meta">
+                <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                <span><i class="fas fa-cloud"></i> Google Drive</span>
+            </div>
+            <a href="https://drive.google.com/file/d/1JLKN5t3YCBli-Qw2Pj86cRPs2-LgXSgv/view" target="_blank" class="download-btn">
+                <i class="fas fa-download"></i>
+                تحميل الكتاب
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="book-card">
+    <div class="book-card-inner">
+        <div class="book-icon color-3">
+            <i class="fas fa-landmark"></i>
+            <div class="book-spine"></div>
+        </div>
+        <div class="book-details">
+            <h4>ملخص التاريخ</h4>
+            <div class="book-meta">
+                <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                <span><i class="fas fa-cloud"></i> Google Drive</span>
+            </div>
+            <a href="https://drive.google.com/file/d/1Ry91T_uYodmPk1gUmMvj7HDVnxlVGx88/view?usp=drivesdk" target="_blank" class="download-btn">
+                <i class="fas fa-download"></i>
+                تحميل الكتاب
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="book-card">
+    <div class="book-card-inner">
+        <div class="book-icon color-5">
+            <i class="fas fa-globe"></i>
+            <div class="book-spine"></div>
+        </div>
+        <div class="book-details">
+            <h4>ملخص جرامر الإنجليزية</h4>
+            <div class="book-meta">
+                <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                <span><i class="fas fa-cloud"></i> Google Drive</span>
+            </div>
+            <a href="https://drive.google.com/file/d/1EL-w1upI_yc3O_rrMN7SYHwQWl6J6PD1/view?usp=drivesdk" target="_blank" class="download-btn">
+                <i class="fas fa-download"></i>
+                تحميل الكتاب
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="book-card">
+    <div class="book-card-inner">
+        <div class="book-icon color-1">
+            <i class="fas fa-feather-alt"></i>
+            <div class="book-spine"></div>
+        </div>
+        <div class="book-details">
+            <h4>ملخص البلاغة المركز</h4>
+            <div class="book-meta">
+                <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                <span><i class="fas fa-cloud"></i> Google Drive</span>
+            </div>
+            <a href="https://drive.google.com/file/d/1AedRSDBmUXTnWMlLDSE5G-CU7bue2Ppg/view?usp=drivesdk" target="_blank" class="download-btn">
+                <i class="fas fa-download"></i>
+                تحميل الكتاب
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="book-card">
+    <div class="book-card-inner">
+        <div class="book-icon color-2">
+            <i class="fas fa-mosque"></i>
+            <div class="book-spine"></div>
+        </div>
+        <div class="book-details">
+            <h4>ملخص الإسلاميات</h4>
+            <div class="book-meta">
+                <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                <span><i class="fas fa-cloud"></i> Google Drive</span>
+            </div>
+            <a href="https://drive.google.com/file/d/1nZXbPCHYGqeAbqkNgxrf7mwT7rPnYJqb/view?usp=drivesdk" target="_blank" class="download-btn">
+                <i class="fas fa-download"></i>
+                تحميل الكتاب
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="book-card">
+    <div class="book-card-inner">
+        <div class="book-icon color-2">
+            <i class="fas fa-kaaba"></i>
+            <div class="book-spine"></div>
+        </div>
+        <div class="book-details">
+            <h4>ملخص التوحيد المركز</h4>
+            <div class="book-meta">
+                <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                <span><i class="fas fa-cloud"></i> Google Drive</span>
+            </div>
+            <a href="https://drive.google.com/file/d/1WzdnRZn70UhTCX2fs6wcK3CfzGQe-ns5/view?usp=drivesdk" target="_blank" class="download-btn">
+                <i class="fas fa-download"></i>
+                تحميل الكتاب
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="book-card">
+    <div class="book-card-inner">
+        <div class="book-icon color-1">
+            <i class="fas fa-pen"></i>
+            <div class="book-spine"></div>
+        </div>
+        <div class="book-details">
+            <h4>ملخص الإنشاء في 3 ورقات</h4>
+            <div class="book-meta">
+                <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                <span><i class="fas fa-cloud"></i> Google Drive</span>
+            </div>
+            <a href="https://drive.google.com/file/d/16qTJuegnhHUXEzmONy8b0JTErCK-9TA8/view?usp=drivesdk" target="_blank" class="download-btn">
+                <i class="fas fa-download"></i> تحميل الكتاب
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="book-card">
+    <div class="book-card-inner">
+        <div class="book-icon color-2">
+            <i class="fas fa-book"></i>
+            <div class="book-spine"></div>
+        </div>
+        <div class="book-details">
+            <h4>ملخص الفقه الشافعي</h4>
+            <div class="book-meta">
+                <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                <span><i class="fas fa-cloud"></i> Google Drive</span>
+            </div>
+            <a href="https://drive.google.com/file/d/1irfgjmgOtgObxAX7BpOGQNrADDVeC_jn/view?usp=drivesdk" target="_blank" class="download-btn">
+                <i class="fas fa-download"></i> تحميل الكتاب
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="book-card">
+    <div class="book-card-inner">
+        <div class="book-icon color-2">
+            <i class="fas fa-book-reader"></i>
+            <div class="book-spine"></div>
+        </div>
+        <div class="book-details">
+            <h4>ملخص الحديث وعلومه</h4>
+            <div class="book-meta">
+                <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                <span><i class="fas fa-cloud"></i> Google Drive</span>
+            </div>
+            <a href="https://drive.google.com/file/d/1B5BjUIUKDWHpVE4KxtdDyu1gmK89Gym7/view?usp=drivesdk" target="_blank" class="download-btn">
+                <i class="fas fa-download"></i> تحميل الكتاب
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="book-card">
+    <div class="book-card-inner">
+        <div class="book-icon color-2">
+            <i class="fas fa-quran"></i>
+            <div class="book-spine"></div>
+        </div>
+        <div class="book-details">
+            <h4>ملخص التفسير وعلومه</h4>
+            <div class="book-meta">
+                <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                <span><i class="fas fa-cloud"></i> Google Drive</span>
+            </div>
+            <a href="https://drive.google.com/file/d/1-Q0XlGHhUatV9du2AsX4zpNsVt4V-kd9/view?usp=drivesdk" target="_blank" class="download-btn">
+                <i class="fas fa-download"></i> تحميل الكتاب
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="book-card">
+    <div class="book-card-inner">
+        <div class="book-icon color-2">
+            <i class="fas fa-mosque"></i>
+            <div class="book-spine"></div>
+        </div>
+        <div class="book-details">
+            <h4>ملخص علوم القرآن</h4>
+            <div class="book-meta">
+                <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                <span><i class="fas fa-cloud"></i> Google Drive</span>
+            </div>
+            <a href="https://drive.google.com/file/d/1Yt3qqOKusydV-2yBJFgQCIWc6PfuqrfC/view?usp=drivesdk" target="_blank" class="download-btn">
+                <i class="fas fa-download"></i> تحميل الكتاب
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="book-card">
+    <div class="book-card-inner">
+        <div class="book-icon color-2">
+            <i class="fas fa-question-circle"></i>
+            <div class="book-spine"></div>
+        </div>
+        <div class="book-details">
+            <h4>توقعات أسئلة الماضي في القرآن</h4>
+            <div class="book-meta">
+                <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                <span><i class="fas fa-cloud"></i> Google Drive</span>
+            </div>
+            <a href="https://drive.google.com/file/d/17ZrcAPPhKu2gm9gDy4d6D8ZF5S1OB2fH/view?usp=drivesdk" target="_blank" class="download-btn">
+                <i class="fas fa-download"></i> تحميل الكتاب
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="book-card">
+    <div class="book-card-inner">
+        <div class="book-icon color-5">
+            <i class="fas fa-brain"></i>
+            <div class="book-spine"></div>
+        </div>
+        <div class="book-details">
+            <h4>امتحانات منطق</h4>
+            <div class="book-meta">
+                <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                <span><i class="fas fa-cloud"></i> Google Drive</span>
+            </div>
+            <a href="https://drive.google.com/file/d/1ZnIrBEK28NcCnlsUxjuV9WtDqhdEgTyU/view?usp=drivesdk" target="_blank" class="download-btn">
+                <i class="fas fa-download"></i> تحميل الكتاب
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="book-card">
+    <div class="book-card-inner">
+        <div class="book-icon color-5">
+            <i class="fas fa-language"></i>
+            <div class="book-spine"></div>
+        </div>
+        <div class="book-details">
+            <h4>كلمات الانجليزي</h4>
+            <div class="book-meta">
+                <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                <span><i class="fas fa-cloud"></i> Google Drive</span>
+            </div>
+            <a href="https://drive.google.com/file/d/1A2eXWDgNEFUOonWxWQq-dDR48W4vyggM/view?usp=drivesdk" target="_blank" class="download-btn">
+                <i class="fas fa-download"></i> تحميل الكتاب
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="book-card">
+    <div class="book-card-inner">
+        <div class="book-icon color-3">
+            <i class="fas fa-clipboard-list"></i>
+            <div class="book-spine"></div>
+        </div>
+        <div class="book-details">
+            <h4>اسئلة المنصة</h4>
+            <div class="book-meta">
+                <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                <span><i class="fas fa-cloud"></i> Google Drive</span>
+            </div>
+            <a href="#" target="_blank" class="download-btn">
+                <i class="fas fa-download"></i> تحميل الكتاب
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="book-card">
+    <div class="book-card-inner">
+        <div class="book-icon color-4">
+            <i class="fas fa-flask"></i>
+            <div class="book-spine"></div>
+        </div>
+        <div class="book-details">
+            <h4>امتحانات دروس العلوم المتكاملة</h4>
+            <div class="book-meta">
+                <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                <span><i class="fas fa-cloud"></i> Google Drive</span>
+            </div>
+            <a href="https://drive.google.com/file/d/1yaot7QRZAU8bzWZ_mmUe4rtQSITZ8-LE/view?usp=drivesdk" target="_blank" class="download-btn">
+                <i class="fas fa-download"></i> تحميل الكتاب
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="book-card">
+  <div class="book-card-inner">
+    <div class="book-icon color-4">
+      <i class="fas fa-book"></i>
+      <div class="book-spine"></div>
+    </div>
+    <div class="book-details">
+      <h4>امتحانات توحيد</h4>
+      <div class="book-meta">
+        <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+        <span><i class="fas fa-file-pdf"></i> PDF</span>
+        <span><i class="fas fa-cloud"></i> Google Drive</span>
+      </div>
+      <a href="https://drive.google.com/file/d/1-xglbG-S_vPfNRi1GwWLI-CZZCTBQcOp/view?usp=drivesdk" target="_blank" class="download-btn">
+        <i class="fas fa-download"></i> تحميل الكتاب
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="book-card">
+  <div class="book-card-inner">
+    <div class="book-icon color-4">
+      <i class="fas fa-book-open"></i>
+      <div class="book-spine"></div>
+    </div>
+    <div class="book-details">
+      <h4>امتحانات تفسير</h4>
+      <div class="book-meta">
+        <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+        <span><i class="fas fa-file-pdf"></i> PDF</span>
+        <span><i class="fas fa-cloud"></i> Google Drive</span>
+      </div>
+      <a href="https://drive.google.com/file/d/149OBi3rClcw4U97j_1gSBIjZYBhvV_Iz/view?usp=drivesdk" target="_blank" class="download-btn">
+        <i class="fas fa-download"></i> تحميل الكتاب
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="book-card">
+  <div class="book-card-inner">
+    <div class="book-icon color-4">
+      <i class="fas fa-mosque"></i>
+      <div class="book-spine"></div>
+    </div>
+    <div class="book-details">
+      <h4>امتحانات حديث</h4>
+      <div class="book-meta">
+        <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+        <span><i class="fas fa-file-pdf"></i> PDF</span>
+        <span><i class="fas fa-cloud"></i> Google Drive</span>
+      </div>
+      <a href="https://drive.google.com/file/d/1nDTf4z08QH-tPueL7tw0KR-7WNYqeCBO/view?usp=drivesdk" target="_blank" class="download-btn">
+        <i class="fas fa-download"></i> تحميل الكتاب
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="book-card">
+  <div class="book-card-inner">
+    <div class="book-icon color-4">
+      <i class="fas fa-pen-nib"></i>
+      <div class="book-spine"></div>
+    </div>
+    <div class="book-details">
+      <h4>امتحانات ادب ومطالعة ونصوص</h4>
+      <div class="book-meta">
+        <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+        <span><i class="fas fa-file-pdf"></i> PDF</span>
+        <span><i class="fas fa-cloud"></i> Google Drive</span>
+      </div>
+      <a href="https://drive.google.com/file/d/1xuWw8vo1sse_8XI0gWATahdrCSMF7OYy/view?usp=drivesdk" target="_blank" class="download-btn">
+        <i class="fas fa-download"></i> تحميل الكتاب
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="book-card">
+  <div class="book-card-inner">
+    <div class="book-icon color-4">
+      <i class="fas fa-quote-right"></i>
+      <div class="book-spine"></div>
+    </div>
+    <div class="book-details">
+      <h4>امتحانات بلاغه</h4>
+      <div class="book-meta">
+        <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+        <span><i class="fas fa-file-pdf"></i> PDF</span>
+        <span><i class="fas fa-cloud"></i> Google Drive</span>
+      </div>
+      <a href="https://drive.google.com/file/d/19kRIDXxxGYQGfkRwrEu9gLZMjtn4l2wR/view?usp=drivesdk" target="_blank" class="download-btn">
+        <i class="fas fa-download"></i> تحميل الكتاب
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="book-card">
+  <div class="book-card-inner">
+    <div class="book-icon color-4">
+      <i class="fas fa-file-alt"></i>
+      <div class="book-spine"></div>
+    </div>
+    <div class="book-details">
+      <h4>امتحانات انشاء</h4>
+      <div class="book-meta">
+        <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+        <span><i class="fas fa-file-pdf"></i> PDF</span>
+        <span><i class="fas fa-cloud"></i> Google Drive</span>
+      </div>
+      <a href="https://drive.google.com/file/d/1NPhsQG7XxgKURQWEPhRgwsVOsortHm-X/view?usp=drivesdk" target="_blank" class="download-btn">
+        <i class="fas fa-download"></i> تحميل الكتاب
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="book-card">
+  <div class="book-card-inner">
+    <div class="book-icon color-4">
+      <i class="fas fa-language"></i>
+      <div class="book-spine"></div>
+    </div>
+    <div class="book-details">
+      <h4>امتحانات نحو</h4>
+      <div class="book-meta">
+        <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+        <span><i class="fas fa-file-pdf"></i> PDF</span>
+        <span><i class="fas fa-cloud"></i> Google Drive</span>
+      </div>
+      <a href="https://drive.google.com/file/d/1j3V3R3FHDlBrLiW4L1AHTn3pMvEDjiIY/view?usp=drivesdk" target="_blank" class="download-btn">
+        <i class="fas fa-download"></i> تحميل الكتاب
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="book-card">
+  <div class="book-card-inner">
+    <div class="book-icon color-4">
+      <i class="fas fa-quran"></i>
+      <div class="book-spine"></div>
+    </div>
+    <div class="book-details">
+      <h4>امتحانات قران</h4>
+      <div class="book-meta">
+        <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+        <span><i class="fas fa-file-pdf"></i> PDF</span>
+        <span><i class="fas fa-cloud"></i> Google Drive</span>
+      </div>
+      <a href="https://drive.google.com/file/d/152NEN216yANuOBF4wTMoqdDAM-z5o-2I/view?usp=drivesdk" target="_blank" class="download-btn">
+        <i class="fas fa-download"></i> تحميل الكتاب
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="book-card">
+  <div class="book-card-inner">
+    <div class="book-icon color-4">
+      <i class="fas fa-code"></i>
+      <div class="book-spine"></div>
+    </div>
+    <div class="book-details">
+      <h4>اهم 100 سؤال ع اول 5 دروس برمجه</h4>
+      <div class="book-meta">
+        <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+        <span><i class="fas fa-file-pdf"></i> PDF</span>
+        <span><i class="fas fa-cloud"></i> Google Drive</span>
+      </div>
+      <a href="https://drive.google.com/file/d/1z-GQtBs6bSpLLTXAK_1lsYdttlY0NZK4/view?usp=drivesdk" target="_blank" class="download-btn">
+        <i class="fas fa-download"></i> تحميل الكتاب
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="book-card">
+  <div class="book-card-inner">
+    <div class="book-icon color-4">
+      <i class="fas fa-landmark"></i>
+      <div class="book-spine"></div>
+    </div>
+    <div class="book-details">
+      <h4>امتحانات تاريخ</h4>
+      <div class="book-meta">
+        <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+        <span><i class="fas fa-file-pdf"></i> PDF</span>
+        <span><i class="fas fa-cloud"></i> Google Drive</span>
+      </div>
+      <a href="https://drive.google.com/file/d/11I6h_RDnhPtDld93MBqTgn5kvQPfR3NA/view?usp=drivesdk" target="_blank" class="download-btn">
+        <i class="fas fa-download"></i> تحميل الكتاب
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="book-card">
+  <div class="book-card-inner">
+    <div class="book-icon color-4">
+      <i class="fas fa-language"></i>
+      <div class="book-spine"></div>
+    </div>
+    <div class="book-details">
+      <h4>مراجعة نحو</h4>
+      <div class="book-meta">
+        <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+        <span><i class="fas fa-file-pdf"></i> PDF</span>
+        <span><i class="fas fa-cloud"></i> Google Drive</span>
+      </div>
+      <a href="https://drive.google.com/file/d/1FbI4CuD8cg8i7pwgMhJun3Xxy7SuZaO8/view?usp=drivesdk" target="_blank" class="download-btn">
+        <i class="fas fa-download"></i> تحميل الكتاب
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="book-card">
+  <div class="book-card-inner">
+    <div class="book-icon color-4">
+      <i class="fas fa-flag"></i>
+      <div class="book-spine"></div>
+    </div>
+    <div class="book-details">
+      <h4>ملخص جرامر الانجليزي</h4>
+      <div class="book-meta">
+        <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+        <span><i class="fas fa-file-pdf"></i> PDF</span>
+        <span><i class="fas fa-cloud"></i> Google Drive</span>
+      </div>
+      <a href="https://drive.google.com/file/d/1SXfPv5cor19xgm6wFX5Ko3gVFoYLn2oZ/view?usp=drivesdk" target="_blank" class="download-btn">
+        <i class="fas fa-download"></i> تحميل الكتاب
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="book-card">
+  <div class="book-card-inner">
+    <div class="book-icon color-4">
+      <i class="fas fa-book"></i>
+      <div class="book-spine"></div>
+    </div>
+    <div class="book-details">
+      <h4>مراجعة ثقافة اسلامية</h4>
+      <div class="book-meta">
+        <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+        <span><i class="fas fa-file-pdf"></i> PDF</span>
+        <span><i class="fas fa-cloud"></i> Google Drive</span>
+      </div>
+      <a href="https://drive.google.com/file/d/1cwHYXUchPp_nhlkYrIdp5ToWmmINk7E-/view?usp=drivesdk" target="_blank" class="download-btn">
+        <i class="fas fa-download"></i> تحميل الكتاب
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="book-card">
+  <div class="book-card-inner">
+    <div class="book-icon color-4">
+      <i class="fas fa-quote-right"></i>
+      <div class="book-spine"></div>
+    </div>
+    <div class="book-details">
+      <h4>ملخص البلاغة</h4>
+      <div class="book-meta">
+        <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+        <span><i class="fas fa-file-pdf"></i> PDF</span>
+        <span><i class="fas fa-cloud"></i> Google Drive</span>
+      </div>
+      <a href="https://drive.google.com/file/d/1C1BOTQqMbAInsi11tKtYgb8OdaykruVw/view?usp=drivesdk" target="_blank" class="download-btn">
+        <i class="fas fa-download"></i> تحميل الكتاب
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="book-card">
+  <div class="book-card-inner">
+    <div class="book-icon color-4">
+      <i class="fas fa-mosque"></i>
+      <div class="book-spine"></div>
+    </div>
+    <div class="book-details">
+      <h4>مراجعة توحيد</h4>
+      <div class="book-meta">
+        <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+        <span><i class="fas fa-file-pdf"></i> PDF</span>
+        <span><i class="fas fa-cloud"></i> Google Drive</span>
+      </div>
+      <a href="https://drive.google.com/file/d/1vE2tMpAg-VeMxWAapGagMnBBvI7vzqcD/view?usp=drivesdk" target="_blank" class="download-btn">
+        <i class="fas fa-download"></i> تحميل الكتاب
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="book-card">
+  <div class="book-card-inner">
+    <div class="book-icon color-4">
+      <i class="fas fa-square-root-alt"></i>
+      <div class="book-spine"></div>
+    </div>
+    <div class="book-details">
+      <h4>تلخيص قوانين الرياضة</h4>
+      <div class="book-meta">
+        <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+        <span><i class="fas fa-file-pdf"></i> PDF</span>
+        <span><i class="fas fa-cloud"></i> Google Drive</span>
+      </div>
+      <a href="https://drive.google.com/file/d/1tO2fHnri9j1RBQpCJadLpwaHfF6eAyp4/view?usp=drivesdk" target="_blank" class="download-btn">
+        <i class="fas fa-download"></i> تحميل الكتاب
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="book-card">
+  <div class="book-card-inner">
+    <div class="book-icon color-4">
+      <i class="fas fa-atom"></i>
+      <div class="book-spine"></div>
+    </div>
+    <div class="book-details">
+      <h4>ليلة الامتحان علوم متكاملة</h4>
+      <div class="book-meta">
+        <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+        <span><i class="fas fa-file-pdf"></i> PDF</span>
+        <span><i class="fas fa-cloud"></i> Google Drive</span>
+      </div>
+      <a href="https://drive.google.com/file/d/1ThdCoCOhu3Y5ixrLE3KhIZPy2ZflGXn4/view?usp=drivesdk" target="_blank" class="download-btn">
+        <i class="fas fa-download"></i> تحميل الكتاب
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="book-card">
+  <div class="book-card-inner">
+    <div class="book-icon color-4">
+      <i class="fas fa-mosque"></i>
+      <div class="book-spine"></div>
+    </div>
+    <div class="book-details">
+      <h4>اسلاميك</h4>
+      <div class="book-meta">
+        <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+        <span><i class="fas fa-file-pdf"></i> PDF</span>
+        <span><i class="fas fa-cloud"></i> Google Drive</span>
+      </div>
+      <a href="https://drive.google.com/file/d/1shNx4W6i7tCIdpcWmJAGXpkqMEKBzhPq/view?usp=drivesdk" target="_blank" class="download-btn">
+        <i class="fas fa-download"></i> تحميل الكتاب
+      </a>
+    </div>
+  </div>
+</div>
+<div class="book-card">
+    <div class="book-card-inner">
+        <div class="book-icon color-2">
+            <i class="fas fa-kaaba"></i>
+            <div class="book-spine"></div>
+        </div>
+        <div class="book-details">
+            <h4>المرشد – توحيد</h4>
+            <div class="book-meta">
+                <span><i class="fas fa-layer-group"></i> أولى ثانوي</span>
+                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                <span><i class="fas fa-cloud"></i> Google Drive</span>
+            </div>
+            <a href="https://drive.google.com/file/d/10IZdVEnImYEALdfGvSqteG5ZWE2QrED1/view?usp=drivesdk" target="_blank" class="download-btn">
+                <i class="fas fa-download"></i>
+                تحميل الكتاب
+            </a>
+        </div>
+    </div>
+</div>            
+            </div>
+        </div>
+
+        <!-- Sec 2 -->
+        <div class="content-section" id="sec2">
+            <div class="section-header">
+                <h3>
+                    <span class="icon-bg" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24;">
+                        <i class="fas fa-book-open"></i>
+                    </span>
+                    الصف الثاني الثانوي
+                </h3>
+                <span class="book-count">3 كتب</span>
+            </div>
+            <div class="books-grid">
+                <div class="book-card">
+                    <div class="book-card-inner">
+                        <div class="book-icon color-3">
+                            <i class="fas fa-pen-nib"></i>
+                            <div class="book-spine"></div>
+                        </div>
+                        <div class="book-details">
+                            <h4>كراسة الخط العربي 1</h4>
+                            <div class="book-meta">
+                                <span><i class="fas fa-layer-group"></i> تانية ثانوي</span>
+                                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                                <span><i class="fas fa-cloud"></i> Google Drive</span>
+                            </div>
+                            <a href="https://drive.google.com/file/d/1qoWwrk4NeQ6GNY4KfS1cXLXupLxkPYTF/view?usp=drivesdk" target="_blank" class="download-btn">
+                                <i class="fas fa-download"></i>
+                                تحميل الكتاب
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="book-card">
+                    <div class="book-card-inner">
+                        <div class="book-icon color-1">
+                            <i class="fas fa-pen-nib"></i>
+                            <div class="book-spine"></div>
+                        </div>
+                        <div class="book-details">
+                            <h4>كراسة الخط العربي 2</h4>
+                            <div class="book-meta">
+                                <span><i class="fas fa-layer-group"></i> تانية ثانوي</span>
+                                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                                <span><i class="fas fa-cloud"></i> Google Drive</span>
+                            </div>
+                            <a href="https://drive.google.com/file/d/1-o-K_VMW8GYMeabUcmGGZhi3cYThVrVw/view?usp=drivesdk" target="_blank" class="download-btn">
+                                <i class="fas fa-download"></i>
+                                تحميل الكتاب
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="book-card">
+                    <div class="book-card-inner">
+                        <div class="book-icon color-2">
+                            <i class="fas fa-pen-nib"></i>
+                            <div class="book-spine"></div>
+                        </div>
+                        <div class="book-details">
+                            <h4>كراسة الخط العربي 3</h4>
+                            <div class="book-meta">
+                                <span><i class="fas fa-layer-group"></i> تانية ثانوي</span>
+                                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                                <span><i class="fas fa-cloud"></i> Google Drive</span>
+                            </div>
+                            <a href="https://drive.google.com/file/d/1uj35_tceS-W7oBgGP-KRRti1Js6bD1ia/view?usp=drivesdk" target="_blank" class="download-btn">
+                                <i class="fas fa-download"></i>
+                                تحميل الكتاب
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sec 3 -->
+        <div class="content-section" id="sec3">
+            <div class="section-header">
+                <h3>
+                    <span class="icon-bg" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24;">
+                        <i class="fas fa-book-open"></i>
+                    </span>
+                    الصف الثالث الثانوي
+                </h3>
+                <span class="book-count">3 كتب</span>
+            </div>
+            <div class="books-grid">
+                <div class="book-card">
+                    <div class="book-card-inner">
+                        <div class="book-icon color-3">
+                            <i class="fas fa-pen-nib"></i>
+                            <div class="book-spine"></div>
+                        </div>
+                        <div class="book-details">
+                            <h4>كراسة الخط العربي 1</h4>
+                            <div class="book-meta">
+                                <span><i class="fas fa-layer-group"></i> تالتة ثانوي</span>
+                                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                                <span><i class="fas fa-cloud"></i> Google Drive</span>
+                            </div>
+                            <a href="https://drive.google.com/file/d/1qoWwrk4NeQ6GNY4KfS1cXLXupLxkPYTF/view?usp=drivesdk" target="_blank" class="download-btn">
+                                <i class="fas fa-download"></i>
+                                تحميل الكتاب
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="book-card">
+                    <div class="book-card-inner">
+                        <div class="book-icon color-1">
+                            <i class="fas fa-pen-nib"></i>
+                            <div class="book-spine"></div>
+                        </div>
+                        <div class="book-details">
+                            <h4>كراسة الخط العربي 2</h4>
+                            <div class="book-meta">
+                                <span><i class="fas fa-layer-group"></i> تالتة ثانوي</span>
+                                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                                <span><i class="fas fa-cloud"></i> Google Drive</span>
+                            </div>
+                            <a href="https://drive.google.com/file/d/1-o-K_VMW8GYMeabUcmGGZhi3cYThVrVw/view?usp=drivesdk" target="_blank" class="download-btn">
+                                <i class="fas fa-download"></i>
+                                تحميل الكتاب
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="book-card">
+                    <div class="book-card-inner">
+                        <div class="book-icon color-2">
+                            <i class="fas fa-pen-nib"></i>
+                            <div class="book-spine"></div>
+                        </div>
+                        <div class="book-details">
+                            <h4>كراسة الخط العربي 3</h4>
+                            <div class="book-meta">
+                                <span><i class="fas fa-layer-group"></i> تالتة ثانوي</span>
+                                <span><i class="fas fa-file-pdf"></i> PDF</span>
+                                <span><i class="fas fa-cloud"></i> Google Drive</span>
+                            </div>
+                            <a href="https://drive.google.com/file/d/1uj35_tceS-W7oBgGP-KRRti1Js6bD1ia/view?usp=drivesdk" target="_blank" class="download-btn">
+                                <i class="fas fa-download"></i>
+                                تحميل الكتاب
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search Results (hidden by default) -->
+        <div class="content-section" id="searchResults">
+            <div class="section-header">
+                <h3>
+                    <span class="icon-bg" style="background: rgba(99, 102, 241, 0.15); color: #a78bfa;">
+                        <i class="fas fa-search"></i>
+                    </span>
+                    نتائج البحث
+                </h3>
+                <span class="book-count" id="searchCount">0 نتيجة</span>
+            </div>
+            <div class="books-grid" id="searchResultsGrid">
+            </div>
+            <div class="empty-state" id="noResults" style="display: none;">
+                <i class="fas fa-search"></i>
+                <p>لا توجد نتائج مطابقة للبحث</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scroll to Top -->
+    <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p style="margin-bottom: 8px; font-size: 1.1rem; color: #9ca3af;">
+                <i class="fas fa-book-open" style="color: #6366f1;"></i>
+                المكتبة الرقمية
+            </p>
+            <p>صنع بـ <span class="heart">❤</span> لطلابنا الأعزاء</p>
+            <p style="margin-top: 8px; font-size: 0.8rem; color: #4b5563;">
+                جميع الحقوق محفوظة © 2024
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Show grade section
+        function showGrade(gradeId, btn) {
+            // Hide search results
+            document.getElementById('searchResults').classList.remove('active');
+            document.getElementById('searchInput').value = '';
+
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Show selected section
+            document.getElementById(gradeId).classList.add('active');
+
+            // Update active tab
+            document.querySelectorAll('.grade-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            btn.classList.add('active');
+
+            // Re-trigger animations
+            const cards = document.getElementById(gradeId).querySelectorAll('.book-card');
+            cards.forEach((card, index) => {
+                card.style.animation = 'none';
+                card.offsetHeight; // trigger reflow
+                card.style.animation = `fadeInUp 0.6s ease forwards ${(index + 1) * 0.1}s`;
+            });
+
+            // Smooth scroll to section
+            document.querySelector('.books-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Search functionality
+        function searchBooks() {
+            const query = document.getElementById('searchInput').value.trim().toLowerCase();
+
+            if (query === '') {
+                // Show the previously active section
+                document.getElementById('searchResults').classList.remove('active');
+                const activeTab = document.querySelector('.grade-tab.active');
+                if (activeTab) {
+                    activeTab.click();
+                } else {
+                    document.getElementById('prep1').classList.add('active');
+                }
+                return;
+            }
+
+            // Hide all regular sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Show search results
+            const searchSection = document.getElementById('searchResults');
+            searchSection.classList.add('active');
+
+            const searchGrid = document.getElementById('searchResultsGrid');
+            const noResults = document.getElementById('noResults');
+            searchGrid.innerHTML = '';
+
+            // Search through all book cards
+            let results = [];
+            document.querySelectorAll('.content-section:not(#searchResults) .book-card').forEach(card => {
+                const title = card.querySelector('h4').textContent.toLowerCase();
+                const meta = card.querySelector('.book-meta').textContent.toLowerCase();
+                if (title.includes(query) || meta.includes(query)) {
+                    results.push(card.cloneNode(true));
+                }
+            });
+
+            if (results.length > 0) {
+                noResults.style.display = 'none';
+                results.forEach((card, index) => {
+                    card.style.animation = `fadeInUp 0.6s ease forwards ${(index + 1) * 0.1}s`;
+                    card.style.opacity = '0';
+                    searchGrid.appendChild(card);
+                });
+                // Re-attach click handlers for download buttons
+                searchGrid.querySelectorAll('.download-btn').forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                    });
+                });
+            } else {
+                noResults.style.display = 'block';
+            }
+
+            document.getElementById('searchCount').textContent = results.length + ' نتيجة';
+        }
+
+        // Scroll to top visibility
+        window.addEventListener('scroll', () => {
+            const scrollBtn = document.getElementById('scrollTop');
+            if (window.scrollY > 300) {
+                scrollBtn.classList.add('visible');
+            } else {
+                scrollBtn.classList.remove('visible');
+            }
+        });
+
+        // Add ripple effect on download buttons
+        document.querySelectorAll('.download-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+        });
+
+        // Add hover parallax effect to book cards
+        document.querySelectorAll('.book-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = (y - centerY) / 20;
+                const rotateY = (centerX - x) / 20;
+
+                card.style.transform = `translateY(-8px) perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Keyboard shortcut for search
+        document.addEventListener('keydown', (e) => {
+            if (e.key === '/' && document.activeElement.tagName !== 'INPUT') {
+                e.preventDefault();
+                document.getElementById('searchInput').focus();
+            }
+            if (e.key === 'Escape') {
+                document.getElementById('searchInput').blur();
+                document.getElementById('searchInput').value = '';
+                searchBooks();
+            }
+        });
+    </script>
+</body>
+</html>
