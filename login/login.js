@@ -192,13 +192,22 @@ async function checkUserAndContinue(user) {
         createdAt: serverTimestamp(),
         lastLoginAt: serverTimestamp()
       };
-      const batch = writeBatch(db);
       const claimRef = doc(db, 'studentCounterClaims', user.uid);
       const statsRef = doc(db, 'publicStats', 'students');
-      batch.set(userRef, profileData);
-      batch.create(claimRef, { uid: user.uid, createdAt: serverTimestamp() });
-      batch.set(statsRef, { total: increment(1) }, { merge: true });
-      await batch.commit();
+
+      await runTransaction(db, async (transaction) => {
+        const statsSnap = await transaction.get(statsRef);
+        const claimSnap = await transaction.get(claimRef);
+
+        transaction.set(userRef, profileData);
+        if (claimSnap.exists()) return;
+
+        transaction.create(claimRef, { uid: user.uid, createdAt: serverTimestamp() });
+        const currentTotal = statsSnap.exists() && Number.isFinite(statsSnap.data().total)
+          ? Number(statsSnap.data().total)
+          : 0;
+        transaction.set(statsRef, { total: currentTotal + 1 }, { merge: true });
+      });
     } else {
       const profile = userSnap.data();
       await setDoc(userRef, { lastLoginAt: serverTimestamp() }, { merge: true });

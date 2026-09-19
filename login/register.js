@@ -15,6 +15,7 @@ import {
   getDoc,
   setDoc,
   writeBatch,
+  runTransaction,
   increment,
   serverTimestamp
 } from 'https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js';
@@ -103,13 +104,29 @@ async function saveUserProfile(user, role, provider, extraData = {}) {
 
   if (role === 'student') {
     // تُكتب بيانات الحساب وطلب زيادة العداد في عملية ذرّية واحدة.
-    const batch = writeBatch(db);
     const claimRef = doc(db, 'studentCounterClaims', user.uid);
     const statsRef = doc(db, 'publicStats', 'students');
-    batch.set(userRef, profileData, { merge: true });
-    batch.create(claimRef, { uid: user.uid, createdAt: serverTimestamp() });
-    batch.set(statsRef, { total: increment(1) }, { merge: true });
-    await batch.commit();
+
+    // تسجيل الطالب وزيادة العداد في معاملة واحدة.
+    // إذا كان مستند العداد غير موجود يبدأ من 1، وإلا يزيد بمقدار واحد.
+    await runTransaction(db, async (transaction) => {
+      const statsSnap = await transaction.get(statsRef);
+      const claimSnap = await transaction.get(claimRef);
+
+      if (claimSnap.exists()) {
+        transaction.set(userRef, profileData, { merge: true });
+        return;
+      }
+
+      transaction.set(userRef, profileData, { merge: true });
+      transaction.create(claimRef, { uid: user.uid, createdAt: serverTimestamp() });
+
+      const currentTotal = statsSnap.exists() && Number.isFinite(statsSnap.data().total)
+        ? Number(statsSnap.data().total)
+        : 0;
+
+      transaction.set(statsRef, { total: currentTotal + 1 }, { merge: true });
+    });
   } else {
     await setDoc(userRef, profileData, { merge: true });
   }

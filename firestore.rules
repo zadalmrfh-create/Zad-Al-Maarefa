@@ -222,7 +222,8 @@ service cloud.firestore {
       allow create: if isOwner(uid)
         && request.resource.data.uid == request.auth.uid
         && getAfter(/databases/$(database)/documents/users/$(uid)).data.role == 'student';
-      allow read, update, delete: if isAdmin();
+      allow read: if isOwner(uid) || isAdmin();
+      allow update, delete: if isAdmin();
     }
 
     match /{document=**} {
