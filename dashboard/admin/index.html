@@ -1,0 +1,4477 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <title>لوحة الإدارة | زاد المعرفة</title>
+
+  <link
+    rel="icon"
+    href="../../images/logo.png"
+  >
+
+  <link
+    rel="stylesheet"
+    href="../dashboard.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="notifications-admin.css"
+  >
+
+
+<link rel="stylesheet" href="../../assets/translation.css">
+<script src="../../assets/translation.js"></script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</head>
+
+
+<body>
+
+<div class="wrap">
+
+
+  <!-- =====================================================
+       HEADER
+  ====================================================== -->
+
+  <header class="top">
+
+    <div class="brand">
+
+      <img
+        src="../../images/logo.png"
+        alt="زاد المعرفة"
+      >
+
+      <div>
+
+        <h1>زاد المعرفة</h1>
+
+        <small>
+          لوحة تحكم الإدارة
+        </small>
+
+      </div>
+
+    </div>
+
+
+    <div class="actions">
+
+      <a
+        class="btn"
+        href="../../index.html"
+      >
+        الرئيسية
+      </a>
+
+
+      <a
+        class="btn gold"
+        href="#contentManagement"
+        id="contentManagementBtn"
+      >
+        ⚙️ إدارة محتوى المنصة
+      </a>
+
+
+      <button
+        id="logout"
+        class="btn danger"
+        type="button"
+      >
+        تسجيل الخروج
+      </button>
+
+    </div>
+
+  </header>
+
+
+
+  <!-- =====================================================
+       MAIN
+  ====================================================== -->
+
+  <main>
+
+
+    <div
+      id="loading"
+      class="notice"
+    >
+      جارٍ التحقق من صلاحية الأدمن…
+    </div>
+
+
+
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+
+    <section class="hero">
+
+      <h2>
+        لوحة التحكم 👑
+      </h2>
+
+      <p>
+        إدارة الحسابات واعتماد المعلمين.
+      </p>
+
+
+      <a
+        class="btn gold"
+        href="#contentManagement"
+        style="display:inline-block;margin-top:12px"
+      >
+        ⚙️ الانتقال إلى إدارة محتوى المنصة
+      </a>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         USERS
+    ====================================================== -->
+
+    <section class="card">
+
+      <div
+        class="actions"
+        style="justify-content:space-between"
+      >
+
+        <h3>
+          👥 المستخدمون
+        </h3>
+
+
+        <button
+          id="refresh"
+          class="btn gold"
+          type="button"
+        >
+          تحديث
+        </button>
+
+      </div>
+
+
+
+      <div class="table-wrap">
+
+        <table class="table">
+
+          <thead>
+
+            <tr>
+
+              <th>الاسم</th>
+
+              <th>البريد</th>
+
+              <th>الهاتف</th>
+
+              <th>واتساب</th>
+
+              <th>الصف الدراسي / المادة</th>
+
+              <th>النوع</th>
+
+              <th>الحالة</th>
+
+              <th>الإجراء</th>
+
+            </tr>
+
+          </thead>
+
+
+          <tbody id="users">
+
+            <tr>
+
+              <td colspan="8">
+                جارٍ التحميل…
+              </td>
+
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         STUDENT COUNTER
+    ====================================================== -->
+    <section class="card" id="studentCounterManagement">
+      <h3>📊 عداد الطلاب المسجلين</h3>
+      <p style="margin:8px 0;color:var(--muted)">اضغط مرة واحدة لحساب الطلاب القدامى من مجموعة users وتحديث العداد الظاهر للزوار.</p>
+      <button id="syncStudentCounter" class="btn gold" type="button">🔄 مزامنة عدد الطلاب الحاليين</button>
+      <span id="studentCounterSyncStatus" style="display:block;margin-top:10px"></span>
+    </section>
+
+
+    <!-- =====================================================
+         CONTENT MANAGEMENT
+    ====================================================== -->
+
+    <section
+      class="card"
+      id="contentManagement"
+    >
+
+      <h2>
+        إدارة محتوى المنصة
+      </h2>
+
+
+      <p>
+        إضافة وتعديل وحذف وإظهار أو إخفاء الأحداث
+        وطاقم التدريس والطلاب المتميزين.
+      </p>
+
+
+
+      <div
+        style="
+          display:flex;
+          gap:8px;
+          flex-wrap:wrap;
+          margin:15px 0;
+        "
+      >
+
+        <button
+          class="btn"
+          data-content-tab="events"
+          type="button"
+        >
+          الأحداث
+        </button>
+
+
+        <button
+          class="btn"
+          data-content-tab="teachers"
+          type="button"
+        >
+          طاقم التدريس
+        </button>
+
+
+        <button
+          class="btn"
+          data-content-tab="featuredStudents"
+          type="button"
+        >
+          الطلاب المتميزون
+        </button>
+
+      </div>
+
+
+
+      <form
+        id="contentForm"
+        style="
+          display:grid;
+          gap:10px;
+          margin:15px 0;
+        "
+      >
+
+        <input
+          type="hidden"
+          id="contentId"
+        >
+
+
+        <input
+          type="hidden"
+          id="contentType"
+          value="events"
+        >
+
+
+        <div
+          id="contentFields"
+          style="
+            display:grid;
+            gap:10px;
+          "
+        ></div>
+
+
+        <label>
+
+          <input
+            type="checkbox"
+            id="contentVisible"
+            checked
+          >
+
+          ظاهر للزوار
+
+        </label>
+
+
+        <div>
+
+          <button
+            class="btn"
+            type="submit"
+          >
+            حفظ
+          </button>
+
+
+          <button
+            class="btn"
+            type="button"
+            id="contentCancel"
+          >
+            إلغاء التعديل
+          </button>
+
+        </div>
+
+      </form>
+
+
+
+      <div class="table-wrap">
+
+        <table class="table">
+
+          <thead>
+
+            <tr>
+
+              <th>النوع</th>
+
+              <th>العنوان</th>
+
+              <th>التفاصيل</th>
+
+              <th>الحالة</th>
+
+              <th>إجراءات</th>
+
+            </tr>
+
+          </thead>
+
+
+          <tbody id="contentRows"></tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         LOGIN LOGS
+    ====================================================== -->
+
+    <!-- =====================================================
+         LIVE GOOGLE MEET LESSONS
+    ====================================================== -->
+
+    <section class="card" id="liveLessonsManagement">
+      <div class="actions" style="justify-content:space-between">
+        <div>
+          <h3>🎥 المحاضرات المباشرة وGoogle Meet</h3>
+          <p style="margin:6px 0 0;color:var(--muted)">إضافة موعد المحاضرة ورابط Google Meet واختبار الاستعداد قبلها.</p>
+        </div>
+        <button id="refreshLessons" class="btn gold" type="button">تحديث</button>
+      </div>
+
+      <form id="lessonForm" class="admin-form" style="margin-top:18px">
+        <div class="grid" style="margin:0">
+          <label>عنوان المحاضرة<input id="lessonTitle" required placeholder="مثال: النحو — المحاضرة الأولى"></label>
+          <label>المادة<input id="lessonSubject" required placeholder="النحو"></label>
+          <label>الصف الدراسي<input id="lessonGrade" required placeholder="أولى ثانوي"></label>
+          <label>اسم المعلم<input id="lessonTeacher" placeholder="اسم المعلم"></label>
+          <label>موعد المحاضرة<input id="lessonDate" type="datetime-local" required></label>
+          <label>رابط Google Meet<input id="lessonMeetUrl" type="url" required placeholder="https://meet.google.com/..."></label>
+          <div style="grid-column:1/-1;border:1px solid rgba(212,168,67,.25);border-radius:14px;padding:14px">
+            <strong>🎯 المستهدفون بالمحاضرة والإشعار</strong>
+            <p style="color:var(--muted);font-size:13px;margin:6px 0 10px">اختر جميع الطلاب المسجلين أو حدد طلابًا بعينهم.</p>
+            <label style="display:block;margin-bottom:10px">
+              <select id="lessonAudience">
+                <option value="all">👥 جميع الطلاب المسجلين</option>
+                <option value="selected">👤 طلاب محددون</option>
+              </select>
+            </label>
+            <div id="lessonStudentsWrap" style="display:none">
+              <input id="lessonStudentSearch" type="search" placeholder="ابحث باسم الطالب أو البريد الإلكتروني" style="margin-bottom:10px">
+              <div id="lessonStudentsList" style="max-height:260px;overflow:auto;display:grid;gap:8px"></div>
+              <small id="lessonStudentsStatus" style="color:var(--muted)">جارٍ تحميل الحسابات المسجلة…</small>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:18px">
+          <div class="actions" style="justify-content:space-between">
+            <h4 style="margin:0">📝 اختبار الاستعداد قبل المحاضرة</h4>
+            <button id="addQuestion" class="btn" type="button">+ إضافة سؤال</button>
+          </div>
+          <div id="questionBuilder" style="margin-top:12px"></div>
+          <p style="color:var(--muted);font-size:13px">يمكنك إضافة أي عدد من الأسئلة، ولكل سؤال 4 اختيارات وتحدد الإجابة الصحيحة.</p>
+        </div>
+
+        <div class="actions" style="margin-top:14px">
+          <button class="btn gold" type="submit">💾 حفظ المحاضرة</button>
+          <button id="cancelLessonEdit" class="btn" type="button" style="display:none">إلغاء التعديل</button>
+        </div>
+        <p id="lessonStatus" class="notice" style="display:none;margin-top:12px"></p>
+      </form>
+
+      <div class="table-wrap" style="margin-top:20px">
+        <table class="table">
+          <thead><tr><th>المحاضرة</th><th>المادة</th><th>الصف</th><th>الموعد</th><th>المستهدفون</th><th>الاختبار</th><th>الإجراء</th></tr></thead>
+          <tbody id="lessonRows"><tr><td colspan="7">جارٍ تحميل المحاضرات…</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         LIVE LESSON FOLLOW-UP
+    ====================================================== -->
+    <section class="card" id="lessonFollowUpManagement">
+      <div class="actions" style="justify-content:space-between">
+        <div>
+          <h3>👥 متابعة حضور المحاضرات والاختبارات</h3>
+          <p style="margin:6px 0 0;color:var(--muted)">متابعة من حل الاختبار ومن ضغط على دخول Google Meet.</p>
+        </div>
+        <button id="refreshLessonFollowUp" class="btn gold" type="button">تحديث</button>
+      </div>
+      <div class="table-wrap" style="margin-top:18px">
+        <table class="table">
+          <thead><tr><th>الطالب</th><th>المحاضرة</th><th>النوع</th><th>النتيجة</th><th>الوقت</th><th>إجراء</th></tr></thead>
+          <tbody id="lessonFollowUpRows"><tr><td colspan="6">جارٍ التحميل…</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card" id="loginLogsManagement">
+
+      <div class="actions" style="justify-content:space-between">
+        <h3>🔐 سجل تسجيلات الدخول</h3>
+        <button id="refreshLoginLogs" class="btn gold" type="button">تحديث</button>
+      </div>
+
+      <p class="admin-muted">آخر عمليات تسجيل الدخول المسجلة للمستخدمين.</p>
+
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>الاسم</th>
+              <th>البريد</th>
+              <th>طريقة الدخول</th>
+              <th>وقت الدخول</th>
+              <th>إجراء</th>
+            </tr>
+          </thead>
+          <tbody id="loginLogRows">
+            <tr><td colspan="5">جارٍ التحميل…</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         BOOKINGS
+    ====================================================== -->
+
+    <section
+      class="card"
+      id="bookingsManagement"
+    >
+
+      <h2>
+        طلبات حجز الحصص
+      </h2>
+
+
+      <p>
+        طلبات الطلاب المرسلة من نموذج التعليم الأزهري.
+      </p>
+
+
+      <div class="table-wrap">
+
+        <table class="table">
+
+          <thead>
+
+            <tr>
+
+              <th>الطالب</th>
+
+              <th>التواصل</th>
+
+              <th>المرحلة/الصف</th>
+
+              <th>المادة</th>
+
+              <th>اليومان</th>
+
+              <th>المعلم</th>
+
+              <th>الحالة</th>
+
+              <th>إجراء</th>
+
+            </tr>
+
+          </thead>
+
+
+          <tbody id="bookingRows">
+
+            <tr>
+
+              <td colspan="9">
+                جارٍ التحميل...
+              </td>
+
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         NOTIFICATIONS
+    ====================================================== -->
+
+    <section
+      class="card notifications-admin-card"
+    >
+
+      <div
+        class="actions"
+        style="justify-content:space-between"
+      >
+
+        <h3>
+          🔔 الإشعارات
+        </h3>
+
+      </div>
+
+
+      <p class="admin-muted">
+        أرسل إشعارًا لجميع المستخدمين أو لمستخدم محدد.
+      </p>
+
+
+
+      <form
+        id="notificationForm"
+        class="notification-form"
+      >
+
+        <div class="notification-grid">
+
+
+          <label>
+
+            عنوان الإشعار
+
+            <input
+              id="notificationTitle"
+              maxlength="100"
+              required
+              placeholder="مثال: تم إضافة كتب جديدة"
+            >
+
+          </label>
+
+
+
+          <label>
+
+            نوع الإشعار
+
+            <select id="notificationType">
+
+              <option value="info">
+                معلومة
+              </option>
+
+              <option value="book">
+                📚 كتب جديدة
+              </option>
+
+              <option value="event">
+                📢 حدث / إعلان
+              </option>
+
+              <option value="important">
+                ⚠️ مهم
+              </option>
+
+            </select>
+
+          </label>
+
+        </div>
+
+
+
+        <label>
+
+          نص الإشعار
+
+          <textarea
+            id="notificationMessage"
+            rows="4"
+            maxlength="500"
+            required
+            placeholder="اكتب رسالة الإشعار هنا..."
+          ></textarea>
+
+        </label>
+
+
+
+        <div class="notification-grid">
+
+
+          <label>
+
+            المستلمون
+
+            <select id="notificationAudience">
+
+              <option value="all">
+                👥 جميع المستخدمين
+              </option>
+
+              <option value="user">
+                👤 مستخدم محدد
+              </option>
+
+            </select>
+
+          </label>
+
+
+
+          <label
+            id="notificationUserWrap"
+            style="display:none"
+          >
+
+            المستخدم
+
+            <select id="notificationUser"></select>
+
+          </label>
+
+        </div>
+
+
+
+        <button
+          class="btn gold"
+          id="sendNotification"
+          type="submit"
+        >
+          إرسال الإشعار 🔔
+        </button>
+
+
+        <div
+          id="notificationStatus"
+          class="notice"
+          style="
+            display:none;
+            margin-top:12px;
+          "
+        ></div>
+
+      </form>
+
+
+
+      <div class="notification-history-head">
+
+        <h4>
+          آخر الإشعارات
+        </h4>
+
+
+        <button
+          id="refreshNotifications"
+          class="btn"
+          type="button"
+        >
+          تحديث
+        </button>
+
+      </div>
+
+
+      <div
+        id="notificationHistory"
+        class="notification-history"
+      >
+        جارٍ التحميل…
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+
+
+
+<!-- =====================================================
+     USER MODAL
+====================================================== -->
+
+<div
+  id="userModal"
+  class="modal"
+>
+
+  <div class="modal-box">
+
+
+    <div class="modal-header">
+
+      <h3>
+        بيانات المستخدم
+      </h3>
+
+
+      <button
+        id="closeModal"
+        class="modal-close"
+        type="button"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <div
+      id="userInfo"
+      class="user-info"
+    ></div>
+
+  </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     STATUS STYLE
+====================================================== -->
+
+<style>
+
+.status-banned {
+  background: #4a1f25;
+  color: #fca5a5;
+}
+
+.action-ban {
+  border-color: #ef4444;
+  color: #fca5a5;
+}
+
+.action-ban:hover {
+  background: #7f1d1d;
+  border-color: #ef4444;
+  color: #fff;
+}
+
+</style>
+
+
+
+<!-- =====================================================
+     SINGLE MODULE SCRIPT
+====================================================== -->
+
+<script type="module">
+
+/* =====================================================
+   FIREBASE
+===================================================== */
+
+import { guard } from '../dashboard.js';
+
+import {
+  auth,
+  db
+} from '../../firebase-config.js';
+
+import {
+  signOut,
+  onAuthStateChanged
+} from 'https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js';
+
+import {
+  collection,
+  getDocs,
+  doc,
+  setDoc,
+  updateDoc,
+  deleteDoc,
+  addDoc,
+  serverTimestamp,
+  query,
+  orderBy,
+  limit,
+  where
+} from 'https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js';
+
+
+
+/* =====================================================
+   HELPERS
+===================================================== */
+
+const $ = id =>
+  document.getElementById(id);
+
+
+function escapeHtml(value) {
+
+  return String(value ?? '').replace(
+    /[&<>'"]/g,
+    char => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      "'": '&#39;',
+      '"': '&quot;'
+    }[char])
+  );
+
+}
+
+
+function whatsappNumber(value) {
+
+  let phone =
+    String(value || '')
+      .replace(/\D/g, '');
+
+
+  if (phone.startsWith('0')) {
+
+    phone =
+      '20' +
+      phone.slice(1);
+
+  }
+
+
+  return phone;
+
+}
+
+
+function formatDate(value) {
+
+  if (!value)
+    return 'غير متوفر';
+
+
+  try {
+
+    const date =
+      typeof value.toDate === 'function'
+        ? value.toDate()
+        : new Date(value);
+
+
+    if (
+      Number.isNaN(
+        date.getTime()
+      )
+    ) {
+
+      return 'غير متوفر';
+
+    }
+
+
+    return new Intl.DateTimeFormat(
+      'ar-EG',
+      {
+        dateStyle: 'medium',
+        timeStyle: 'short'
+      }
+    ).format(date);
+
+  }
+
+  catch {
+
+    return 'غير متوفر';
+
+  }
+
+}
+
+
+function getStatusText(status) {
+
+  if (status === 'pending')
+    return '⏳ في انتظار الاعتماد';
+
+
+  if (status === 'disabled')
+    return '🚫 معطل';
+
+
+  if (status === 'banned')
+    return '⛔ محظور';
+
+
+  return '🟢 نشط';
+
+}
+
+
+
+/* =====================================================
+   USER MODAL
+===================================================== */
+
+const modal =
+  $('userModal');
+
+const userInfo =
+  $('userInfo');
+
+const closeModal =
+  $('closeModal');
+
+
+function showUser(user) {
+
+  const fields = [
+
+    [
+      'الاسم بالكامل',
+      user.fullName ||
+      user.name ||
+      user.displayName ||
+      'غير متوفر'
+    ],
+
+    [
+      'البريد الإلكتروني',
+      user.email ||
+      'غير متوفر'
+    ],
+
+    [
+      'رقم الهاتف',
+      user.phone ||
+      user.phoneNumber ||
+      'غير متوفر'
+    ],
+
+    [
+      'الصف الدراسي / المادة',
+      user.role === 'teacher'
+        ? (
+            user.subject ||
+            user.grade ||
+            'غير متوفر'
+          )
+        : (
+            user.grade ||
+            user.studyGrade ||
+            user.className ||
+            'غير متوفر'
+          )
+    ],
+
+    [
+      'نوع الحساب',
+      user.role === 'teacher'
+        ? '👨‍🏫 معلم'
+        : '🎓 طالب'
+    ],
+
+    [
+      'حالة الحساب',
+      getStatusText(user.status)
+    ],
+
+    [
+      'طريقة التسجيل',
+      user.provider === 'google.com'
+        ? 'Google'
+        : user.provider === 'password'
+          ? 'البريد الإلكتروني'
+          : (
+              user.provider ||
+              'غير متوفر'
+            )
+    ],
+
+    [
+      'معرّف الحساب UID',
+      user.uid ||
+      'غير متوفر'
+    ],
+
+    [
+      'تاريخ إنشاء الحساب',
+      formatDate(user.createdAt)
+    ],
+
+    [
+      'آخر تسجيل دخول',
+      formatDate(user.lastLoginAt)
+    ]
+
+  ];
+
+
+  userInfo.innerHTML =
+    fields.map(
+      ([label, value]) => `
+
+        <div class="info-row">
+
+          <strong>
+            ${escapeHtml(label)}
+          </strong>
+
+          <span>
+            ${escapeHtml(value)}
+          </span>
+
+        </div>
+
+      `
+    ).join('');
+
+
+  modal.classList.add('show');
+
+}
+
+
+closeModal.onclick = () => {
+
+  modal.classList.remove('show');
+
+};
+
+
+modal.addEventListener(
+  'click',
+  event => {
+
+    if (
+      event.target === modal
+    ) {
+
+      modal.classList.remove('show');
+
+    }
+
+  }
+);
+
+
+
+/* =====================================================
+   USERS
+===================================================== */
+
+const tbody =
+  $('users');
+
+
+async function loadUsers() {
+
+  tbody.innerHTML = `
+
+    <tr>
+      <td colspan="8">
+        جارٍ تحميل المستخدمين…
+      </td>
+    </tr>
+
+  `;
+
+
+  try {
+
+    const snap =
+      await getDocs(
+        collection(db, 'users')
+      );
+
+
+    populateNotificationUsers(snap);
+
+
+    if (snap.empty) {
+
+      tbody.innerHTML = `
+
+        <tr>
+
+          <td colspan="8">
+            لا يوجد مستخدمون بعد.
+          </td>
+
+        </tr>
+
+      `;
+
+      return;
+
+    }
+
+
+    tbody.innerHTML = '';
+
+
+    snap.forEach(
+      userDoc => {
+
+        const user =
+          userDoc.data();
+
+
+        const name =
+          user.fullName ||
+          user.name ||
+          user.displayName ||
+          'بدون اسم';
+
+
+        const email =
+          user.email ||
+          'بدون بريد';
+
+
+        const isTeacher =
+          user.role === 'teacher';
+
+
+        const status =
+          user.status || 'active';
+
+
+        const isPending =
+          status === 'pending';
+
+
+        const isDisabled =
+          status === 'disabled';
+
+
+        const isBanned =
+          status === 'banned';
+
+
+        const roleText =
+          isTeacher
+            ? 'معلم'
+            : 'طالب';
+
+
+        let statusClass =
+          'status status-active';
+
+
+        if (isPending) {
+
+          statusClass =
+            'status status-pending';
+
+        }
+
+        else if (isDisabled) {
+
+          statusClass =
+            'status status-disabled';
+
+        }
+
+        else if (isBanned) {
+
+          statusClass =
+            'status status-banned';
+
+        }
+
+
+        let buttons = `
+
+          <button
+            class="action-btn action-view"
+            title="عرض البيانات"
+            data-action="view"
+            type="button"
+          >
+            👁️
+          </button>
+
+        `;
+
+
+        /* اعتماد المعلم */
+
+        if (
+          isTeacher &&
+          isPending
+        ) {
+
+          buttons += `
+
+            <button
+              class="action-btn action-approve"
+              title="اعتماد المعلم"
+              data-action="approve"
+              type="button"
+            >
+              👨‍🏫 اعتماد
+            </button>
+
+          `;
+
+        }
+
+
+        /* الحظر */
+
+        if (isBanned) {
+
+          buttons += `
+
+            <button
+              class="action-btn action-toggle"
+              title="إلغاء الحظر"
+              data-action="ban"
+              type="button"
+            >
+              🟢 إلغاء الحظر
+            </button>
+
+          `;
+
+        }
+
+        else {
+
+          buttons += `
+
+            <button
+              class="action-btn action-ban"
+              title="حظر الحساب"
+              data-action="ban"
+              type="button"
+            >
+              ⛔ حظر
+            </button>
+
+          `;
+
+        }
+
+
+        /* تعطيل */
+
+        if (!isBanned) {
+
+          if (isDisabled) {
+
+            buttons += `
+
+              <button
+                class="action-btn action-toggle"
+                title="تفعيل الحساب"
+                data-action="toggle"
+                type="button"
+              >
+                🟢 تفعيل
+              </button>
+
+            `;
+
+          }
+
+          else {
+
+            buttons += `
+
+              <button
+                class="action-btn action-toggle"
+                title="تعطيل الحساب"
+                data-action="toggle"
+                type="button"
+              >
+                🚫 تعطيل
+              </button>
+
+            `;
+
+          }
+
+        }
+
+
+        /* حذف */
+
+        buttons += `
+
+          <button
+            class="action-btn action-delete"
+            title="حذف المستخدم"
+            data-action="delete"
+            type="button"
+          >
+            🗑️
+          </button>
+
+        `;
+
+
+        const tr =
+          document.createElement('tr');
+
+
+        const phone =
+          user.phone ||
+          user.phoneNumber ||
+          '';
+
+
+        const studyInfo =
+          isTeacher
+            ? (
+                user.subject ||
+                user.grade ||
+                '-'
+              )
+            : (
+                user.grade ||
+                user.studyGrade ||
+                user.className ||
+                '-'
+              );
+
+
+        tr.innerHTML = `
+
+          <td>
+            ${escapeHtml(name)}
+          </td>
+
+
+          <td>
+            ${escapeHtml(email)}
+          </td>
+
+
+          <td>
+            ${escapeHtml(phone || '-')}
+          </td>
+
+
+          <td>
+
+            ${
+              phone
+
+                ? `
+
+                  <a
+                    class="action-btn action-whatsapp"
+                    target="_blank"
+                    rel="noopener"
+                    href="https://wa.me/${whatsappNumber(phone)}"
+                  >
+                    واتساب
+                  </a>
+
+                `
+
+                : '-'
+            }
+
+          </td>
+
+
+          <td>
+            ${escapeHtml(studyInfo)}
+          </td>
+
+
+          <td>
+            ${roleText}
+          </td>
+
+
+          <td>
+
+            <span class="${statusClass}">
+              ${getStatusText(status)}
+            </span>
+
+          </td>
+
+
+          <td>
+
+            <div class="user-actions">
+
+              ${buttons}
+
+            </div>
+
+          </td>
+
+        `;
+
+
+        /* عرض */
+
+        tr
+          .querySelector(
+            '[data-action="view"]'
+          )
+          ?.addEventListener(
+            'click',
+            () => showUser(user)
+          );
+
+
+        /* اعتماد المعلم */
+
+        tr
+          .querySelector(
+            '[data-action="approve"]'
+          )
+          ?.addEventListener(
+            'click',
+            async event => {
+
+              const button =
+                event.currentTarget;
+
+
+              try {
+
+                button.disabled = true;
+
+                button.textContent =
+                  'جارٍ الاعتماد…';
+
+
+                await updateDoc(
+                  doc(
+                    db,
+                    'users',
+                    userDoc.id
+                  ),
+                  {
+                    status: 'active'
+                  }
+                );
+
+
+                await loadUsers();
+
+              }
+
+              catch (error) {
+
+                console.error(
+                  'خطأ في اعتماد المعلم:',
+                  error
+                );
+
+
+                alert(
+                  'حدث خطأ أثناء اعتماد المعلم.'
+                );
+
+
+                button.disabled =
+                  false;
+
+                button.textContent =
+                  '👨‍🏫 اعتماد';
+
+              }
+
+            }
+          );
+
+
+        /* حظر / إلغاء حظر */
+
+        tr
+          .querySelector(
+            '[data-action="ban"]'
+          )
+          ?.addEventListener(
+            'click',
+            async event => {
+
+              const button =
+                event.currentTarget;
+
+
+              const banning =
+                !isBanned;
+
+
+              const confirmed =
+                confirm(
+
+                  banning
+
+                    ? `هل أنت متأكد من حظر حساب ${name}؟\n\nبعد الحظر لن يستطيع تسجيل الدخول بهذا الحساب.`
+
+                    : `هل تريد إلغاء حظر حساب ${name}؟`
+
+                );
+
+
+              if (!confirmed)
+                return;
+
+
+              try {
+
+                button.disabled =
+                  true;
+
+
+                button.textContent =
+                  banning
+                    ? 'جارٍ الحظر…'
+                    : 'جارٍ إلغاء الحظر…';
+
+
+                await updateDoc(
+                  doc(
+                    db,
+                    'users',
+                    userDoc.id
+                  ),
+                  {
+                    status:
+                      banning
+                        ? 'banned'
+                        : 'active'
+                  }
+                );
+
+
+                await loadUsers();
+
+              }
+
+              catch (error) {
+
+                console.error(
+                  'خطأ في الحظر:',
+                  error
+                );
+
+
+                alert(
+                  'حدث خطأ أثناء تغيير حالة الحظر.'
+                );
+
+
+                button.disabled =
+                  false;
+
+              }
+
+            }
+          );
+
+
+        /* تعطيل / تفعيل */
+
+        tr
+          .querySelector(
+            '[data-action="toggle"]'
+          )
+          ?.addEventListener(
+            'click',
+            async () => {
+
+              const newStatus =
+                isDisabled
+                  ? 'active'
+                  : 'disabled';
+
+
+              const actionText =
+                isDisabled
+                  ? 'تفعيل'
+                  : 'تعطيل';
+
+
+              const confirmed =
+                confirm(
+                  `هل أنت متأكد من ${actionText} هذا الحساب؟`
+                );
+
+
+              if (!confirmed)
+                return;
+
+
+              try {
+
+                await updateDoc(
+                  doc(
+                    db,
+                    'users',
+                    userDoc.id
+                  ),
+                  {
+                    status: newStatus
+                  }
+                );
+
+
+                await loadUsers();
+
+              }
+
+              catch (error) {
+
+                console.error(
+                  'خطأ في تغيير حالة المستخدم:',
+                  error
+                );
+
+
+                alert(
+                  'حدث خطأ أثناء تغيير حالة الحساب.'
+                );
+
+              }
+
+            }
+          );
+
+
+        /* حذف */
+
+        tr
+          .querySelector(
+            '[data-action="delete"]'
+          )
+          ?.addEventListener(
+            'click',
+            async () => {
+
+              const confirmed =
+                confirm(
+                  `هل أنت متأكد من حذف حساب ${name} من قائمة المستخدمين؟\n\nسيتم حذف بياناته من Firestore فقط، وليس حساب Firebase Authentication.`
+                );
+
+
+              if (!confirmed)
+                return;
+
+
+              try {
+
+                const uid = userDoc.id;
+
+                // حذف بيانات المستخدم المرتبطة من المجموعات التي يديرها الأدمن.
+                const [tokensSnap, librarySnap, logsSnap, attemptsSnap, attendanceSnap, bookingsSnap, notificationsSnap] = await Promise.all([
+                  getDocs(collection(db, 'users', uid, 'fcmTokens')),
+                  getDocs(collection(db, 'users', uid, 'library')),
+                  getDocs(query(collection(db, 'loginLogs'), where('uid', '==', uid))),
+                  getDocs(query(collection(db, 'quizAttempts'), where('studentUid', '==', uid))),
+                  getDocs(query(collection(db, 'lessonAttendance'), where('studentUid', '==', uid))),
+                  getDocs(query(collection(db, 'bookings'), where('studentUid', '==', uid))),
+                  getDocs(query(collection(db, 'notifications'), where('targetUid', '==', uid)))
+                ]);
+
+                await Promise.all([
+                  ...tokensSnap.docs.map(d => deleteDoc(d.ref)),
+                  ...librarySnap.docs.map(d => deleteDoc(d.ref)),
+                  ...logsSnap.docs.map(d => deleteDoc(d.ref)),
+                  ...attemptsSnap.docs.map(d => deleteDoc(d.ref)),
+                  ...attendanceSnap.docs.map(d => deleteDoc(d.ref)),
+                  ...bookingsSnap.docs.map(d => deleteDoc(d.ref)),
+                  ...notificationsSnap.docs.map(d => deleteDoc(d.ref)),
+                  deleteDoc(doc(db, 'users', uid))
+                ]);
+
+                await loadUsers();
+                await loadBookings();
+                await loadLessonFollowUp();
+                await loadLoginLogs();
+
+              }
+
+              catch (error) {
+
+                console.error(
+                  'خطأ في حذف المستخدم:',
+                  error
+                );
+
+
+                alert(
+                  'حدث خطأ أثناء حذف المستخدم.'
+                );
+
+              }
+
+            }
+          );
+
+
+        tbody.appendChild(tr);
+
+      }
+    );
+
+  }
+
+  catch (error) {
+
+    console.error(
+      'خطأ في تحميل المستخدمين:',
+      error
+    );
+
+
+    tbody.innerHTML = `
+
+      <tr>
+
+        <td colspan="8">
+
+          ❌ حدث خطأ أثناء تحميل المستخدمين.
+
+          <br>
+
+          ${escapeHtml(
+            error.code ||
+            error.message
+          )}
+
+        </td>
+
+      </tr>
+
+    `;
+
+  }
+
+}
+
+
+
+/* =====================================================
+   LIVE GOOGLE MEET LESSONS
+===================================================== */
+
+const lessonRows = $('lessonRows');
+const lessonForm = $('lessonForm');
+const questionBuilder = $('questionBuilder');
+const lessonStatus = $('lessonStatus');
+let editingLessonId = null;
+
+function showLessonStatus(message, error = false) {
+  lessonStatus.textContent = message;
+  lessonStatus.style.display = 'block';
+  lessonStatus.style.borderColor = error ? '#7f1d1d' : '';
+}
+
+function addQuestionRow(data = {}) {
+  const index = questionBuilder.children.length + 1;
+  const wrap = document.createElement('div');
+  wrap.className = 'card';
+  wrap.style.marginTop = '10px';
+  wrap.innerHTML = `
+    <div class="actions" style="justify-content:space-between">
+      <strong>السؤال ${index}</strong>
+      <button type="button" class="btn danger remove-question">حذف</button>
+    </div>
+    <label style="display:block;margin-top:10px">السؤال
+      <input class="q-text" required value="${escapeHtml(data.text || '')}" placeholder="اكتب السؤال هنا">
+    </label>
+    <div class="grid" style="margin-top:10px">
+      ${[0,1,2,3].map(i => `<label>الاختيار ${i+1}<input class="q-option" required value="${escapeHtml((data.options || [])[i] || '')}" placeholder="الاختيار ${i+1}"></label>`).join('')}
+    </div>
+    <label style="display:block;margin-top:10px">الإجابة الصحيحة
+      <select class="q-answer">
+        <option value="0" ${Number(data.answer)===0?'selected':''}>الاختيار 1</option>
+        <option value="1" ${Number(data.answer)===1?'selected':''}>الاختيار 2</option>
+        <option value="2" ${Number(data.answer)===2?'selected':''}>الاختيار 3</option>
+        <option value="3" ${Number(data.answer)===3?'selected':''}>الاختيار 4</option>
+      </select>
+    </label>`;
+  wrap.querySelector('.remove-question').addEventListener('click', () => {
+    wrap.remove();
+    [...questionBuilder.children].forEach((el, i) => {
+      const title = el.querySelector('strong');
+      if (title) title.textContent = `السؤال ${i + 1}`;
+    });
+  });
+  questionBuilder.appendChild(wrap);
+}
+
+$('addQuestion')?.addEventListener('click', () => addQuestionRow());
+if (questionBuilder && !questionBuilder.children.length) addQuestionRow();
+
+function collectQuestions() {
+  return [...questionBuilder.children].map(card => ({
+    text: card.querySelector('.q-text').value.trim(),
+    options: [...card.querySelectorAll('.q-option')].map(x => x.value.trim()),
+    answer: Number(card.querySelector('.q-answer').value)
+  })).filter(q => q.text && q.options.every(Boolean));
+}
+
+function resetLessonForm() {
+  editingLessonId = null;
+  window.selectedLessonStudentIds = new Set();
+  lessonForm.reset();
+  questionBuilder.innerHTML = '';
+  addQuestionRow();
+  $('cancelLessonEdit').style.display = 'none';
+  $('lessonForm').querySelector('button[type="submit"]').textContent = '💾 حفظ المحاضرة';
+}
+
+$('cancelLessonEdit')?.addEventListener('click', resetLessonForm);
+
+function lessonDateText(value) {
+  if (!value) return '-';
+  const d = new Date(value);
+  if (Number.isNaN(d.getTime())) return value;
+  return d.toLocaleString('ar-EG', { dateStyle: 'medium', timeStyle: 'short' });
+}
+
+async function loadLessons() {
+  if (!lessonRows) return;
+  lessonRows.innerHTML = '<tr><td colspan="7">جارٍ تحميل المحاضرات…</td></tr>';
+  try {
+    const snap = await getDocs(collection(db, 'lessons'));
+    const items = [];
+    snap.forEach(d => items.push({ id: d.id, ...d.data() }));
+    items.sort((a,b) => String(a.date || '').localeCompare(String(b.date || '')));
+    if (!items.length) {
+      lessonRows.innerHTML = '<tr><td colspan="7">لا توجد محاضرات مضافة حتى الآن.</td></tr>';
+      return;
+    }
+    lessonRows.innerHTML = '';
+    items.forEach(item => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${escapeHtml(item.title)}</td>
+        <td>${escapeHtml(item.subject)}</td>
+        <td>${escapeHtml(item.grade)}</td>
+        <td>${escapeHtml(lessonDateText(item.date))}</td>
+        <td>${item.audience === 'selected' ? `👤 ${(item.targetUids || []).length} طالب` : '👥 جميع الطلاب'}</td>
+        <td>${Array.isArray(item.preQuiz) && item.preQuiz.length ? `${item.preQuiz.length} أسئلة` : 'بدون'}</td>
+        <td>
+          <div class="actions">
+            <button class="btn edit-lesson" type="button">تعديل</button>
+            <a class="btn" href="${escapeHtml(item.meetUrl || '#')}" target="_blank" rel="noopener">Meet</a>
+            <button class="btn danger delete-lesson" type="button">حذف</button>
+          </div>
+        </td>`;
+      tr.querySelector('.edit-lesson').addEventListener('click', () => editLesson(item));
+      tr.querySelector('.delete-lesson').addEventListener('click', async () => {
+        if (!confirm('هل تريد حذف هذه المحاضرة؟')) return;
+        try {
+          await deleteDoc(doc(db, 'lessons', item.id));
+          // حذف الكويز المرتبط إن كان محفوظًا كمستند منفصل
+          const qs = await getDocs(query(collection(db, 'quizzes'), where('lessonId', '==', item.id)));
+          await Promise.all(qs.docs.map(qd => deleteDoc(doc(db, 'quizzes', qd.id))));
+          await loadLessons();
+        } catch (e) {
+          console.error(e);
+          alert('تعذر حذف المحاضرة: ' + (e.code || e.message));
+        }
+      });
+      lessonRows.appendChild(tr);
+    });
+  } catch (e) {
+    console.error(e);
+    lessonRows.innerHTML = `<tr><td colspan="7">تعذر تحميل المحاضرات: ${escapeHtml(e.code || e.message)}</td></tr>`;
+  }
+}
+
+function editLesson(item) {
+  editingLessonId = item.id;
+  $('lessonTitle').value = item.title || '';
+  $('lessonSubject').value = item.subject || '';
+  $('lessonGrade').value = item.grade || '';
+  $('lessonTeacher').value = item.teacherName || '';
+  $('lessonDate').value = item.date || '';
+  $('lessonMeetUrl').value = item.meetUrl || '';
+  $('lessonAudience').value = item.audience === 'selected' ? 'selected' : 'all';
+  window.selectedLessonStudentIds = new Set(item.targetUids || []);
+  $('lessonStudentsWrap').style.display = item.audience === 'selected' ? 'block' : 'none';
+  if (item.audience === 'selected') renderLessonStudents();
+  questionBuilder.innerHTML = '';
+  (item.preQuiz || []).forEach(q => addQuestionRow(q));
+  if (!questionBuilder.children.length) addQuestionRow();
+  $('cancelLessonEdit').style.display = 'inline-block';
+  $('lessonForm').querySelector('button[type="submit"]').textContent = '💾 حفظ التعديل';
+  document.getElementById('liveLessonsManagement')?.scrollIntoView({behavior:'smooth'});
+}
+
+
+
+// =====================================================
+// اختيار الطلاب المستهدفين بالمحاضرة
+// =====================================================
+
+const lessonAudience = $('lessonAudience');
+const lessonStudentsWrap = $('lessonStudentsWrap');
+const lessonStudentsList = $('lessonStudentsList');
+const lessonStudentSearch = $('lessonStudentSearch');
+const lessonStudentsStatus = $('lessonStudentsStatus');
+let lessonStudents = [];
+
+function renderLessonStudents() {
+  if (!lessonStudentsList) return;
+  const term = String(lessonStudentSearch?.value || '').trim().toLowerCase();
+  const filtered = lessonStudents.filter(u => {
+    const name = String(u.fullName || u.name || '').toLowerCase();
+    const email = String(u.email || '').toLowerCase();
+    return !term || name.includes(term) || email.includes(term);
+  });
+
+  lessonStudentsList.innerHTML = filtered.length ? filtered.map(u => `
+    <label class="card" style="display:flex;align-items:center;gap:10px;padding:10px;cursor:pointer;margin:0">
+      <input class="lesson-student-check" type="checkbox" value="${escapeHtml(u.id)}" ${window.selectedLessonStudentIds?.has(u.id) ? 'checked' : ''}>
+      <span style="flex:1"><strong>${escapeHtml(u.fullName || u.name || 'بدون اسم')}</strong><br><small style="color:var(--muted)">${escapeHtml(u.email || 'بدون بريد')}</small></span>
+    </label>
+  `).join('') : '<div class="notice">لا توجد حسابات مطابقة.</div>';
+
+  lessonStudentsList.querySelectorAll('.lesson-student-check').forEach(ch => {
+    ch.addEventListener('change', () => {
+      window.selectedLessonStudentIds = window.selectedLessonStudentIds || new Set();
+      if (ch.checked) window.selectedLessonStudentIds.add(ch.value);
+      else window.selectedLessonStudentIds.delete(ch.value);
+    });
+  });
+
+  if (lessonStudentsStatus) lessonStudentsStatus.textContent = `عدد الطلاب المسجلين: ${lessonStudents.length} — المحدد: ${(window.selectedLessonStudentIds || new Set()).size}`;
+}
+
+async function loadLessonStudents() {
+  if (!lessonStudentsList) return;
+  try {
+    const snap = await getDocs(collection(db, 'users'));
+    lessonStudents = snap.docs
+      .map(d => ({id:d.id, ...d.data()}))
+      .filter(u => u.role === 'student');
+    renderLessonStudents();
+  } catch (e) {
+    console.error(e);
+    if (lessonStudentsStatus) lessonStudentsStatus.textContent = 'تعذر تحميل الحسابات: ' + (e.code || e.message);
+  }
+}
+
+lessonAudience?.addEventListener('change', () => {
+  const selected = lessonAudience.value === 'selected';
+  if (lessonStudentsWrap) lessonStudentsWrap.style.display = selected ? 'block' : 'none';
+  if (selected) loadLessonStudents();
+});
+lessonStudentSearch?.addEventListener('input', renderLessonStudents);
+loadLessonStudents();
+lessonForm?.addEventListener('submit', async (event) => {
+  event.preventDefault();
+  const meetUrl = $('lessonMeetUrl').value.trim();
+  if (!/^https?:\/\//i.test(meetUrl)) {
+    showLessonStatus('اكتب رابط Google Meet صحيحًا يبدأ بـ https://', true);
+    return;
+  }
+  const questions = collectQuestions();
+  if ($('lessonAudience').value === 'selected' && !(window.selectedLessonStudentIds || new Set()).size) {
+    showLessonStatus('اختر طالبًا واحدًا على الأقل للمحاضرة المحددة.', true);
+    return;
+  }
+  const data = {
+    title: $('lessonTitle').value.trim(),
+    subject: $('lessonSubject').value.trim(),
+    grade: $('lessonGrade').value.trim(),
+    teacherName: $('lessonTeacher').value.trim(),
+    date: $('lessonDate').value,
+    meetUrl,
+    preQuiz: questions,
+    audience: $('lessonAudience').value,
+    targetUids: $('lessonAudience').value === 'selected' ? [...(window.selectedLessonStudentIds || new Set())] : [],
+    updatedAt: serverTimestamp()
+  };
+  try {
+    let savedLessonId = editingLessonId;
+    if (editingLessonId) {
+      await updateDoc(doc(db, 'lessons', editingLessonId), data);
+    } else {
+      data.createdAt = serverTimestamp();
+      const ref = await addDoc(collection(db, 'lessons'), data);
+      savedLessonId = ref.id;
+      if (questions.length) {
+        await addDoc(collection(db, 'quizzes'), {
+          lessonId: savedLessonId,
+          type: 'pre',
+          title: `اختبار الاستعداد — ${data.title}`,
+          questions,
+          createdAt: serverTimestamp(),
+          updatedAt: serverTimestamp()
+        });
+      }
+
+      // إنشاء إشعار شخصي لكل طالب مستهدف
+      const targets = data.audience === 'selected'
+        ? [...(data.targetUids || [])]
+        : lessonStudents.map(u => u.id);
+
+      if (targets.length) {
+        await Promise.all(targets.map(uid => addDoc(collection(db, 'notifications'), {
+          audience: 'user',
+          targetUid: uid,
+          title: '🎥 تم إضافة محاضرة جديدة',
+          message: `${data.title} — ${data.subject}${data.date ? ' — ' + lessonDateText(data.date) : ''}`,
+          type: 'lesson',
+          lessonId: ref.id,
+          createdAt: serverTimestamp(),
+          readBy: []
+        })));
+      }
+    }
+    showLessonStatus(editingLessonId ? 'تم تعديل المحاضرة بنجاح.' : 'تم حفظ المحاضرة بنجاح.');
+    resetLessonForm();
+    await loadLessons();
+  } catch (e) {
+    console.error(e);
+    showLessonStatus('تعذر حفظ المحاضرة: ' + (e.code || e.message), true);
+  }
+});
+
+$('refreshLessons')?.addEventListener('click', loadLessons);
+
+loadLessons();
+
+
+/* =====================================================
+   LESSON FOLLOW-UP
+===================================================== */
+
+async function loadLessonFollowUp() {
+  const body = $('lessonFollowUpRows');
+  if (!body) return;
+  body.innerHTML = '<tr><td colspan="5">جارٍ التحميل…</td></tr>';
+  try {
+    const [usersSnap, attemptsSnap, attendanceSnap] = await Promise.all([
+      getDocs(collection(db, 'users')),
+      getDocs(collection(db, 'quizAttempts')),
+      getDocs(collection(db, 'lessonAttendance'))
+    ]);
+    const users = {};
+    usersSnap.forEach(d => { users[d.id] = d.data(); });
+    const rows = [];
+    attemptsSnap.forEach(d => {
+      const x = d.data();
+      rows.push({
+        id: d.id,
+        collection: 'quizAttempts',
+        uid: x.studentUid,
+        lesson: x.lessonTitle || x.lessonId || '-',
+        type: '📝 اختبار استعداد',
+        result: (x.correct != null && x.total != null) ? `${x.correct}/${x.total} (${x.score ?? 0}%)` : '-',
+        time: x.createdAt
+      });
+    });
+    attendanceSnap.forEach(d => {
+      const x = d.data();
+      rows.push({
+        id: d.id,
+        collection: 'lessonAttendance',
+        uid: x.studentUid,
+        lesson: x.lessonTitle || x.lessonId || '-',
+        type: '🎥 دخول Google Meet',
+        result: 'تم الدخول',
+        time: x.openedAt
+      });
+    });
+    rows.sort((a,b) => {
+      const ta = a.time && typeof a.time.toMillis === 'function' ? a.time.toMillis() : 0;
+      const tb = b.time && typeof b.time.toMillis === 'function' ? b.time.toMillis() : 0;
+      return tb - ta;
+    });
+    if (!rows.length) {
+      body.innerHTML = '<tr><td colspan="6">لا توجد بيانات متابعة حتى الآن.</td></tr>';
+      return;
+    }
+    body.innerHTML = '';
+    rows.slice(0, 100).forEach(row => {
+      const user = users[row.uid] || {};
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td>${escapeHtml(user.fullName || user.email || row.uid || '-')}</td><td>${escapeHtml(row.lesson)}</td><td>${escapeHtml(row.type)}</td><td>${escapeHtml(row.result)}</td><td>${escapeHtml(formatDate(row.time))}</td><td><button class="btn danger followup-delete" data-id="${escapeHtml(row.id)}" data-collection="${escapeHtml(row.collection)}" type="button">🗑️ حذف</button></td>`;
+      body.appendChild(tr);
+    });
+  } catch (e) {
+    console.error(e);
+    body.innerHTML = `<tr><td colspan="6">تعذر تحميل المتابعة: ${escapeHtml(e.code || e.message)}</td></tr>`;
+  }
+}
+
+$('lessonFollowUpRows')?.addEventListener('click', async (event) => {
+  const button = event.target.closest('.followup-delete');
+  if (!button) return;
+  if (!confirm('هل تريد حذف سجل المتابعة هذا نهائيًا؟')) return;
+  try {
+    button.disabled = true;
+    await deleteDoc(doc(db, button.dataset.collection, button.dataset.id));
+    await loadLessonFollowUp();
+  } catch (error) {
+    console.error('خطأ في حذف سجل المتابعة:', error);
+    alert('تعذر حذف سجل المتابعة: ' + (error.code || error.message));
+    button.disabled = false;
+  }
+});
+
+$('refreshLessonFollowUp')?.addEventListener('click', loadLessonFollowUp);
+loadLessonFollowUp();
+
+
+/* =====================================================
+   LOGIN LOGS
+===================================================== */
+
+const loginLogRows = $('loginLogRows');
+const refreshLoginLogs = $('refreshLoginLogs');
+
+function loginLogTime(value) {
+  if (!value) return 0;
+  if (typeof value.toMillis === 'function') return value.toMillis();
+  if (typeof value.toDate === 'function') return value.toDate().getTime();
+  const d = new Date(value);
+  return Number.isNaN(d.getTime()) ? 0 : d.getTime();
+}
+
+async function loadLoginLogs() {
+  if (!loginLogRows) return;
+
+  loginLogRows.innerHTML = '<tr><td colspan="4">جارٍ تحميل سجل الدخول…</td></tr>';
+
+  try {
+    // لا نستخدم orderBy هنا حتى لا تتأثر السجلات القديمة أو تحتاج إلى index إضافي.
+    const snap = await getDocs(query(collection(db, 'loginLogs'), limit(100)));
+    const items = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    items.sort((a, b) => loginLogTime(b.loginAt) - loginLogTime(a.loginAt));
+
+    if (!items.length) {
+      loginLogRows.innerHTML = '<tr><td colspan="4">لا توجد تسجيلات دخول بعد.</td></tr>';
+      return;
+    }
+
+    loginLogRows.innerHTML = items.map(item => {
+      const provider = item.provider === 'google.com'
+        ? 'Google'
+        : item.provider === 'password'
+          ? 'البريد الإلكتروني'
+          : item.provider === 'apple.com'
+            ? 'Apple'
+            : item.provider || 'غير معروف';
+
+      return `
+        <tr>
+          <td>${escapeHtml(item.name || 'بدون اسم')}</td>
+          <td>${escapeHtml(item.email || '-')}</td>
+          <td>${escapeHtml(provider)}</td>
+          <td>${escapeHtml(formatDate(item.loginAt))}</td>
+          <td><button class="btn danger login-log-delete" data-id="${escapeHtml(item.id)}" type="button">🗑️ حذف</button></td>
+        </tr>
+      `;
+    }).join('');
+  } catch (error) {
+    console.error('خطأ في تحميل سجل الدخول:', error);
+    loginLogRows.innerHTML = `
+      <tr>
+        <td colspan="5">❌ تعذر تحميل سجل الدخول: ${escapeHtml(error.code || error.message || 'خطأ غير معروف')}</td>
+      </tr>
+    `;
+  }
+}
+
+loginLogRows?.addEventListener('click', async (event) => {
+  const button = event.target.closest('.login-log-delete');
+  if (!button) return;
+  if (!confirm('هل تريد حذف سجل تسجيل الدخول هذا نهائيًا؟')) return;
+  try {
+    button.disabled = true;
+    await deleteDoc(doc(db, 'loginLogs', button.dataset.id));
+    await loadLoginLogs();
+  } catch (error) {
+    console.error('خطأ في حذف سجل الدخول:', error);
+    alert('تعذر حذف سجل الدخول: ' + (error.code || error.message));
+    button.disabled = false;
+  }
+});
+
+refreshLoginLogs?.addEventListener('click', loadLoginLogs);
+
+
+/* =====================================================
+   NOTIFICATION USERS
+===================================================== */
+
+const notificationForm =
+  $('notificationForm');
+
+const notificationTitle =
+  $('notificationTitle');
+
+const notificationType =
+  $('notificationType');
+
+const notificationMessage =
+  $('notificationMessage');
+
+const notificationAudience =
+  $('notificationAudience');
+
+const notificationUserWrap =
+  $('notificationUserWrap');
+
+const notificationUser =
+  $('notificationUser');
+
+const sendNotification =
+  $('sendNotification');
+
+const notificationStatus =
+  $('notificationStatus');
+
+const notificationHistory =
+  $('notificationHistory');
+
+const refreshNotifications =
+  $('refreshNotifications');
+
+
+function showNotificationStatus(
+  message,
+  type = 'success'
+) {
+
+  notificationStatus.textContent =
+    message;
+
+
+  notificationStatus.style.display =
+    'block';
+
+
+  notificationStatus.style.background =
+    type === 'error'
+      ? 'rgba(127,29,29,.45)'
+      : 'rgba(22,101,52,.45)';
+
+
+  notificationStatus.style.color =
+    '#fff';
+
+
+  notificationStatus.style.border =
+    '1px solid ' +
+    (
+      type === 'error'
+        ? '#ef4444'
+        : '#22c55e'
+    );
+
+}
+
+
+function populateNotificationUsers(
+  snapshot
+) {
+
+  notificationUser.innerHTML =
+    '<option value="">اختر المستخدم</option>';
+
+
+  snapshot.forEach(
+    userDoc => {
+
+      const user =
+        userDoc.data();
+
+
+      const name =
+        user.fullName ||
+        user.name ||
+        user.displayName ||
+        'بدون اسم';
+
+
+      const email =
+        user.email ||
+        'بدون بريد';
+
+
+      const option =
+        document.createElement(
+          'option'
+        );
+
+
+      option.value =
+        userDoc.id;
+
+
+      option.textContent =
+        `${name} — ${email}`;
+
+
+      notificationUser.appendChild(
+        option
+      );
+
+    }
+  );
+
+}
+
+
+function toggleNotificationAudience() {
+
+  const isUser =
+    notificationAudience.value === 'user';
+
+
+  notificationUserWrap.style.display =
+    isUser
+      ? 'grid'
+      : 'none';
+
+
+  notificationUser.required =
+    isUser;
+
+}
+
+
+notificationAudience.addEventListener(
+  'change',
+  toggleNotificationAudience
+);
+
+
+
+/* =====================================================
+   SEND NOTIFICATION
+===================================================== */
+
+async function sendNotificationFromAdmin(
+  event
+) {
+
+  event.preventDefault();
+
+
+  const title =
+    notificationTitle.value.trim();
+
+
+  const message =
+    notificationMessage.value.trim();
+
+
+  const type =
+    notificationType.value;
+
+
+  const audience =
+    notificationAudience.value;
+
+
+  const targetUid =
+    notificationUser.value;
+
+
+  if (!title || !message) {
+
+    showNotificationStatus(
+      'اكتب عنوان الإشعار ونص الإشعار أولًا.',
+      'error'
+    );
+
+    return;
+
+  }
+
+
+  if (
+    audience === 'user' &&
+    !targetUid
+  ) {
+
+    showNotificationStatus(
+      'اختر المستخدم الذي تريد إرسال الإشعار إليه.',
+      'error'
+    );
+
+    return;
+
+  }
+
+
+  try {
+
+    sendNotification.disabled =
+      true;
+
+
+    sendNotification.textContent =
+      'جارٍ إرسال الإشعار…';
+
+
+    const data = {
+
+      title,
+
+      message,
+
+      type,
+
+      audience,
+
+      readBy: [],
+
+      createdAt:
+        serverTimestamp(),
+
+      createdBy:
+        auth.currentUser?.uid ||
+        null
+
+    };
+
+
+    if (
+      audience === 'user'
+    ) {
+
+      data.targetUid =
+        targetUid;
+
+    }
+
+
+    await addDoc(
+      collection(
+        db,
+        'notifications'
+      ),
+      data
+    );
+
+
+    notificationForm.reset();
+
+    notificationAudience.value =
+      'all';
+
+    toggleNotificationAudience();
+
+
+    showNotificationStatus(
+      '✅ تم إرسال الإشعار بنجاح.',
+      'success'
+    );
+
+
+    await loadNotificationHistory();
+
+  }
+
+  catch (error) {
+
+    console.error(
+      'خطأ في إرسال الإشعار:',
+      error
+    );
+
+
+    showNotificationStatus(
+      '❌ تعذر إرسال الإشعار. راجع Firestore Rules.',
+      'error'
+    );
+
+  }
+
+  finally {
+
+    sendNotification.disabled =
+      false;
+
+
+    sendNotification.textContent =
+      'إرسال الإشعار 🔔';
+
+  }
+
+}
+
+
+notificationForm.addEventListener(
+  'submit',
+  sendNotificationFromAdmin
+);
+
+
+
+/* =====================================================
+   NOTIFICATION HISTORY
+===================================================== */
+
+async function loadNotificationHistory() {
+
+  notificationHistory.innerHTML =
+    '<div class="notification-empty">جارٍ تحميل الإشعارات…</div>';
+
+
+  try {
+
+    const snap =
+      await getDocs(
+
+        query(
+          collection(
+            db,
+            'notifications'
+          ),
+          limit(50)
+        )
+
+      );
+
+
+    const items = [];
+
+
+    snap.forEach(
+      item => {
+
+        items.push({
+          id: item.id,
+          ...item.data()
+        });
+
+      }
+    );
+
+
+    function getTime(value) {
+
+      if (!value)
+        return 0;
+
+
+      if (
+        typeof value.toMillis ===
+        'function'
+      ) {
+
+        return value.toMillis();
+
+      }
+
+
+      if (
+        typeof value.toDate ===
+        'function'
+      ) {
+
+        return value
+          .toDate()
+          .getTime();
+
+      }
+
+
+      const date =
+        new Date(value);
+
+
+      return Number.isNaN(
+        date.getTime()
+      )
+        ? 0
+        : date.getTime();
+
+    }
+
+
+    items.sort(
+      (a, b) =>
+        getTime(b.createdAt) -
+        getTime(a.createdAt)
+    );
+
+
+    if (!items.length) {
+
+      notificationHistory.innerHTML =
+        '<div class="notification-empty">لا توجد إشعارات بعد.</div>';
+
+      return;
+
+    }
+
+
+    notificationHistory.innerHTML =
+      items
+        .map(item => {
+
+          const audienceText =
+            item.audience === 'all'
+              ? '👥 للجميع'
+              : '👤 لمستخدم محدد';
+
+
+          const time =
+            item.createdAt &&
+            typeof item.createdAt.toDate ===
+            'function'
+              ? item.createdAt.toDate()
+              : null;
+
+
+          const timeText =
+            time
+              ? new Intl.DateTimeFormat(
+                  'ar-EG',
+                  {
+                    dateStyle: 'medium',
+                    timeStyle: 'short'
+                  }
+                ).format(time)
+              : 'منذ قليل';
+
+
+          return `
+
+            <div
+              class="notification-history-item"
+              data-notification-id="${escapeHtml(item.id)}"
+            >
+
+              <div>
+
+                <strong>
+                  ${escapeHtml(
+                    item.title ||
+                    'بدون عنوان'
+                  )}
+                </strong>
+
+
+                <p>
+                  ${escapeHtml(
+                    item.message ||
+                    ''
+                  )}
+                </p>
+
+
+                <small>
+                  ${audienceText}
+                  ·
+                  ${escapeHtml(timeText)}
+                </small>
+
+              </div>
+
+
+              <button
+                type="button"
+                class="btn danger notification-delete-btn"
+                data-id="${escapeHtml(item.id)}"
+              >
+                حذف الإشعار 🗑️
+              </button>
+
+            </div>
+
+          `;
+
+        })
+        .join('');
+
+  }
+
+  catch (error) {
+
+    console.error(
+      'خطأ في تحميل سجل الإشعارات:',
+      error
+    );
+
+
+    notificationHistory.innerHTML =
+      '<div class="notification-empty">❌ تعذر تحميل سجل الإشعارات.</div>';
+
+  }
+
+}
+
+
+async function deleteNotificationFromAdmin(
+  id
+) {
+
+  if (!id)
+    return;
+
+
+  if (
+    !confirm(
+      'هل تريد حذف هذا الإشعار نهائيًا؟'
+    )
+  ) {
+
+    return;
+
+  }
+
+
+  try {
+
+    await deleteDoc(
+      doc(
+        db,
+        'notifications',
+        id
+      )
+    );
+
+
+    await loadNotificationHistory();
+
+
+    showNotificationStatus(
+      'تم حذف الإشعار بنجاح.',
+      'success'
+    );
+
+  }
+
+  catch (error) {
+
+    console.error(
+      'خطأ في حذف الإشعار:',
+      error
+    );
+
+
+    showNotificationStatus(
+      'تعذر حذف الإشعار. تأكد من Firestore Rules.',
+      'error'
+    );
+
+  }
+
+}
+
+
+notificationHistory.addEventListener(
+  'click',
+  event => {
+
+    const button =
+      event.target.closest(
+        '.notification-delete-btn'
+      );
+
+
+    if (!button)
+      return;
+
+
+    deleteNotificationFromAdmin(
+      button.dataset.id
+    );
+
+  }
+);
+
+
+refreshNotifications.addEventListener(
+  'click',
+  loadNotificationHistory
+);
+
+
+
+/* =====================================================
+   CONTENT MANAGEMENT
+===================================================== */
+
+const contentTypes = {
+
+  events:
+    'الأحداث',
+
+  teachers:
+    'طاقم التدريس',
+
+  featuredStudents:
+    'الطلاب المتميزون'
+
+};
+
+
+let activeContentType =
+  'events';
+
+
+let editingContentId =
+  null;
+
+
+const contentRows =
+  $('contentRows');
+
+
+const fieldSets = {
+
+  events: [
+
+    [
+      'title',
+      'عنوان الحدث',
+      'text'
+    ],
+
+    [
+      'category',
+      'نوع الحدث: trip أو match أو competition أو workshop أو celebration',
+      'text'
+    ],
+
+    [
+      'icon',
+      'الأيقونة',
+      'text'
+    ],
+
+    [
+      'date',
+      'التاريخ',
+      'text'
+    ],
+
+    [
+      'time',
+      'الوقت',
+      'text'
+    ],
+
+    [
+      'location',
+      'المكان',
+      'text'
+    ],
+
+    [
+      'description',
+      'وصف الحدث',
+      'textarea'
+    ],
+
+    [
+      'link',
+      'رابط الحجز أو واتساب (اختياري)',
+      'text'
+    ]
+
+  ],
+
+
+  teachers: [
+
+    [
+      'name',
+      'اسم المعلم',
+      'text'
+    ],
+
+    [
+      'subject',
+      'المادة / التخصص',
+      'text'
+    ],
+
+    [
+      'role',
+      'المسمى الوظيفي (اختياري)',
+      'text'
+    ],
+
+    [
+      'image',
+      'رابط صورة المعلم (اختياري)',
+      'text'
+    ],
+
+    [
+      'bio',
+      'نبذة عن المعلم',
+      'textarea'
+    ],
+
+    [
+      'whatsapp',
+      'رقم أو رابط واتساب (اختياري)',
+      'text'
+    ]
+
+  ],
+
+
+  featuredStudents: [
+
+    [
+      'name',
+      'اسم الطالب',
+      'text'
+    ],
+
+    [
+      'grade',
+      'الصف / المرحلة',
+      'text'
+    ],
+
+    [
+      'image',
+      'رابط صورة الطالب (اختياري)',
+      'text'
+    ],
+
+    [
+      'tags',
+      'الإنجازات مفصولة بفاصلة',
+      'text'
+    ],
+
+    [
+      'achievement',
+      'نبذة والإنجاز',
+      'textarea'
+    ],
+
+    [
+      'percentage',
+      'نسبة التفوق (اختياري)',
+      'text'
+    ],
+
+    [
+      'memorized',
+      'الأجزاء/الجوائز (اختياري)',
+      'text'
+    ],
+
+    [
+      'certificates',
+      'عدد الشهادات (اختياري)',
+      'text'
+    ],
+
+    [
+      'certificateLink',
+      'رابط الشهادة PDF (اختياري)',
+      'text'
+    ]
+
+  ]
+
+};
+
+
+
+function renderContentFields() {
+
+  const box =
+    $('contentFields');
+
+
+  box.innerHTML =
+    '';
+
+
+  (
+    fieldSets[
+      activeContentType
+    ] || []
+  )
+    .forEach(
+      ([key, label, type]) => {
+
+        const element =
+          document.createElement(
+            type === 'textarea'
+              ? 'textarea'
+              : 'input'
+          );
+
+
+        element.id =
+          'field_' + key;
+
+
+        element.name =
+          key;
+
+
+        element.placeholder =
+          label;
+
+
+        if (
+          type !== 'textarea'
+        ) {
+
+          element.type =
+            'text';
+
+        }
+
+
+        box.appendChild(
+          element
+        );
+
+      }
+    );
+
+}
+
+
+function contentValue(key) {
+
+  const element =
+    $('field_' + key);
+
+
+  return element
+    ? element.value.trim()
+    : '';
+
+}
+
+
+function fillContentForm(
+  data = {}
+) {
+
+  renderContentFields();
+
+
+  $('contentId').value =
+    data.id || '';
+
+
+  $('contentVisible').checked =
+    data.visible !== false;
+
+
+  (
+    fieldSets[
+      activeContentType
+    ] || []
+  )
+    .forEach(
+      ([key]) => {
+
+        const element =
+          $('field_' + key);
+
+
+        if (element) {
+
+          element.value =
+            data[key] ?? '';
+
+        }
+
+      }
+    );
+
+}
+
+
+function setContentStatus(
+  message,
+  error = false
+) {
+
+  let box =
+    $('contentStatus');
+
+
+  if (!box) {
+
+    box =
+      document.createElement(
+        'div'
+      );
+
+
+    box.id =
+      'contentStatus';
+
+
+    box.style.cssText =
+      `
+        margin:10px 0;
+        padding:10px;
+        border-radius:8px;
+      `;
+
+
+    $('contentForm')
+      .before(box);
+
+  }
+
+
+  box.textContent =
+    message;
+
+
+  box.style.background =
+    error
+      ? '#5b1f1f'
+      : '#174b35';
+
+
+  box.style.color =
+    '#fff';
+
+
+  box.style.display =
+    'block';
+
+}
+
+
+
+/* تحميل المحتوى */
+
+async function loadContent() {
+
+  contentRows.innerHTML = `
+
+    <tr>
+
+      <td colspan="5">
+        جارٍ التحميل...
+      </td>
+
+    </tr>
+
+  `;
+
+
+  try {
+
+    const snap =
+      await getDocs(
+        collection(
+          db,
+          activeContentType
+        )
+      );
+
+
+    contentRows.innerHTML =
+      '';
+
+
+    if (snap.empty) {
+
+      contentRows.innerHTML = `
+
+        <tr>
+
+          <td colspan="5">
+            لا توجد بيانات مضافة حتى الآن.
+          </td>
+
+        </tr>
+
+      `;
+
+      return;
+
+    }
+
+
+    snap.forEach(
+      item => {
+
+        const data =
+          item.data();
+
+
+        const title =
+          data.title ||
+          data.name ||
+          '';
+
+
+        const details =
+          data.subtitle ||
+          data.subject ||
+          data.grade ||
+          data.date ||
+          '';
+
+
+        contentRows.insertAdjacentHTML(
+          'beforeend',
+          `
+
+            <tr>
+
+              <td>
+                ${contentTypes[activeContentType]}
+              </td>
+
+              <td>
+                ${escapeHtml(title)}
+              </td>
+
+              <td>
+                ${escapeHtml(details)}
+              </td>
+
+              <td>
+                ${
+                  data.visible === false
+                    ? 'مخفي'
+                    : 'ظاهر'
+                }
+              </td>
+
+              <td>
+
+                <button
+                  class="btn edit"
+                  data-id="${escapeHtml(item.id)}"
+                  type="button"
+                >
+                  تعديل
+                </button>
+
+
+                <button
+                  class="btn toggle"
+                  data-id="${escapeHtml(item.id)}"
+                  data-visible="${data.visible !== false}"
+                  type="button"
+                >
+                  ${
+                    data.visible === false
+                      ? 'إظهار'
+                      : 'إخفاء'
+                  }
+                </button>
+
+
+                <button
+                  class="btn danger del"
+                  data-id="${escapeHtml(item.id)}"
+                  type="button"
+                >
+                  حذف
+                </button>
+
+              </td>
+
+            </tr>
+
+          `
+        );
+
+      }
+    );
+
+  }
+
+  catch (error) {
+
+    console.error(
+      'Content load error:',
+      error
+    );
+
+
+    contentRows.innerHTML = `
+
+      <tr>
+
+        <td colspan="5">
+
+          تعذر تحميل البيانات.
+
+        </td>
+
+      </tr>
+
+    `;
+
+
+    setContentStatus(
+      'خطأ في تحميل المحتوى: ' +
+      (
+        error.code ||
+        error.message
+      ),
+      true
+    );
+
+  }
+
+}
+
+
+
+/* تبديل نوع المحتوى */
+
+document
+  .querySelectorAll(
+    '[data-content-tab]'
+  )
+  .forEach(
+    button => {
+
+      button.addEventListener(
+        'click',
+        () => {
+
+          activeContentType =
+            button.dataset.contentTab;
+
+
+          $('contentType').value =
+            activeContentType;
+
+
+          editingContentId =
+            null;
+
+
+          fillContentForm({});
+
+
+          loadContent();
+
+        }
+      );
+
+    }
+  );
+
+
+
+/* حفظ المحتوى */
+
+$('contentForm')
+  .addEventListener(
+    'submit',
+    async event => {
+
+      event.preventDefault();
+
+
+      const requiredKey =
+        activeContentType === 'events'
+          ? 'title'
+          : 'name';
+
+
+      const title =
+        contentValue(
+          requiredKey
+        );
+
+
+      if (!title) {
+
+        setContentStatus(
+          'اكتب البيانات الأساسية أولًا.',
+          true
+        );
+
+        return;
+
+      }
+
+
+      const data = {
+
+        visible:
+          $('contentVisible').checked,
+
+        updatedAt:
+          serverTimestamp()
+
+      };
+
+
+      (
+        fieldSets[
+          activeContentType
+        ] || []
+      )
+        .forEach(
+          ([key]) => {
+
+            data[key] =
+              contentValue(key);
+
+          }
+        );
+
+
+      if (
+        activeContentType ===
+        'events'
+      ) {
+
+        data.title =
+          contentValue('title');
+
+
+        data.status =
+          'upcoming';
+
+      }
+
+
+      if (
+        activeContentType ===
+        'featuredStudents'
+      ) {
+
+        data.title =
+          contentValue('name');
+
+      }
+
+
+      try {
+
+        if (editingContentId) {
+
+          await updateDoc(
+            doc(
+              db,
+              activeContentType,
+              editingContentId
+            ),
+            data
+          );
+
+
+          setContentStatus(
+            'تم تعديل العنصر وحفظه بنجاح.'
+          );
+
+        }
+
+        else {
+
+          data.createdAt =
+            serverTimestamp();
+
+
+          const ref =
+            await addDoc(
+              collection(
+                db,
+                activeContentType
+              ),
+              data
+            );
+
+
+          console.log(
+            'Added document:',
+            ref.id
+          );
+
+
+          setContentStatus(
+            'تمت إضافة العنصر وحفظه في Firestore بنجاح.'
+          );
+
+        }
+
+
+        editingContentId =
+          null;
+
+
+        fillContentForm({});
+
+
+        await loadContent();
+
+      }
+
+      catch (error) {
+
+        console.error(
+          'Content save error:',
+          error
+        );
+
+
+        setContentStatus(
+          'لم يتم الحفظ: ' +
+          (
+            error.code ||
+            error.message
+          ),
+          true
+        );
+
+      }
+
+    }
+  );
+
+
+
+/* إلغاء التعديل */
+
+$('contentCancel')
+  .onclick = () => {
+
+    editingContentId =
+      null;
+
+
+    fillContentForm({});
+
+
+    setContentStatus(
+      'تم إلغاء التعديل.'
+    );
+
+  };
+
+
+
+/* إجراءات المحتوى */
+
+contentRows.addEventListener(
+  'click',
+  async event => {
+
+    const button =
+      event.target.closest(
+        'button'
+      );
+
+
+    if (!button)
+      return;
+
+
+    const id =
+      button.dataset.id;
+
+
+    if (!id)
+      return;
+
+
+    try {
+
+
+      /* حذف */
+
+      if (
+        button.classList.contains(
+          'del'
+        )
+      ) {
+
+        if (
+          confirm(
+            'حذف هذا العنصر؟'
+          )
+        ) {
+
+          await deleteDoc(
+            doc(
+              db,
+              activeContentType,
+              id
+            )
+          );
+
+
+          setContentStatus(
+            'تم الحذف بنجاح.'
+          );
+
+        }
+
+      }
+
+
+      /* إظهار / إخفاء */
+
+      else if (
+        button.classList.contains(
+          'toggle'
+        )
+      ) {
+
+        await updateDoc(
+          doc(
+            db,
+            activeContentType,
+            id
+          ),
+          {
+            visible:
+              button.dataset.visible ===
+              'false',
+
+            updatedAt:
+              serverTimestamp()
+          }
+        );
+
+
+        setContentStatus(
+          'تم تغيير حالة الظهور.'
+        );
+
+      }
+
+
+      /* تعديل */
+
+      else if (
+        button.classList.contains(
+          'edit'
+        )
+      ) {
+
+        const snap =
+          await getDocs(
+            collection(
+              db,
+              activeContentType
+            )
+          );
+
+
+        const hit =
+          snap.docs.find(
+            item =>
+              item.id === id
+          );
+
+
+        if (hit) {
+
+          editingContentId =
+            id;
+
+
+          fillContentForm({
+            id,
+            ...hit.data()
+          });
+
+
+          window.scrollTo({
+
+            top:
+              $('contentForm')
+                .offsetTop - 80,
+
+            behavior:
+              'smooth'
+
+          });
+
+        }
+
+      }
+
+
+      await loadContent();
+
+    }
+
+    catch (error) {
+
+      console.error(
+        'Content action error:',
+        error
+      );
+
+
+      setContentStatus(
+        'تعذر تنفيذ العملية: ' +
+        (
+          error.code ||
+          error.message
+        ),
+        true
+      );
+
+    }
+
+  }
+);
+
+
+
+/* =====================================================
+   BOOKINGS
+===================================================== */
+
+async function loadBookings() {
+
+  const body =
+    $('bookingRows');
+
+
+  if (!body)
+    return;
+
+
+  body.innerHTML = `
+
+    <tr>
+
+      <td colspan="8">
+        جارٍ تحميل الطلبات...
+      </td>
+
+    </tr>
+
+  `;
+
+
+  try {
+
+    const snap =
+      await getDocs(
+
+        query(
+          collection(
+            db,
+            'bookings'
+          ),
+
+          orderBy(
+            'createdAt',
+            'desc'
+          )
+        )
+
+      );
+
+
+    body.innerHTML =
+      '';
+
+
+    if (snap.empty) {
+
+      body.innerHTML = `
+
+        <tr>
+
+          <td colspan="9">
+            لا توجد طلبات حجز.
+          </td>
+
+        </tr>
+
+      `;
+
+      return;
+
+    }
+
+
+    /*
+     * مهم:
+     * هنا نحتفظ ببيانات كل حجز
+     * داخل الصف نفسه.
+     *
+     * وبالتالي لن نستخدم المتغير b
+     * خارج نطاقه.
+     */
+
+    snap.forEach(
+      bookingDoc => {
+
+        const booking =
+          bookingDoc.data();
+
+
+        const currentStatus =
+          booking.status ||
+          'جديد';
+
+
+        const tr =
+          document.createElement(
+            'tr'
+          );
+
+
+        tr.innerHTML = `
+
+          <td>
+            ${escapeHtml(
+              booking.fullName ||
+              '-'
+            )}
+          </td>
+
+
+          <td>
+
+            ${escapeHtml(
+              booking.email ||
+              '-'
+            )}
+
+            <br>
+
+            ${escapeHtml(
+              booking.phone ||
+              '-'
+            )}
+
+          </td>
+
+
+          <td>
+
+            ${escapeHtml(
+              booking.educationType ||
+              '-'
+            )}
+
+            /
+
+            ${escapeHtml(
+              booking.grade ||
+              '-'
+            )}
+
+          </td>
+
+
+          <td>
+            ${escapeHtml(
+              booking.subject ||
+              '-'
+            )}
+          </td>
+
+
+          <td>
+
+            ${escapeHtml(
+              booking.preferredDay1 ||
+              '-'
+            )}
+
+            —
+
+            ${escapeHtml(
+              booking.preferredDay2 ||
+              '-'
+            )}
+
+            <br>
+
+            ${escapeHtml(
+              booking.preferredPeriod ||
+              ''
+            )}
+
+          </td>
+
+
+          <td>
+
+            ${escapeHtml(
+              booking.teacherName ||
+              'لم يُعيّن'
+            )}
+
+          </td>
+
+
+          <td>
+
+            <select
+              class="booking-status-select"
+              data-id="${escapeHtml(
+                bookingDoc.id
+              )}"
+            >
+
+              <option
+                value="جديد"
+                ${
+                  currentStatus ===
+                  'جديد'
+                    ? 'selected'
+                    : ''
+                }
+              >
+                جديد
+              </option>
+
+
+              <option
+                value="قيد المراجعة"
+                ${
+                  currentStatus ===
+                  'قيد المراجعة'
+                    ? 'selected'
+                    : ''
+                }
+              >
+                قيد المراجعة
+              </option>
+
+
+              <option
+                value="تم التواصل"
+                ${
+                  currentStatus ===
+                  'تم التواصل'
+                    ? 'selected'
+                    : ''
+                }
+              >
+                تم التواصل
+              </option>
+
+
+              <option
+                value="تم الحجز"
+                ${
+                  currentStatus ===
+                  'تم الحجز'
+                    ? 'selected'
+                    : ''
+                }
+              >
+                تم الحجز
+              </option>
+
+
+              <option
+                value="مكتمل"
+                ${
+                  currentStatus ===
+                  'مكتمل'
+                    ? 'selected'
+                    : ''
+                }
+              >
+                مكتمل
+              </option>
+
+
+              <option
+                value="ملغي"
+                ${
+                  currentStatus ===
+                  'ملغي'
+                    ? 'selected'
+                    : ''
+                }
+              >
+                ملغي
+              </option>
+
+            </select>
+
+          </td>
+
+
+          <td>
+
+            <button
+              class="btn booking-save-btn"
+              data-booking-id="${escapeHtml(
+                bookingDoc.id
+              )}"
+              type="button"
+            >
+              حفظ الحالة
+            </button>
+
+          </td>
+
+          <td>
+            <button class="btn danger booking-delete-btn" data-booking-delete-id="${escapeHtml(bookingDoc.id)}" type="button">🗑️ حذف</button>
+          </td>
+
+        `;
+
+
+        body.appendChild(tr);
+
+
+        /*
+         * نحفظ بيانات الحجز في الـ button
+         * نفسه، وبذلك لا يوجد أي b
+         * خارج نطاق snap.forEach.
+         */
+
+        const saveButton =
+          tr.querySelector(
+            '[data-booking-id]'
+          );
+
+
+        saveButton.addEventListener(
+          'click',
+          async () => {
+
+            const select =
+              tr.querySelector(
+                '.booking-status-select'
+              );
+
+
+            const newStatus =
+              select.value;
+
+
+            const oldStatus =
+              currentStatus;
+
+
+            const bookingId =
+              bookingDoc.id;
+
+
+            try {
+
+              saveButton.disabled =
+                true;
+
+
+              saveButton.textContent =
+                'جارٍ الحفظ...';
+
+
+              /*
+               * تحديث حالة الحجز
+               */
+
+              await updateDoc(
+
+                doc(
+                  db,
+                  'bookings',
+                  bookingId
+                ),
+
+                {
+
+                  status:
+                    newStatus,
+
+                  updatedAt:
+                    serverTimestamp()
+
+                }
+
+              );
+
+
+              /*
+               * إرسال إشعار للطالب
+               *
+               * نستخدم booking.studentUid
+               * مباشرة من بيانات الحجز.
+               */
+
+              if (
+
+                booking.studentUid &&
+
+                newStatus !==
+                oldStatus
+
+              ) {
+
+                await addDoc(
+
+                  collection(
+                    db,
+                    'notifications'
+                  ),
+
+                  {
+
+                    audience:
+                      'user',
+
+                    targetUid:
+                      booking.studentUid,
+
+                    type:
+                      'booking',
+
+                    title:
+                      newStatus ===
+                      'تم الحجز'
+
+                        ? '✅ تمت الموافقة على حجزك'
+
+                        : '📅 تحديث طلب حجز الحصة',
+
+                    message:
+                      newStatus ===
+                      'تم الحجز'
+
+                        ? 'تمت الموافقة على طلب حجز الحصة الخاص بك. سيتم التواصل معك لتأكيد التفاصيل.'
+
+                        : `تم تحديث حالة طلب حجز الحصة الخاص بك إلى: ${newStatus}`,
+
+                    bookingId:
+
+                      bookingId,
+
+                    createdBy:
+                      auth.currentUser?.uid ||
+                      null,
+
+                    createdAt:
+                      serverTimestamp(),
+
+                    readBy: []
+
+                  }
+
+                );
+
+              }
+
+
+              saveButton.textContent =
+                '✅ تم الحفظ';
+
+
+              /*
+               * إعادة تحميل الجدول
+               */
+
+              await loadBookings();
+
+            }
+
+            catch (error) {
+
+              console.error(
+                'خطأ في تحديث حالة الحجز:',
+                error
+              );
+
+
+              alert(
+                'تعذر تحديث الحالة: ' +
+                (
+                  error.code ||
+                  error.message
+                )
+              );
+
+
+              saveButton.disabled =
+                false;
+
+
+              saveButton.textContent =
+                'حفظ الحالة';
+
+            }
+
+          }
+        );
+
+      }
+    );
+
+  }
+
+  catch (error) {
+
+    console.error(
+      'خطأ في تحميل طلبات الحجز:',
+      error
+    );
+
+
+    body.innerHTML = `
+
+      <tr>
+
+        <td colspan="8">
+
+          تعذر تحميل الطلبات:
+
+          ${escapeHtml(
+            error.code ||
+            error.message
+          )}
+
+        </td>
+
+      </tr>
+
+    `;
+
+  }
+
+}
+
+
+
+
+
+/* =====================================================
+   SYNC EXISTING STUDENTS COUNTER
+===================================================== */
+const syncStudentCounterButton = $('syncStudentCounter');
+const studentCounterSyncStatus = $('studentCounterSyncStatus');
+
+syncStudentCounterButton?.addEventListener('click', async () => {
+  if (!confirm('سيتم حساب كل الحسابات التي role فيها student وتحديث العداد العام. هل تريد المتابعة؟')) return;
+  syncStudentCounterButton.disabled = true;
+  studentCounterSyncStatus.textContent = 'جارٍ حساب الطلاب...';
+  try {
+    const snapshot = await getDocs(collection(db, 'users'));
+    const totalStudents = snapshot.docs.filter(item => item.data()?.role === 'student').length;
+    await setDoc(doc(db, 'publicStats', 'students'), {
+      total: totalStudents,
+      updatedAt: serverTimestamp(),
+      source: 'admin-sync'
+    }, { merge: true });
+    studentCounterSyncStatus.textContent = `✅ تم تحديث العداد إلى ${totalStudents.toLocaleString('ar-EG')} طالب.`;
+  } catch (error) {
+    console.error('Student counter sync error:', error);
+    studentCounterSyncStatus.textContent = '❌ تعذر تحديث العداد: ' + (error.code || error.message);
+  } finally {
+    syncStudentCounterButton.disabled = false;
+  }
+});
+
+
+/* =====================================================
+   INITIALIZATION
+===================================================== */
+
+renderContentFields();
+
+fillContentForm({});
+
+
+loadNotificationHistory();
+
+
+
+/*
+ * حماية لوحة الإدارة
+ *
+ * guard هو المسؤول عن التأكد
+ * أن المستخدم أدمن.
+ */
+
+guard(
+  'admin',
+  async () => {
+
+    await loadUsers();
+
+    await loadLoginLogs();
+
+    await loadContent();
+
+    await loadBookings();
+
+  }
+);
+
+
+
+$('bookingRows')?.addEventListener('click', async (event) => {
+  const button = event.target.closest('.booking-delete-btn');
+  if (!button) return;
+  if (!confirm('هل تريد حذف طلب الحجز هذا نهائيًا؟')) return;
+  try {
+    button.disabled = true;
+    await deleteDoc(doc(db, 'bookings', button.dataset.bookingDeleteId));
+    await loadBookings();
+  } catch (error) {
+    console.error('خطأ في حذف الحجز:', error);
+    alert('تعذر حذف طلب الحجز: ' + (error.code || error.message));
+    button.disabled = false;
+  }
+});
+
+/* =====================================================
+   REFRESH BUTTON
+===================================================== */
+
+$('refresh').onclick =
+  loadUsers;
+
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+$('logout').onclick =
+  async () => {
+
+    try {
+
+      await signOut(auth);
+
+      location.href =
+        '../../index.html';
+
+    }
+
+    catch (error) {
+
+      console.error(
+        'Logout error:',
+        error
+      );
+
+      alert(
+        'تعذر تسجيل الخروج.'
+      );
+
+    }
+
+  };
+
+
+
+/* =====================================================
+   AUTH STATE
+===================================================== */
+
+onAuthStateChanged(
+  auth,
+  user => {
+
+    if (!user) {
+
+      const body =
+        $('bookingRows');
+
+
+      if (body) {
+
+        body.innerHTML = `
+
+          <tr>
+
+            <td colspan="8">
+              يجب تسجيل الدخول بحساب الأدمن.
+            </td>
+
+          </tr>
+
+        `;
+
+      }
+
+    }
+
+  }
+);
+
+</script>
+
+</body>
+
+</html>

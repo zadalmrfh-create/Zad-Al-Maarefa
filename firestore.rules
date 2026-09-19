@@ -1,0 +1,232 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(uid) {
+      return signedIn() && request.auth.uid == uid;
+    }
+
+    function userExists(uid) {
+      return exists(/databases/$(database)/documents/users/$(uid));
+    }
+
+    function getUser(uid) {
+      return get(/databases/$(database)/documents/users/$(uid));
+    }
+
+    function isAdmin() {
+      return signedIn() && (
+        request.auth.token.email == 'maleksameh121@gmail.com'
+        ||
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+      );
+    }
+
+    function isTeacher() {
+      return signedIn()
+        && userExists(request.auth.uid)
+        && getUser(request.auth.uid).data.role == 'teacher'
+        && getUser(request.auth.uid).data.status == 'active';
+    }
+
+    match /users/{uid} {
+      allow create: if isOwner(uid)
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.role in ['student', 'teacher']
+        && request.resource.data.status == (
+          request.resource.data.role == 'teacher' ? 'pending' : 'active'
+        )
+        && (
+          request.auth.token.email == null
+          || request.resource.data.email == request.auth.token.email
+        );
+
+      allow read: if isOwner(uid) || isAdmin()
+        || (isTeacher() && resource.data.role == 'student');
+
+      allow update: if isAdmin()
+        || (
+          isOwner(uid)
+          && request.resource.data.uid == resource.data.uid
+          && request.resource.data.role == resource.data.role
+          && request.resource.data.status == resource.data.status
+          && request.resource.data.email == resource.data.email
+        );
+
+      allow delete: if isOwner(uid) || isAdmin();
+    }
+
+    match /users/{uid}/fcmTokens/{tokenId} {
+      allow read, create, update, delete: if isOwner(uid);
+    }
+
+    match /users/{uid}/library/{documentId} {
+      allow read, create, update, delete: if isOwner(uid);
+    }
+
+    // سجل الدخول: المستخدم ينشئ سجله فقط، والأدمن يقرأه.
+    match /loginLogs/{logId} {
+      allow create: if signedIn()
+        && request.resource.data.uid == request.auth.uid;
+      allow read, update, delete: if isAdmin();
+    }
+
+    // الأدمنز تتم إدارتهم من Firebase Console.
+    // الأدمن الرئيسي لا يحتاج هذا المستند أصلًا.
+    match /admins/{uid} {
+      allow read: if signedIn() && request.auth.uid == uid;
+      allow create, update, delete: if false;
+    }
+
+    match /events/{id} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+
+    match /teachers/{id} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+
+    match /featuredStudents/{id} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+
+    match /notifications/{notificationId} {
+      allow read, create, update, delete: if isAdmin();
+
+      allow read: if signedIn()
+        && resource.data.audience == 'all';
+
+      allow read: if signedIn()
+        && resource.data.audience == 'user'
+        && resource.data.targetUid == request.auth.uid;
+
+      allow create: if signedIn()
+        && request.resource.data.audience == 'admin'
+        && request.resource.data.studentUid == request.auth.uid;
+
+      allow update: if signedIn()
+        && resource.data.audience == 'user'
+        && resource.data.targetUid == request.auth.uid
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['readBy']);
+
+      allow update: if signedIn()
+        && resource.data.audience == 'all'
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['readBy']);
+    }
+
+    match /bookings/{bookingId} {
+      allow create: if signedIn()
+        && request.resource.data.studentUid == request.auth.uid
+        && request.resource.data.fullName is string
+        && request.resource.data.phone is string
+        && request.resource.data.email is string
+        && request.resource.data.section in [
+          'القرآن الكريم',
+          'التزكية والتربية',
+          'اللغة العربية',
+          'العلوم الشرعية',
+          'التعليم الأزهري'
+        ]
+        && request.resource.data.subject is string
+        && request.resource.data.lessonType is string
+        && request.resource.data.preferredDay1 is string
+        && request.resource.data.preferredDay2 is string
+        && request.resource.data.preferredPeriod is string
+        && request.resource.data.lessonMode in ['أونلاين', 'حضوري']
+        && request.resource.data.status == 'جديد'
+        && request.resource.data.source == 'booking';
+
+      allow read: if isAdmin()
+        || (signedIn() && resource.data.studentUid == request.auth.uid)
+        || (isTeacher() && resource.data.teacherUid == request.auth.uid);
+
+      allow update: if isAdmin()
+        || (
+          isTeacher()
+          && resource.data.teacherUid == request.auth.uid
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'updatedAt'])
+        );
+
+      allow delete: if isAdmin();
+    }
+
+    // هذه المجموعات محجوزة لنظام المحاضرات والكويزات إذا تم تفعيلها في المشروع.
+    match /lessons/{lessonId} {
+      allow read: if signedIn();
+      allow create, update, delete: if isAdmin();
+    }
+
+    match /quizzes/{quizId} {
+      allow read: if signedIn();
+      allow create, update, delete: if isAdmin();
+    }
+
+    match /quizAttempts/{attemptId} {
+      allow create: if signedIn()
+        && request.resource.data.studentUid == request.auth.uid;
+      allow read: if isAdmin()
+        || isTeacher()
+        || (signedIn() && resource.data.studentUid == request.auth.uid);
+      allow update, delete: if isAdmin();
+    }
+
+    // =====================================================
+    // LESSON ATTENDANCE / GOOGLE MEET
+    // =====================================================
+
+    match /lessonAttendance/{attendanceId} {
+      allow create: if
+        signedIn()
+        && request.resource.data.studentUid == request.auth.uid;
+
+      allow read: if
+        signedIn()
+        && resource.data.studentUid == request.auth.uid;
+
+      allow read, update, delete: if isAdmin();
+    }
+
+    // عداد عام لعدد الطلاب فقط، دون كشف بيانات المستخدمين.
+    match /publicStats/{statId} {
+      allow read: if true;
+
+      // الأدمن يستطيع مزامنة العدد الحقيقي للطلاب القدامى مرة واحدة أو عند الحاجة.
+      allow create, update: if isAdmin() && statId == 'students';
+
+      // أول طالب ينشئ المستند ويبدأ العداد من 1.
+      allow create: if statId == 'students'
+        && signedIn()
+        && request.resource.data.total == 1
+        && getAfter(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'student'
+        && getAfter(/databases/$(database)/documents/studentCounterClaims/$(request.auth.uid)).data.uid == request.auth.uid;
+
+      // كل طالب يستطيع زيادة العداد مرة واحدة فقط عبر claim غير قابل للتعديل.
+      allow update: if statId == 'students'
+        && signedIn()
+        && request.resource.data.total == resource.data.total + 1
+        && getAfter(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'student'
+        && getAfter(/databases/$(database)/documents/studentCounterClaims/$(request.auth.uid)).data.uid == request.auth.uid;
+
+      allow delete: if isAdmin();
+    }
+
+    match /studentCounterClaims/{uid} {
+      allow create: if isOwner(uid)
+        && request.resource.data.uid == request.auth.uid
+        && getAfter(/databases/$(database)/documents/users/$(uid)).data.role == 'student';
+      allow read, update, delete: if isAdmin();
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

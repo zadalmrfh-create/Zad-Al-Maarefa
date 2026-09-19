@@ -1,166 +1,305 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>زاد المعرفة — منصة تعليمية إسلامية</title>
-    <link rel="icon" type="image/png" href="images/logo.png" />
-    <link rel="stylesheet" href="style.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Cairo:wght@300;400;500;600;700;800;900&display=swap"
-      rel="stylesheet"
-    />
-    <!-- Google Fonts: Cairo for modern Arabic typography -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-    />
-    <!-- FontAwesome for Icons -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
+<head>
+  <meta charset="UTF-8" />
 
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-  </head>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <meta
+    name="description"
+    content="زاد المعرفة — منصة تعليمية إسلامية تقدم التعليم الشرعي والعربي والقرآن الكريم والعلوم المختلفة."
+  />
+
+  <meta
+    name="theme-color"
+    content="#c9a84c"
+  />
+
+  <title>زاد المعرفة — منصة تعليمية إسلامية</title>
+
+  <!-- Favicon -->
+  <link
+    rel="icon"
+    type="image/png"
+    href="images/logo.png"
+  />
+
+  <!-- Main CSS -->
+  <link
+    rel="stylesheet"
+    href="style.css"
+  />
+
+  <!-- Google Fonts -->
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  />
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Tajawal:wght@300;400;500;700;800;900&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Font Awesome 6.7.2 -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+  />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+<link rel="stylesheet" href="assets/translation.css">
+<script src="assets/translation.js"></script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</head>
   <body>
-    <!-- ═══════════ NAVBAR ═══════════ -->
-    <nav id="navbar">
-      <div class="nav-inner">
-        <a href="#" class="logo">
-          <div
-            class="w-12 h-12 rounded-full overflow-hidden border-2 border-yellow-500 shadow-lg shadow-yellow-500/25"
-          >
-            <img
-              src="images/logo.png"
-              alt="زاد المعرفة"
-              class="w-full h-full object-cover"
-            />
-          </div>
-          <span class="logo-text">زاد <span>المعرفة</span></span>
-        </a>
 
-        <div class="nav-links">
-          <a href="#hero" class="nav-link">الرئيسية</a>
-          <a href="#categories" class="nav-link">الأقسام</a>
-          <a href="طاقم التدريس/index.html" class="nav-link" target="_self"
-            >طاقم التدريس</a
-          >
-          <a
-            href="أحداث زاد المعرفة/events.html"
-            class="nav-link"
-            target="_self"
-            >أحداث المنصة</a
-          >
-          <a
-            href="sections/services/services.html"
-            class="nav-link"
-            target="_self"
-            >الخدمات</a
-          >
-          <a href="sections/library.html" class="nav-link" target="_self"
-            >المكتبة</a
-          >
-          <a
-            href="طلاب المنصة المتميزون/students.html"
-            class="nav-link"
-            target="_self"
-            >الطلاب المتميزون</a
-          >
-        </div>
+<!-- ═══════════ NAVBAR ═══════════ -->
+<nav id="navbar">
+  <div class="nav-inner">
 
-        <button class="btn-nav" onclick="smoothTo('categories')">
-          ابدأ التعلم
-        </button>
-        <button class="hamburger" id="hamBtn" onclick="openMob()">
-          <svg
-            width="20"
-            height="20"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M4 6h16M4 12h16M4 18h16"
-            />
-          </svg>
-        </button>
+    <a href="#" class="logo">
+      <div
+        class="w-12 h-12 rounded-full overflow-hidden border-2 border-yellow-500 shadow-lg shadow-yellow-500/25"
+      >
+        <img
+          src="images/logo.png"
+          alt="زاد المعرفة"
+          class="w-full h-full object-cover"
+        />
       </div>
-    </nav>
 
-    <!-- ═══════════ MOBILE OVERLAY ═══════════ -->
-    <div id="mobile-overlay">
-      <button class="mob-close" onclick="closeMob()">
-        <svg
-          width="18"
-          height="18"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M6 18L18 6M6 6l12 12"
-          />
-        </svg>
-      </button>
+      <span class="logo-text">
+        زاد <span>المعرفة</span>
+      </span>
+    </a>
 
-      <a href="#hero" class="mob-btn" onclick="closeMob()">الرئيسية</a>
-      <a href="#categories" class="mob-btn" onclick="closeMob()">الأقسام</a>
-      <a
-        href="طاقم التدريس/index.html"
-        target="_self"
-        class="mob-btn"
-        onclick="closeMob()"
-        >طاقم التدريس</a
-      >
-      <a
-        href="أحداث زاد المعرفة/events.html"
-        target="_self"
-        class="mob-btn"
-        onclick="closeMob()"
-        >أحداث المنصة</a
-      >
-      <a
-        href="sections/services/services.html"
-        target="_self"
-        class="mob-btn"
-        onclick="closeMob()"
-        >الخدمات</a
-      >
-      <a
-        href="sections/library.html"
-        target="_self"
-        class="mob-btn"
-        onclick="closeMob()"
-        >المكتبة</a
-      >
-      <a
-        href="طلاب المنصة المتميزون/students.html"
-        target="_self"
-        class="mob-btn"
-        onclick="closeMob()"
-        >الطلاب المتميزون</a
-      >
 
-      <button class="btn-primary" onclick="smoothTo('categories')">
-        ابدأ التعلم الآن
-      </button>
+    <div class="nav-links">
+
+      <a href="#hero" class="nav-link">
+        الرئيسية
+      </a>
+
+      <a href="#categories" class="nav-link">
+        الأقسام
+      </a>
+
+      <!-- طاقم التدريس -->
+      <a
+        href="./طاقم التدريس/index.html"
+        class="nav-link"
+      >
+        طاقم التدريس
+      </a>
+
+      <!-- أحداث المنصة -->
+      <a
+        href="./events/events.html"
+        class="nav-link"
+      >
+        أحداث المنصة
+      </a>
+
+      <!-- الخدمات -->
+      <a
+        href="./sections/services/services.html"
+        class="nav-link"
+      >
+        الخدمات
+      </a>
+
+      <!-- المكتبة -->
+      <a
+        href="./sections/library.html"
+        class="nav-link"
+      >
+        المكتبة
+      </a>
+
+      <!-- لوحة الطالب -->
+      <a
+        href="./dashboard/student/index.html"
+        class="nav-link account-dashboard-link"
+      >
+        لوحة الطالب
+      </a>
+
+      <!-- الطلاب المتميزون -->
+      <a
+        href="./students/students.html"
+        class="nav-link"
+      >
+        الطلاب المتميزون
+      </a>
+
     </div>
+
+
+    <!-- تسجيل الدخول -->
+    <a
+      href="./login/index.html"
+      class="btn-nav login-nav-btn"
+    >
+      <i class="fa-solid fa-right-to-bracket"></i>
+      تسجيل الدخول
+    </a>
+
+
+    <!-- ابدأ التعلم -->
+    <button
+      class="btn-nav"
+      onclick="smoothTo('categories')"
+    >
+      ابدأ التعلم
+    </button>
+
+
+    <!-- الوضع الليلي -->
+<label class="theme-toggle" aria-label="تغيير الوضع">
+  <input type="checkbox" id="themeToggle">
+
+  <span class="toggle-track">
+    <span class="toggle-sky">
+      <span class="cloud cloud-one"></span>
+      <span class="cloud cloud-two"></span>
+      <span class="stars">✦ ✧</span>
+    </span>
+
+    <span class="toggle-sun">☀</span>
+    <span class="toggle-moon">☾</span>
+  </span>
+</label>
+
+    <!-- قائمة الهاتف -->
+    <button
+      class="hamburger"
+      id="hamBtn"
+      onclick="openMob()"
+      type="button"
+    >
+      <svg
+        width="20"
+        height="20"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M4 6h16M4 12h16M4 18h16"
+        />
+      </svg>
+    </button>
+
+  </div>
+</nav>
+
+<!-- ═══════════ MOBILE OVERLAY ═══════════ -->
+<div id="mobile-overlay">
+
+  <button class="mob-close" onclick="closeMob()">
+    <svg
+      width="18"
+      height="18"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M6 18L18 6M6 6l12 12"
+      />
+    </svg>
+  </button>
+
+  <a href="#hero" class="mob-btn" onclick="closeMob()">
+    الرئيسية
+  </a>
+
+  <a href="#categories" class="mob-btn" onclick="closeMob()">
+    الأقسام
+  </a>
+
+  <a
+    href="./طاقم التدريس/index.html"
+    class="mob-btn"
+    onclick="closeMob()"
+  >
+    طاقم التدريس
+  </a>
+
+  <a
+    href="./events/events.html"
+    class="mob-btn"
+    onclick="closeMob()"
+  >
+    أحداث المنصة
+  </a>
+
+  <a
+    href="./sections/services/services.html"
+    class="mob-btn"
+    onclick="closeMob()"
+  >
+    الخدمات
+  </a>
+
+  <a
+    href="./sections/library.html"
+    class="mob-btn"
+    onclick="closeMob()"
+  >
+    المكتبة
+  </a>
+
+  <a
+    href="./dashboard/student/index.html"
+    class="mob-btn account-dashboard-link"
+    onclick="closeMob()"
+  >
+    لوحة الطالب
+  </a>
+
+  <a
+    href="./students/students.html"
+    class="mob-btn"
+    onclick="closeMob()"
+  >
+    الطلاب المتميزون
+  </a>
+
+  <a
+    href="./login/index.html"
+    class="btn-primary login-mobile-btn"
+  >
+    <i class="fa-solid fa-right-to-bracket"></i>
+    تسجيل الدخول
+  </a>
+
+  <button
+    class="btn-primary"
+    onclick="smoothTo('categories'); closeMob();"
+  >
+    ابدأ التعلم الآن
+  </button>
+
+</div>
 
     <!-- ═══════════ HERO ═══════════ -->
     <section id="hero">
@@ -174,110 +313,109 @@
             واللغة العربية، لتكون رفيقك في رحلة طلب العلم
           </p>
           <div class="hero-actions">
-            <button class="btn-primary" onclick="smoothTo('categories')">
-              استكشف الأقسام
-            </button>
-            <button class="btn-nav" onclick="smoothTo('categories')">
+            <a class="btn-primary" href="sections/booking/index.html">
+              احجز حصتك
+            </a>
+            <a class="btn-nav" href="login/index.html">
               ابدأ الآن
-            </button>
+            </a>
           </div>
           <div class="hero-stats">
-            <div>
-              <span class="num" style="display: none">20+</span>
-              <span class="label" style="display: none">دورة</span>
-            </div>
-            <div>
-              <span class="num" style="display: none">6+</span>
-              <span class="label" style="display: none">أقسام</span>
+            <div class="student-counter-card" aria-live="polite" aria-label="إجمالي الطلاب المسجلين">
+              <span class="counter-icon" aria-hidden="true">👨‍🎓</span>
+              <span class="num" id="studentCount">0</span>
+              <span class="label">إجمالي الطلاب المسجلين</span>
             </div>
           </div>
         </div>
         <div class="hero-image">
-          <img src="images/hero-student.jpg" alt="" />
+          <img src="images/hero-student.webp" alt="" />
         </div>
       </div>
     </section>
 
-    <!-- Mission Section -->
-    <section id="mission" class="py-20 bg-white relative">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid lg:grid-cols-2 gap-16 items-center">
-          <div class="relative reveal">
-            <div
-              class="absolute inset-0 bg-brand-600 rounded-3xl transform rotate-3 opacity-10"
-            ></div>
-            <img
-              src="https://picsum.photos/seed/reading/600/700.jpg"
-              alt="مكتبة"
-              class="relative rounded-3xl shadow-xl w-full h-full object-cover"
-            />
-            <div
-              class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent rounded-3xl flex items-end p-8"
-            >
-              <p class="text-white text-xl font-bold">
-                "نعمل على غرس القيم والأخلاق إلى جانب التنمية المعرفية"
-              </p>
-            </div>
-          </div>
+<!-- Mission Section -->
+<section id="mission" class="py-20 relative">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid lg:grid-cols-2 gap-16 items-center">
 
-          <div class="reveal delay-200">
-            <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
-              <span class="text-brand-600">رسالتنا</span> وقيمنا
-            </h2>
-            <div class="w-20 h-1.5 bg-accent-500 rounded-full mb-8"></div>
-            <div
-              class="space-y-6 text-gray-600 text-lg leading-loose text-justify"
-            >
-              <p>
-                تسعى منصة <strong>زاد المعرفة</strong> إلى تقديم محتوى تعليمي
-                متميز يجمع بين الجودة والسهولة، بهدف دعم الطلاب في رحلتهم
-                التعليمية وتمكينهم من تحقيق التفوق والنجاح.
-              </p>
-              <p>
-                ونعمل على توفير شروحات مبسطة، وملخصات شاملة، واختبارات تفاعلية،
-                ومواد تعليمية متنوعة تساعد الطلاب على فهم المناهج الدراسية
-                وإتقانها، مع توظيف أحدث الوسائل والتقنيات التعليمية لجعل عملية
-                التعلم أكثر فاعلية ومتعة.
-              </p>
-              <p>
-                كما تهدف المنصة إلى إعداد جيل من الطلاب المتميزين علميًا
-                وتربويًا، من خلال غرس القيم والأخلاق إلى جانب تنمية التحصيل
-                العلمي، وتقديم الاستشارات التربوية والنفسية التي تسهم في دعم
-                الطلاب وأولياء الأمور ومساعدتهم على مواجهة التحديات التعليمية
-                والتربوية المختلفة.
-              </p>
-            </div>
+      <!-- الصورة -->
+      <div class="relative reveal">
+        <div class="absolute inset-0 bg-brand-600 rounded-3xl transform rotate-3 opacity-10"></div>
 
-            <div class="mt-10 grid grid-cols-2 gap-6">
-              <div class="flex items-start gap-3">
-                <i
-                  class="fa-solid fa-check-circle text-green-500 text-xl mt-1"
-                ></i>
-                <span class="font-semibold text-gray-800">جودة تعليمية</span>
-              </div>
-              <div class="flex items-start gap-3">
-                <i
-                  class="fa-solid fa-check-circle text-green-500 text-xl mt-1"
-                ></i>
-                <span class="font-semibold text-gray-800">دعم مستمر</span>
-              </div>
-              <div class="flex items-start gap-3">
-                <i
-                  class="fa-solid fa-check-circle text-green-500 text-xl mt-1"
-                ></i>
-                <span class="font-semibold text-gray-800">تقنيات حديثة</span>
-              </div>
-              <div class="flex items-start gap-3">
-                <i
-                  class="fa-solid fa-check-circle text-green-500 text-xl mt-1"
-                ></i>
-                <span class="font-semibold text-gray-800">بناء القيم</span>
-              </div>
-            </div>
-          </div>
+        <img
+          src="https://picsum.photos/seed/reading/600/700.jpg"
+          alt="مكتبة"
+          class="relative rounded-3xl shadow-xl w-full h-full object-cover"
+        />
+
+        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent rounded-3xl flex items-end p-8">
+          <p class="text-white text-xl font-bold">
+            "نعمل على غرس القيم والأخلاق إلى جانب التنمية المعرفية"
+          </p>
         </div>
       </div>
-    </section>
+
+      <!-- المحتوى -->
+      <div class="reveal delay-200 mission-content">
+
+<h2 class="text-3xl lg:text-4xl font-bold mission-title mb-6">
+            <span class="text-brand-600">رسالتنا</span> وقيمنا
+        </h2>
+
+        <div class="w-20 h-1.5 bg-accent-500 rounded-full mb-8"></div>
+
+<div class="space-y-6 mission-text text-lg leading-loose text-justify">
+            <p>
+            تسعى منصة <strong>زاد المعرفة</strong> إلى تقديم محتوى تعليمي
+            متميز يجمع بين الجودة والسهولة، بهدف دعم الطلاب في رحلتهم
+            التعليمية وتمكينهم من تحقيق التفوق والنجاح.
+          </p>
+
+          <p>
+            ونعمل على توفير شروحات مبسطة، وملخصات شاملة، واختبارات تفاعلية،
+            ومواد تعليمية متنوعة تساعد الطلاب على فهم المناهج الدراسية
+            وإتقانها، مع توظيف أحدث الوسائل والتقنيات التعليمية لجعل عملية
+            التعلم أكثر فاعلية ومتعة.
+          </p>
+
+          <p>
+            كما تهدف المنصة إلى إعداد جيل من الطلاب المتميزين علميًا
+            وتربويًا، من خلال غرس القيم والأخلاق إلى جانب تنمية التحصيل
+            العلمي، وتقديم الاستشارات التربوية والنفسية التي تسهم في دعم
+            الطلاب وأولياء الأمور ومساعدتهم على مواجهة التحديات التعليمية
+            والتربوية المختلفة.
+          </p>
+        </div>
+
+        <div class="mt-10 grid grid-cols-2 gap-6">
+
+          <div class="flex items-start gap-3">
+            <i class="fa-solid fa-check-circle text-green-500 text-xl mt-1"></i>
+            <span class="font-semibold mission-item">جودة تعليمية</span>
+          </div>
+
+          <div class="flex items-start gap-3">
+            <i class="fa-solid fa-check-circle text-green-500 text-xl mt-1"></i>
+           <span class="font-semibold mission-item">دعم مستمر</span>
+          </div>
+
+          <div class="flex items-start gap-3">
+            <i class="fa-solid fa-check-circle text-green-500 text-xl mt-1"></i>
+            <span class="font-semibold mission-item">تقنيات حديثة</span>
+          </div>
+
+          <div class="flex items-start gap-3">
+            <i class="fa-solid fa-check-circle text-green-500 text-xl mt-1"></i>
+            <span class="font-semibold mission-item">بناء القيم</span>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
 
     <!-- ═══════════ CATEGORIES ═══════════ -->
     <section id="categories">
@@ -348,11 +486,11 @@
               <div class="dash-grid">
                 <div class="dash-widget">
                   <div class="dw-label">الدروس المتاحة</div>
-                  <div class="dw-val">+200</div>
+                  <div class="dw-val" id="availableBooksCount">—</div>
                 </div>
                 <div class="dash-widget">
                   <div class="dw-label">التصنيفات</div>
-                  <div class="dw-val">12</div>
+                  <div class="dw-val" id="categoriesCount">—</div>
                 </div>
               </div>
               <div class="dash-bar2">
@@ -369,25 +507,25 @@
                   تقدّمك هذا الأسبوع
                 </div>
                 <div class="dbar-row">
-                  <span class="dbar-label">العقيدة</span
-                  ><span class="dbar-pct">٧٨٪</span>
+                  <span class="dbar-label">الكتب المقروءة</span
+                  ><span class="dbar-pct" id="readBooksPercent">٠٪</span>
                 </div>
-                <div class="dbar-track" style="margin-bottom: 14px; width: 78%">
-                  <div class="dbar-fill" data-w="78%"></div>
-                </div>
-                <div class="dbar-row">
-                  <span class="dbar-label">السيرة</span
-                  ><span class="dbar-pct">٥٤٪</span>
-                </div>
-                <div class="dbar-track" style="margin-bottom: 14px; width: 54%">
-                  <div class="dbar-fill" data-w="54%"></div>
+                <div class="dbar-track" style="margin-bottom: 14px; width: 0%">
+                  <div class="dbar-fill" id="readBooksBar" data-w="0%"></div>
                 </div>
                 <div class="dbar-row">
-                  <span class="dbar-label">الفقه</span
-                  ><span class="dbar-pct">٣٢٪</span>
+                  <span class="dbar-label">المفضلة</span
+                  ><span class="dbar-pct" id="favoriteBooksPercent">٠٪</span>
                 </div>
-                <div class="dbar-track" style="width: 38%">
-                  <div class="dbar-fill" data-w="32%"></div>
+                <div class="dbar-track" style="margin-bottom: 14px; width: 0%">
+                  <div class="dbar-fill" id="favoriteBooksBar" data-w="0%"></div>
+                </div>
+                <div class="dbar-row">
+                  <span class="dbar-label">النشاط الأخير</span
+                  ><span class="dbar-pct" id="recentActivityPercent">٠٪</span>
+                </div>
+                <div class="dbar-track" style="width: 0%">
+                  <div class="dbar-fill" id="recentActivityBar" data-w="0%"></div>
                 </div>
               </div>
               <div class="dash-list">
@@ -402,36 +540,12 @@
                 >
                   آخر الدروس
                 </div>
-                <div class="dl-row">
-                  <div class="dl-icon">🌙</div>
-                  <span class="dl-text">أركان الإيمان الستة</span>
-                  <span class="dl-badge">مكتمل</span>
-                </div>
-                <div class="dl-row">
-                  <div class="dl-icon">📖</div>
-                  <span class="dl-text">أسباب النزول</span>
-                  <span
-                    class="dl-badge"
-                    style="
-                      background: rgba(124, 111, 205, 0.15);
-                      color: var(--accent2);
-                      border-color: rgba(124, 111, 205, 0.2);
-                    "
-                    >جارٍ</span
-                  >
-                </div>
-                <div class="dl-row">
-                  <div class="dl-icon">⚖️</div>
-                  <span class="dl-text">أركان الإسلام الخمسة</span>
-                  <span
-                    class="dl-badge"
-                    style="
-                      background: rgba(255, 255, 255, 0.04);
-                      color: var(--muted);
-                      border-color: var(--border);
-                    "
-                    >قريبًا</span
-                  >
+                <div id="recentLessonsList">
+                  <div class="dl-row">
+                    <div class="dl-icon">📚</div>
+                    <span class="dl-text">لا توجد دروس تمت مشاهدتها بعد</span>
+                    <span class="dl-badge">—</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -460,25 +574,24 @@
             target="_blank"
             >تواصل عبر واتساب</a
           >
-          <p style="color: gray">تابعنا على السوشيال ميديا:</p>
-          <div class="footer-socials">
-            <a
-              href="https://whatsapp.com/channel/0029VbCKfnI4inokhRHc1k41"
-              target="_blank"
-              ><i class="fab fa-whatsapp"></i
-            ></a>
-            <a href="https://www.facebook.com/share/1BM3MS8mjM/" target="_blank"
-              ><i class="fab fa-facebook-f"></i
-            ></a>
-            <a href="https://t.me/zadelmarefh" target="_blank"
-              ><i class="fab fa-telegram"></i
-            ></a>
-            <a
-              href="https://youtube.com/channel/UC5dMzTXCU61UrYrrc9ol8UA"
-              target="_blank"
-              ><i class="fab fa-youtube"></i
-            ></a>
-          </div>
+<p class="social-title">تابعنا على السوشيال ميديا:</p>
+<div class="footer-socials">
+    <a href="https://whatsapp.com/channel/0029VbCKfnI4inokhRHc1k41" class="social-icon" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <a href="https://www.facebook.com/share/1BM3MS8mjM/" class="social-icon" target="_blank">
+        <i class="fab fa-facebook-f"></i>
+    </a>
+
+    <a href="https://t.me/zadelmarefh" class="social-icon" target="_blank">
+        <i class="fab fa-telegram"></i>
+    </a>
+
+    <a href="https://youtube.com/channel/UC5dMzTXCU61UrYrrc9ol8UA" class="social-icon" target="_blank">
+        <i class="fab fa-youtube"></i>
+    </a>
+</div>
         </div>
 
         <div class="footer-links-col">
@@ -487,21 +600,21 @@
           <a href="#categories">الأقسام</a>
           <a href="طاقم التدريس/index.html" target="_self">طاقم التدريس</a>
           <a href="sections/services/services.html" target="_self">خدماتنا</a>
-          <a href="أحداث زاد المعرفة/events.html" target="_self"
+          <a href="events/events.html" target="_self"
             >أحداث المنصة</a
           >
-          <a href="طلاب المنصة المتميزون/students.html" target="_self"
+          <a href="students/students.html" target="_self"
             >الطلاب المتميزون</a
           >
         </div>
 
         <div class="footer-links-col">
           <h4>الأقسام</h4>
-          <a href="sections/Quran/quran.html">القرآن الكريم</a>
           <a href="sections/Azhar/azhar.html">التعليم الأزهري</a>
-          <a href="sections/Sharia/">العلوم الشرعية</a>
+          <a href="sections/Quran/quran.html">القرآن</a>
           <a href="sections/Arabic/arabic.html">اللغة العربية</a>
-          <a href="sections/Tazkea/tazkea.html">الإرشاد النفسي</a>
+          <a href="sections/Sharia/sharia.html">المواد الشرعية</a>
+          <a href="sections/Tazkea/tazkea.html">التزكية والتربية</a>
           <a href="sections/services/services.html">الخدمات المصغرة</a>
         </div>
 
@@ -611,62 +724,62 @@
           topics: ["إعدادي", "ثانوي"],
           iconBg: "rgba(16,185,129,0.15)",
           glow: "rgba(16,185,129,0.08)",
-          image: "images/Azher-section-img.png",
+          image: "images/Azher-section-img.webp",
           link: "sections/Azhar/azhar.html",
         },
         {
           id: "quran",
           icon: "📖",
-          name: "القرآن الكريم وعلومه",
+          name: "القرآن",
           desc: "حفظ وتفسير وتجويد مع شرح مبسط لكتاب الله.",
           topics: ["التجويد", "التفسير", "القراءات", "الحفظ والتعلم"],
           iconBg: "rgba(201,168,76,0.15)",
           glow: "rgba(201,168,76,0.08)",
-          image: "images/quran-sec-img.png",
+          image: "images/quran-sec-img.webp",
           link: "sections/Quran/quran.html",
         },
         {
           id: "arabic",
           icon: "🅰️",
-          name: "اللغة العربية وعلومها",
+          name: "اللغة العربية",
           desc: "نحو، صرف، بلاغة، وأدب عربي بأسلوب مبسط ومتدرج.",
           topics: ["النحو", "البلاغة", "الأدب العربي", "الخط العربي"],
           iconBg: "rgba(99,102,241,0.15)",
           glow: "rgba(99,102,241,0.08)",
-          image: "images/Arabic-sec-img.png",
+          image: "images/Arabic-sec-img.webp",
           link: "sections/Arabic/arabic.html",
         },
         {
           id: "sharia",
           icon: "⚖️",
-          name: "العلوم الشرعية",
+          name: "المواد الشرعية",
           desc: "فقه، حديث، عقيدة وأصول الدين بشكل مبسط.",
           topics: ["الفقه", "الحديث", "العقيدة"],
           iconBg: "rgba(239,68,68,0.15)",
           glow: "rgba(239,68,68,0.08)",
-          image: "images/s-sec-img.png",
+          image: "images/s-sec-img.webp",
           link: "sections/Sharia/sharia.html",
         },
         {
           id: "self",
           icon: "❤️",
-          name: "التزكية والإرشاد النفسي",
+          name: "التزكية والتربية",
           desc: "تنمية النفس وبناء الشخصية والتوازن الداخلي.",
           topics: ["تزكية", "إرشاد", "تنمية الذات"],
           iconBg: "rgba(236,72,153,0.15)",
           glow: "rgba(236,72,153,0.08)",
-          image: "images/t-sec-img.png",
+          image: "images/t-sec-img.webp",
           link: "sections/Tazkea/tazkea.html",
         },
         {
           id: "services",
           icon: "🛠️",
-          name: "الخدمات المصغّرة",
+          name: "الخدمات المصغرة",
           desc: "خدمات تساعدك في الدراسة والعمل.",
           topics: ["تصميم", "كتابة", "ذكاء اصطناعي"],
           iconBg: "rgba(59,130,246,0.15)",
           glow: "rgba(59,130,246,0.08)",
-          image: "images/service.sec.img.png",
+          image: "images/service.sec.img.webp",
           link: "sections/services/services.html",
         },
       ];
@@ -777,6 +890,127 @@
         { threshold: 0.3 },
       );
 
+
+      /* ── REAL PLATFORM PROGRESS ── */
+      function parseStoredValue(key) {
+        try {
+          const raw = localStorage.getItem(key);
+          if (!raw) return null;
+          return JSON.parse(raw);
+        } catch (_) {
+          return null;
+        }
+      }
+
+      function asArray(value) {
+        if (Array.isArray(value)) return value;
+        if (value && typeof value === "object") {
+          if (Array.isArray(value.items)) return value.items;
+          if (Array.isArray(value.books)) return value.books;
+          if (Array.isArray(value.documents)) return value.documents;
+          return Object.values(value).filter((v) => v && typeof v === "object");
+        }
+        return [];
+      }
+
+      function findStoredArrays(keyPattern) {
+        const result = [];
+        for (let i = 0; i < localStorage.length; i++) {
+          const key = localStorage.key(i) || "";
+          if (!keyPattern.test(key)) continue;
+          const value = parseStoredValue(key);
+          const arr = asArray(value);
+          if (arr.length) result.push(...arr);
+        }
+        return result;
+      }
+
+      function itemTitle(item) {
+        if (typeof item === "string") return item.trim();
+        if (!item || typeof item !== "object") return "";
+        return String(
+          item.title || item.name || item.bookTitle || item.lessonTitle ||
+          item.documentTitle || item.text || ""
+        ).trim();
+      }
+
+      function uniqueItems(items) {
+        const map = new Map();
+        items.forEach((item) => {
+          const title = itemTitle(item);
+          if (!title) return;
+          const id = String(item.id || item.uid || item.bookId || item.lessonId || title);
+          if (!map.has(id)) map.set(id, item);
+        });
+        return [...map.values()];
+      }
+
+      function getRealProgressData() {
+        const allBooks = uniqueItems(findStoredArrays(/book|library|document/i));
+        const readBooks = uniqueItems(findStoredArrays(/read|completed|finished|progress/i));
+        const favorites = uniqueItems(findStoredArrays(/favorite|favourite|مفضل/i));
+        let recent = findStoredArrays(/recent|history|last|activity|viewed|visited/i)
+          .filter((item) => itemTitle(item));
+
+        // بعض صفحات المكتبة تحفظ سجل القراءة داخل كائن واحد باسم readingHistory.
+        if (!recent.length) {
+          recent = readBooks.slice();
+        }
+
+        recent = uniqueItems(recent).sort((a, b) => {
+          const ta = new Date(a.updatedAt || a.lastOpened || a.createdAt || a.timestamp || 0).getTime();
+          const tb = new Date(b.updatedAt || b.lastOpened || b.createdAt || b.timestamp || 0).getTime();
+          return tb - ta;
+        });
+
+        return { allBooks, readBooks, favorites, recent };
+      }
+
+      function setProgressValue(percentId, barId, percent) {
+        const safe = Math.max(0, Math.min(100, Math.round(percent || 0)));
+        const label = document.getElementById(percentId);
+        const bar = document.getElementById(barId);
+        if (label) label.textContent = `${safe}٪`;
+        if (bar) {
+          bar.dataset.w = `${safe}%`;
+          bar.style.width = `${safe}%`;
+        }
+        const track = bar?.parentElement;
+        if (track) track.style.width = `${safe}%`;
+      }
+
+      function renderRealProgress() {
+        const { allBooks, readBooks, favorites, recent } = getRealProgressData();
+        const available = allBooks.length;
+        const readPercent = available ? (readBooks.length / available) * 100 : 0;
+        const favoritePercent = available ? (favorites.length / available) * 100 : 0;
+        const activityPercent = available ? Math.min(100, (recent.length / available) * 100) : 0;
+
+        const availableEl = document.getElementById("availableBooksCount");
+        if (availableEl) availableEl.textContent = available ? `+${available}` : "٠";
+
+        const categoriesEl = document.getElementById("categoriesCount");
+        if (categoriesEl) categoriesEl.textContent = CATS.length;
+
+        setProgressValue("readBooksPercent", "readBooksBar", readPercent);
+        setProgressValue("favoriteBooksPercent", "favoriteBooksBar", favoritePercent);
+        setProgressValue("recentActivityPercent", "recentActivityBar", activityPercent);
+
+        const list = document.getElementById("recentLessonsList");
+        if (!list) return;
+        const latest = recent.slice(0, 3);
+        if (!latest.length) {
+          list.innerHTML = `<div class="dl-row"><div class="dl-icon">📚</div><span class="dl-text">لا توجد دروس تمت مشاهدتها بعد</span><span class="dl-badge">—</span></div>`;
+          return;
+        }
+        list.innerHTML = latest.map((item, index) => {
+          const title = itemTitle(item);
+          const status = item.completed || item.status === "completed" || item.read ? "مكتمل" : (index === 0 ? "جارٍ" : "مُشاهد");
+          const icon = item.icon || ["📖", "🌙", "⚖️"][index] || "📚";
+          return `<div class="dl-row"><div class="dl-icon">${icon}</div><span class="dl-text">${title.replace(/[<>&"']/g, "")}</span><span class="dl-badge">${status}</span></div>`;
+        }).join("");
+      }
+
       /* ── INIT ── */
       document.addEventListener("DOMContentLoaded", () => {
         renderCats();
@@ -784,11 +1018,92 @@
         document
           .querySelectorAll(".dash-mockup")
           .forEach((m) => pbObs.observe(m));
+        renderRealProgress();
       });
 
       function goTo(link) {
         window.location.href = link;
       }
-    </script>
-  </body>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const shareBtn = document.getElementById("shareBtn");
+
+    if (!shareBtn) return;
+
+    shareBtn.addEventListener("click", async function () {
+
+        const shareData = {
+            title: "زاد المعرفة",
+            text: "📚 انضم إلى منصة زاد المعرفة.",
+            url: window.location.href
+        };
+
+        if (navigator.share) {
+            try {
+                await navigator.share(shareData);
+            } catch (err) {
+                if (err.name !== "AbortError") {
+                    console.log("Share error:", err);
+                }
+            }
+            return;
+        }
+
+        try {
+            await navigator.clipboard.writeText(window.location.href);
+            alert("✅ تم نسخ رابط المنصة");
+        } catch (err) {
+            prompt("انسخ رابط المنصة:", window.location.href);
+        }
+    });
+
+});
+document.addEventListener("DOMContentLoaded", function () {
+    const themeToggle = document.getElementById("themeToggle");
+
+    if (!themeToggle) return;
+
+    const savedTheme = localStorage.getItem("theme");
+
+    if (savedTheme === "dark") {
+        document.body.classList.add("dark");
+        themeToggle.checked = true;
+    } else {
+        document.body.classList.remove("dark");
+        themeToggle.checked = false;
+    }
+
+    themeToggle.addEventListener("change", function () {
+        if (this.checked) {
+            document.body.classList.add("dark");
+            localStorage.setItem("theme", "dark");
+        } else {
+            document.body.classList.remove("dark");
+            localStorage.setItem("theme", "light");
+        }
+    });
+});
+</script>
+
+<!-- Floating Share Button -->
+<button
+  id="shareBtn"
+  class="floating-share"
+  title="مشاركة المنصة"
+  type="button"
+  aria-label="مشاركة المنصة"
+>
+  <i class="fas fa-share-alt"></i>
+</button>
+
+<script type="module">
+  import { watchStudentCount } from './student-counter.js';
+  watchStudentCount('studentCount');
+</script>
+<script type="module" src="auth-ui.js"></script>
+<script type="module" src="notifications.js"></script>
+<script type="module" src="push-notifications.js"></script>
+
+</body>
 </html>
